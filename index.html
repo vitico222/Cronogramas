@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Academic Schedule Builder</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Academic Schedule Builder</h1>
+    </header>
+
+    <main class="container">
+      <div class="tabs-container">
+        <button class="tab-btn active">Intensive</button>
+        <button class="tab-btn disabled">Teens</button>
+        <button class="tab-btn disabled">Kids</button>
+        <button class="tab-btn disabled">C2</button>
+      </div>
+
+      <section class="config-panel">
+        <form id="scheduleForm">
+          <div class="form-grid">
+            <div class="field">
+              <label>Language</label>
+              <select id="language">
+                <option value="English" selected>English</option>
+                <option value="Italian">Italian</option>
+                <option value="Portuguese">Portuguese</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Level</label>
+              <select id="level">
+                <option value="1A">Level 1A</option>
+                <option value="1B">Level 1B</option>
+                <option value="2">Level 2</option>
+                <option value="3">Level 3</option>
+                <option value="4">Level 4</option>
+                <option value="5">Level 5</option>
+                <option value="6">Level 6</option>
+                <option value="7">Level 7</option>
+                <option value="8">Level 8</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Days</label>
+              <select id="days">
+                <option value="Mon to Thu">Mon to Thu</option>
+                <option value="Mon to Fri">Mon to Fri</option>
+                <option value="Sats" selected>Saturdays</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Schedule</label>
+              <div class="time-inputs">
+                <input type="time" id="from" value="08:00" />
+                <input type="time" id="to" value="10:00" />
+              </div>
+            </div>
+          </div>
+          <br />
+
+          <div class="form-grid second-row">
+            <div class="field">
+              <label>Teacher</label>
+              <input type="text" id="teacher" placeholder="Teacher's name" />
+            </div>
+            <div class="field">
+              <label>Start Date</label>
+              <input type="date" id="startDate" />
+            </div>
+            <div class="field">
+              <label>Holidays (DD/MM/YYYY)</label>
+              <input
+                type="text"
+                id="customHolidays"
+                placeholder="e.g. 15/03/2026"
+              />
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="button" id="generateBtn" class="btn-primary">
+              Update Preview
+            </button>
+            <button type="button" id="downloadPdf" class="btn-secondary">
+              Download PDF
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section class="preview-panel">
+        <div id="pdf-wrapper">
+          <div id="capture-area" class="schedule-paper"></div>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
