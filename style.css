@@ -199,3 +199,46 @@ select {
     padding: 10mm;
   }
 }
+
+/* --- SOLO LAS ANIMACIONES DE LOS BOTONES --- */
+#generateBtn,
+#downloadPdf {
+  transition:
+    transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+  cursor: pointer;
+}
+
+/* Efecto de expansión al pasar el mouse */
+#generateBtn:hover,
+#downloadPdf:hover {
+  transform: scale(1.08); /* Se expande un 8% */
+  filter: brightness(1.1); /* Brilla un poco */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Efecto de pulsación al hacer clic */
+#generateBtn:active,
+#downloadPdf:active {
+  transform: scale(0.95); /* Se encoge un poco */
+}
+
+/* --- LIMPIEZA DE LOS CUADROS DE TEXTO --- */
+/* Esto evita que aparezca el borde azul/negro feo cuando escribes en la tabla */
+.content-box:focus,
+.notes-box:focus {
+  outline: none;
+  background-color: rgba(
+    52,
+    152,
+    219,
+    0.05
+  ); /* Un toque azul muy suave al editar */
+}
+
+/* Para que las celdas de la tabla no se colapsen si están vacías */
+.content-box,
+.notes-box {
+  min-height: 50px;
+}
