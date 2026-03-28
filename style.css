@@ -81,20 +81,25 @@ header h1 {
   }
 }
 
-/* --- AJUSTE DE TABS PARA MÓVILES --- */
+/* --- AJUSTE DE TABS PARA FILA ÚNICA EN MÓVILES --- */
 @media (max-width: 600px) {
   .tabs-container {
-    justify-content: space-between; /* Distribuye el espacio equitativamente */
-    gap: 2px; /* Espacio mínimo entre pestañas */
+    display: flex;
+    flex-wrap: nowrap !important; /* PROHIBIDO saltar de línea */
+    width: 100%;
+    gap: 2px; /* Espacio mínimo entre ellas */
   }
 
   .tab-btn {
-    padding: 10px 5px; /* Reducción drástica del padding lateral */
-    font-size: 0.75rem; /* Fuente más pequeña para que quepa el texto */
-    flex: 1; /* Obliga a cada tab a ocupar el mismo ancho */
+    flex: 1; /* Divide el ancho de la pantalla exactamente en 4 */
+    padding: 10px 2px !important; /* Eliminamos casi todo el espacio lateral */
+    font-size: 0.7rem !important; /* Fuente pequeña pero legible */
     text-align: center;
-    margin-right: 0; /* Eliminamos el margen para ganar espacio */
-    white-space: nowrap; /* Evita que el texto se rompa en dos líneas */
+    margin-right: 0 !important;
+    white-space: nowrap; /* El texto se mantiene en una sola línea */
+    overflow: hidden; /* Seguridad para que no se desborde */
+    text-overflow: ellipsis; /* Si el nombre es muy largo, pone puntos suspensivos */
+    min-width: 0; /* Permite que el flex-item se encoja por debajo de su contenido */
   }
 }
 
