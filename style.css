@@ -1,271 +1,273 @@
+/* --- VARIABLES Y CONFIGURACIÓN BASE --- */
 :root {
   --primary-orange: #fc5c17;
   --light-gray: #ccc;
   --border-color: #ccc;
   --dark-gray: rgb(122, 121, 121);
   --darker-gray: rgb(82, 82, 82);
+  --bg-color: #e9ecef;
 }
 
 body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  background-color: #e9ecef;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
   margin: 0;
+  color: #333;
 }
+
+/* --- HEADER (Simétrico al Footer) --- */
+/* --- AJUSTE SUGERIDO SOBRE TU BASE --- */
 header {
-  background-color: var(--light-gray);
-  color: var(--darker-gray);
-  padding: 15px;
-  text-align: center;
-}
-
-footer {
-  background-color: var(--darker-gray); /* Un tono más oscuro para contraste */
+  background-color: var(--darker-gray);
   color: white;
-  padding: 20px 0;
-  margin-top: 50px;
-  text-align: center;
-  border-top: 4px solid var(--primary-orange);
+  padding: 15px 0; /* Un poco más de aire para el logo de 140px */
+  border-bottom: 5px solid var(--primary-orange);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 110px; /* Subimos 10px para que el logo de 140px no sature el espacio */
 }
 
-.footer-content p {
-  margin: 5px 0;
-  font-size: 0.9rem;
-  opacity: 0.9;
+.header-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
-.copyright {
-  font-size: 0.75rem !important;
-  margin-top: 10px !important;
-  opacity: 0.6 !important;
+.main-logo {
+  max-height: 140px; /* Ajustado para que no dispare la altura del header */
+  width: auto;
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.2rem; /* Un poco más estilizado */
+  font-weight: 800;
+  letter-spacing: -1px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  text-align: center;
+  max-width: 65%;
 }
 
+/* RESPONSIVE HEADER */
+@media (max-width: 992px) {
+  header {
+    padding: 25px 0;
+  }
+  .header-content {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .main-logo {
+    position: static;
+    transform: none;
+    max-height: 100px;
+    margin: 0 auto;
+  }
+  header h1 {
+    max-width: 100%;
+    font-size: 1.6rem;
+  }
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
 .container {
   max-width: 1100px;
-  margin: 20px auto;
+  margin: 30px auto;
   padding: 0 20px;
 }
 
+/* --- TABS (Zero Layout Shift) --- */
 .tabs-container {
   display: flex;
+  flex-wrap: wrap;
   margin-bottom: -1px;
 }
+
 .tab-btn {
-  padding: 10px 25px;
+  padding: 12px 25px;
   border: 1px solid var(--border-color);
+  border-top: 4px solid transparent;
   border-bottom: none;
   background: #ddd;
   border-radius: 8px 8px 0 0;
   font-weight: bold;
   cursor: pointer;
-  color: #555;
+  color: #666;
   margin-right: 5px;
+  margin-bottom: 2px;
+  transition: background 0.2s;
 }
+
 .tab-btn.active {
   background: white;
   border-top: 4px solid var(--primary-orange);
-  color: var(--dark-gray);
+  color: var(--darker-gray);
   z-index: 2;
 }
 
+/* --- PANEL DE CONFIGURACIÓN --- */
 .config-panel {
   background: white;
   padding: 30px;
   border: 1px solid var(--border-color);
   border-radius: 0 8px 8px 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  min-height: 250px;
 }
 
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
 }
+
 .field {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
+
 label {
   font-weight: bold;
   font-size: 0.9rem;
   color: #444;
 }
+
 input,
 select {
-  padding: 10px 5px;
+  padding: 10px;
   border: 1px solid var(--border-color);
   border-radius: 5px;
+  font-size: 0.95rem;
+  height: 42px;
+  box-sizing: border-box;
 }
 
 .actions {
   margin-top: 30px;
   display: flex;
+  flex-wrap: wrap;
   gap: 15px;
 }
-.btn-primary {
-  background: var(--dark-gray);
-  color: white;
-  border: none;
+
+/* --- BOTONES --- */
+.btn-primary,
+.btn-secondary {
   padding: 12px 25px;
   cursor: pointer;
   border-radius: 5px;
   font-weight: bold;
+  border: none;
+  transition: transform 0.2s;
+}
+
+.btn-primary {
+  background: var(--dark-gray);
+  color: white;
 }
 .btn-secondary {
   background: var(--primary-orange);
   color: white;
-  border: none;
-  padding: 12px 25px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-weight: bold;
+}
+
+/* --- ÁREA DE PREVIEW (TABLA) --- */
+.preview-panel {
+  margin-top: 40px;
+  overflow-x: auto;
 }
 
 .schedule-paper {
   background: white;
-  padding: 40px;
-  margin-top: 40px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  min-width: 900px;
 }
+
 .schedule-table {
   width: 100%;
   border-collapse: collapse;
-  border: 1.5px solid black;
+  border: 2.5px solid black !important;
   table-layout: fixed;
 }
+
 .schedule-table th,
 .schedule-table td {
   border: 1px solid black;
   padding: 8px;
   text-align: center;
-  word-wrap: break-word;
 }
 
-.side-label {
-  font-weight: bold;
-  background: #f2f2f2;
-  white-space: nowrap;
-  width: 80px;
-}
-.day-col {
-  font-weight: bold;
-  font-size: 0.85rem;
-}
-.label-cell {
-  background: #f2f2f2;
-  font-weight: bold;
-  text-align: left;
-}
-.value-cell {
-  text-align: left;
-}
 .title-cell {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   text-align: left;
+  background: #eee;
   font-weight: bold;
 }
 .level-cell {
-  text-align: right;
-  font-weight: bold;
   font-size: 1.2rem;
-}
-.days-header {
-  background: #f8f9fa;
+  text-align: right;
+  background: #eee;
   font-weight: bold;
+}
+.label-cell {
+  background: #f9f9f9;
+  font-weight: bold;
+  text-align: left;
+  width: 110px;
 }
 
-/* Celdas de Contenido - Centrado Robusto */
 .content-box {
   height: 95px;
-  font-size: 0.9rem;
-  padding: 5px;
-  vertical-align: middle; /* Centrado vertical */
-  text-align: center; /* Centrado horizontal */
-  background: white;
-}
-
-.content-box:hover {
-  background-color: #f9f9f9;
-  cursor: text;
-}
-.content-box:focus {
-  outline: 2px dashed var(--primary-orange);
-  background-color: #fff;
-}
-
-.sats-box {
-  height: 140px;
-}
-.notes-box {
   font-size: 0.85rem;
-  vertical-align: top;
+  vertical-align: middle;
   background: white;
-  text-align: left;
 }
 
+/* --- FOOTER (Igual al Header) --- */
+footer {
+  background-color: var(--darker-gray);
+  color: white;
+  padding: 25px 0; /* Padding idéntico al header */
+  margin-top: 60px;
+  text-align: center;
+  border-top: 6px solid var(--primary-orange);
+}
+
+.footer-content p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+.copyright {
+  font-size: 0.75rem;
+  margin-top: 15px;
+  opacity: 0.5;
+  letter-spacing: 1.5px;
+}
+
+/* --- AJUSTES DE IMPRESIÓN --- */
 @media print {
-  @page {
-    size: landscape;
+  .config-panel,
+  .tabs-container,
+  header,
+  footer {
+    display: none !important;
+  }
+  .container {
     margin: 0;
+    padding: 0;
+    max-width: 100%;
   }
-  body * {
-    visibility: hidden;
-  }
-  #capture-area,
-  #capture-area * {
-    visibility: visible;
-  }
-  #capture-area {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    margin: 0;
-    padding: 10mm;
-  }
-}
-
-/* --- SOLO LAS ANIMACIONES DE LOS BOTONES --- */
-#generateBtn,
-#downloadPdf {
-  transition:
-    transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-    box-shadow 0.2s ease,
-    filter 0.2s ease;
-  cursor: pointer;
-}
-
-/* Efecto de expansión al pasar el mouse */
-#generateBtn:hover,
-#downloadPdf:hover {
-  transform: scale(1.08); /* Se expande un 8% */
-  filter: brightness(1.1); /* Brilla un poco */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* Efecto de pulsación al hacer clic */
-#generateBtn:active,
-#downloadPdf:active {
-  transform: scale(0.95); /* Se encoge un poco */
-}
-
-/* --- LIMPIEZA DE LOS CUADROS DE TEXTO --- */
-/* Esto evita que aparezca el borde azul/negro feo cuando escribes en la tabla */
-.content-box:focus,
-.notes-box:focus {
-  outline: none;
-  background-color: rgba(
-    52,
-    152,
-    219,
-    0.05
-  ); /* Un toque azul muy suave al editar */
-}
-
-/* Para que las celdas de la tabla no se colapsen si están vacías */
-.content-box,
-.notes-box {
-  min-height: 50px;
 }
