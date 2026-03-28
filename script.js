@@ -243,7 +243,7 @@ function getSingleDayTemplate(level, teacher, from, to, daysLabel) {
           <td class="side-label">Day</td>
           <td class="day-col">${dayName}</td><td class="day-col">${dayName}</td>
           <td class="day-col">${dayName}</td><td class="day-col">${dayName}</td>
-          ${i === 0 ? '<td class="notes-header">Remark</td>' : ""}
+          ${i === 0 ? '<td class="notes-header">---</td>' : ""}
         </tr>
         <tr>
           <td class="side-label">Content</td>
@@ -280,7 +280,7 @@ function getTeensSplitTemplate(level, teacher, from, to, daysLabel) {
           <td class="side-label">Day</td>
           <td class="day-col">${col1}</td><td class="day-col">${col2}</td>
           <td class="day-col">${col1}</td><td class="day-col">${col2}</td>
-          ${i === 0 ? '<td class="notes-header">Remark</td>' : ""}
+          ${i === 0 ? '<td class="notes-header">---</td>' : ""}
         </tr>
         <tr>
           <td class="side-label">Content</td>
@@ -331,7 +331,7 @@ function getStandardTemplate(level, teacher, from, to, daysLabel) {
       ${[0, 1, 2]
         .map(
           (i) => `
-        <tr class="days-header"><td class="side-label">Day</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td>${i === 0 ? '<td class="notes-header">Remark</td>' : ""}</tr>
+        <tr class="days-header"><td class="side-label">Day</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td>${i === 0 ? '<td class="notes-header">---</td>' : ""}</tr>
         <tr>
           <td class="side-label">Content</td>
           <td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 4 + 0] || ""}</td>
