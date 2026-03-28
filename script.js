@@ -1,4 +1,4 @@
-// 1. CONFIGURACIÓN DE MODOS (Niveles y Días)
+// 1. CONFIGURACIÓN DE MODOS
 const modeConfig = {
   intensive: {
     levels: [
@@ -82,7 +82,6 @@ const modeConfig = {
     ],
   },
   c2: {
-    // ACTUALIZACIÓN: Niveles del 9 al 18 para C2
     levels: ["9", "10", "11", "12", "13", "14", "15", "16", "17", "18"],
     days: [
       { value: "Mon to Thu", label: "Mon to Thu" },
@@ -92,7 +91,7 @@ const modeConfig = {
   },
 };
 
-// 2. FERIADOS (Incluye Semana Santa 2026)
+// 2. FERIADOS (Venezuela 2026)
 const venezuelaHolidays = [
   "01-01",
   "03-30",
@@ -132,14 +131,11 @@ const syllabus = {
 // --- LÓGICA DE PESTAÑAS ---
 document.querySelectorAll(".tab-btn").forEach((btn) => {
   btn.addEventListener("click", function () {
-    if (this.classList.contains("disabled")) return;
     document
       .querySelectorAll(".tab-btn")
       .forEach((b) => b.classList.remove("active"));
     this.classList.add("active");
-
-    // Si el botón tiene data-mode lo usamos, si no usamos el texto
-    const mode = this.getAttribute("data-mode") || this.innerText.toLowerCase();
+    const mode = this.getAttribute("data-mode");
     updateSelectors(mode);
   });
 });
@@ -171,14 +167,11 @@ document.getElementById("generateBtn").addEventListener("click", function () {
   const to = document.getElementById("to").value || "--:--";
   const daysOption = document.getElementById("days").value;
   const startDateVal = document.getElementById("startDate").value;
-  const customHolidaysRaw = document.getElementById("customHolidays").value;
   const container = document.getElementById("capture-area");
-
-  const singleDays = ["Mon", "Tue", "Wed", "Thu", "Fri"];
 
   if (daysOption === "Sats") {
     container.innerHTML = getSatsTemplate(level, teacher, from, to);
-  } else if (singleDays.includes(daysOption)) {
+  } else if (["Mon", "Tue", "Wed", "Thu", "Fri"].includes(daysOption)) {
     container.innerHTML = getSingleDayTemplate(
       level,
       teacher,
@@ -210,92 +203,46 @@ document.getElementById("generateBtn").addEventListener("click", function () {
     generateDates(
       startDateVal,
       daysOption,
-      parseCustomHolidays(customHolidaysRaw),
+      parseCustomHolidays(document.getElementById("customHolidays").value),
     );
   }
 });
 
-// --- PLANTILLAS (TEMPLATES) ---
-
-function getSingleDayTemplate(level, teacher, from, to, daysLabel) {
-  const contentList = syllabus[level] || Array(8).fill("");
-  const labelMap = {
-    Mon: "Mondays",
-    Tue: "Tuesdays",
-    Wed: "Wednesdays",
-    Thu: "Thursdays",
-    Fri: "Fridays",
-  };
-  const displayLabel = labelMap[daysLabel];
-  const dayName = displayLabel.slice(0, -1);
-
-  return `<table class="schedule-table">
-    <colgroup><col style="width: 80px;"><col><col><col><col><col style="width: 140px;"></colgroup>
+// --- PLANTILLA ESTÁNDAR (CORREGIDA PARA CERRAR CUADRO) ---
+function getStandardTemplate(level, teacher, from, to, daysLabel) {
+  const contentList = syllabus[level] || Array(12).fill("");
+  return `
+  <table class="schedule-table">
     <thead>
       <tr><th colspan="3" class="title-cell">Content Chart</th><th colspan="3" class="level-cell">Level: ${level}</th></tr>
-      <tr><td class="label-cell">Teacher:</td><td colspan="2" class="value-cell">${teacher}</td><td class="label-cell">Schedule:</td><td colspan="2" class="value-cell">${displayLabel}: ${from} to ${to}</td></tr>
+      <tr><td class="label-cell">Teacher:</td><td colspan="2" class="value-cell">${teacher}</td><td class="label-cell">Schedule:</td><td colspan="2" class="value-cell">${daysLabel}: ${from} to ${to}</td></tr>
     </thead>
     <tbody>
-      ${[0, 1]
+      ${[0, 1, 2]
         .map(
           (i) => `
         <tr class="days-header">
           <td class="side-label">Day</td>
-          <td class="day-col">${dayName}</td><td class="day-col">${dayName}</td>
-          <td class="day-col">${dayName}</td><td class="day-col">${dayName}</td>
-          ${i === 0 ? '<td class="notes-header">---</td>' : ""}
+          <td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td>
+          ${i === 0 ? '<td class="side-label" style="text-align:center">---</td>' : ""}
         </tr>
         <tr>
           <td class="side-label">Content</td>
-          <td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 4 + 0] || ""}</td>
-          <td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 4 + 1] || ""}</td>
-          <td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 4 + 2] || ""}</td>
-          <td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 4 + 3] || ""}</td>
-          ${i === 0 ? '<td class="notes-box" rowspan="4" contenteditable="true" spellcheck="false"></td>' : ""}
-        </tr>`,
+          <td class="content-box" contenteditable="true">${contentList[i * 4 + 0] || ""}</td>
+          <td class="content-box" contenteditable="true">${contentList[i * 4 + 1] || ""}</td>
+          <td class="content-box" contenteditable="true">${contentList[i * 4 + 2] || ""}</td>
+          <td class="content-box" contenteditable="true">${contentList[i * 4 + 3] || ""}</td>
+          ${i === 0 ? '<td class="notes-box" rowspan="5" contenteditable="true" style="border-bottom: 1px solid black !important;"></td>' : ""}
+        </tr>
+      `,
         )
         .join("")}
+      <tr style="height:0;"><td colspan="5" style="border:none;"></td><td style="border-top: 1px solid black;"></td></tr>
     </tbody>
   </table>`;
 }
 
-function getTeensSplitTemplate(level, teacher, from, to, daysLabel) {
-  const contentList = syllabus[level] || Array(16).fill("");
-  const labelMap = { MonWed: "Mon & Wed", TueThu: "Tue & Thu" };
-  const displayLabel = labelMap[daysLabel];
-  const col1 = daysLabel === "MonWed" ? "Monday" : "Tuesday";
-  const col2 = daysLabel === "MonWed" ? "Wednesday" : "Thursday";
-
-  return `<table class="schedule-table">
-    <colgroup><col style="width: 80px;"><col><col><col><col><col style="width: 140px;"></colgroup>
-    <thead>
-      <tr><th colspan="3" class="title-cell">Content Chart</th><th colspan="3" class="level-cell">Level: ${level}</th></tr>
-      <tr><td class="label-cell">Teacher:</td><td colspan="2" class="value-cell">${teacher}</td><td class="label-cell">Schedule:</td><td colspan="2" class="value-cell">${displayLabel}: ${from} to ${to}</td></tr>
-    </thead>
-    <tbody>
-      ${[0, 1, 2, 3]
-        .map(
-          (i) => `
-        <tr class="days-header">
-          <td class="side-label">Day</td>
-          <td class="day-col">${col1}</td><td class="day-col">${col2}</td>
-          <td class="day-col">${col1}</td><td class="day-col">${col2}</td>
-          ${i === 0 ? '<td class="notes-header">---</td>' : ""}
-        </tr>
-        <tr>
-          <td class="side-label">Content</td>
-          <td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 4 + 0] || ""}</td>
-          <td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 4 + 1] || ""}</td>
-          <td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 4 + 2] || ""}</td>
-          <td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 4 + 3] || ""}</td>
-          ${i === 0 ? '<td class="notes-box" rowspan="8" contenteditable="true" spellcheck="false"></td>' : ""}
-        </tr>`,
-        )
-        .join("")}
-    </tbody>
-  </table>`;
-}
-
+// --- RESTO DE PLANTILLAS (Simplificadas para evitar errores) ---
 function getSatsTemplate(level, teacher, from, to) {
   const contentList = syllabus[level] || Array(6).fill("");
   return `<table class="schedule-table">
@@ -310,8 +257,8 @@ function getSatsTemplate(level, teacher, from, to) {
         <tr class="days-header"><td class="side-label">Day</td><td class="day-col" colspan="5">Saturday</td><td class="day-col" colspan="5">Saturday</td></tr>
         <tr>
           <td class="side-label">Content</td>
-          <td class="content-box sats-box" colspan="5" contenteditable="true" spellcheck="false">${contentList[i * 2] || ""}</td>
-          <td class="content-box sats-box" colspan="5" contenteditable="true" spellcheck="false">${contentList[i * 2 + 1] || ""}</td>
+          <td class="content-box sats-box" colspan="5" contenteditable="true">${contentList[i * 2] || ""}</td>
+          <td class="content-box sats-box" colspan="5" contenteditable="true">${contentList[i * 2 + 1] || ""}</td>
         </tr>`,
         )
         .join("")}
@@ -319,26 +266,27 @@ function getSatsTemplate(level, teacher, from, to) {
   </table>`;
 }
 
-function getStandardTemplate(level, teacher, from, to, daysLabel) {
-  const contentList = syllabus[level] || Array(12).fill("");
+function getTeensSplitTemplate(level, teacher, from, to, daysLabel) {
+  const contentList = syllabus[level] || Array(16).fill("");
+  const col1 = daysLabel === "MonWed" ? "Monday" : "Tuesday";
+  const col2 = daysLabel === "MonWed" ? "Wednesday" : "Thursday";
   return `<table class="schedule-table">
-    <colgroup><col style="width: 80px;"><col><col><col><col><col style="width: 140px;"></colgroup>
     <thead>
       <tr><th colspan="3" class="title-cell">Content Chart</th><th colspan="3" class="level-cell">Level: ${level}</th></tr>
       <tr><td class="label-cell">Teacher:</td><td colspan="2" class="value-cell">${teacher}</td><td class="label-cell">Schedule:</td><td colspan="2" class="value-cell">${daysLabel}: ${from} to ${to}</td></tr>
     </thead>
     <tbody>
-      ${[0, 1, 2]
+      ${[0, 1, 2, 3]
         .map(
           (i) => `
-        <tr class="days-header"><td class="side-label">Day</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td>${i === 0 ? '<td class="notes-header">---</td>' : ""}</tr>
+        <tr class="days-header"><td class="side-label">Day</td><td class="day-col">${col1}</td><td class="day-col">${col2}</td><td class="day-col">${col1}</td><td class="day-col">${col2}</td>${i === 0 ? '<td class="side-label">---</td>' : ""}</tr>
         <tr>
           <td class="side-label">Content</td>
-          <td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 4 + 0] || ""}</td>
-          <td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 4 + 1] || ""}</td>
-          <td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 4 + 2] || ""}</td>
-          <td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 4 + 3] || ""}</td>
-          ${i === 0 ? '<td class="notes-box" rowspan="6" contenteditable="true" spellcheck="false"></td>' : ""}
+          <td class="content-box" contenteditable="true">${contentList[i * 4] || ""}</td>
+          <td class="content-box" contenteditable="true">${contentList[i * 4 + 1] || ""}</td>
+          <td class="content-box" contenteditable="true">${contentList[i * 4 + 2] || ""}</td>
+          <td class="content-box" contenteditable="true">${contentList[i * 4 + 3] || ""}</td>
+          ${i === 0 ? '<td class="notes-box" rowspan="7"></td>' : ""}
         </tr>`,
         )
         .join("")}
@@ -360,16 +308,43 @@ function getMonFriTemplate(level, teacher, from, to) {
         <tr class="days-header"><td class="side-label">Day</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td></tr>
         <tr>
           <td class="side-label">Content</td>
-          <td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 5 + 0] || ""}</td>
-          <td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 5 + 1] || ""}</td>
-          <td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 5 + 2] || ""}</td>
-          <td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 5 + 3] || ""}</td>
-          <td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 5 + 4] || ""}</td>
+          <td class="content-box" contenteditable="true">${contentList[i * 5] || ""}</td>
+          <td class="content-box" contenteditable="true">${contentList[i * 5 + 1] || ""}</td>
+          <td class="content-box" contenteditable="true">${contentList[i * 5 + 2] || ""}</td>
+          <td class="content-box" contenteditable="true">${contentList[i * 5 + 3] || ""}</td>
+          <td class="content-box" contenteditable="true">${contentList[i * 5 + 4] || ""}</td>
         </tr>`,
         )
         .join("")}
       <tr class="days-header"><td class="side-label">Day</td><td class="day-col">---</td><td colspan="4" style="background:#eee"></td></tr>
-      <tr><td class="side-label">Content</td><td class="content-box" contenteditable="true" spellcheck="false">${contentList[15] || ""}</td><td colspan="4" style="background:#eee"></td></tr>
+      <tr><td class="side-label">Content</td><td class="content-box" contenteditable="true">${contentList[15] || ""}</td><td colspan="4" style="background:#eee"></td></tr>
+    </tbody>
+  </table>`;
+}
+
+function getSingleDayTemplate(level, teacher, from, to, daysLabel) {
+  const contentList = syllabus[level] || Array(8).fill("");
+  const dayName = daysLabel;
+  return `<table class="schedule-table">
+    <thead>
+      <tr><th colspan="3" class="title-cell">Content Chart</th><th colspan="3" class="level-cell">Level: ${level}</th></tr>
+      <tr><td class="label-cell">Teacher:</td><td colspan="2" class="value-cell">${teacher}</td><td class="label-cell">Schedule:</td><td colspan="2" class="value-cell">${daysLabel}: ${from} to ${to}</td></tr>
+    </thead>
+    <tbody>
+      ${[0, 1]
+        .map(
+          (i) => `
+        <tr class="days-header"><td class="side-label">Day</td><td class="day-col">${dayName}</td><td class="day-col">${dayName}</td><td class="day-col">${dayName}</td><td class="day-col">${dayName}</td>${i === 0 ? '<td class="side-label">---</td>' : ""}</tr>
+        <tr>
+          <td class="side-label">Content</td>
+          <td class="content-box" contenteditable="true">${contentList[i * 4] || ""}</td>
+          <td class="content-box" contenteditable="true">${contentList[i * 4 + 1] || ""}</td>
+          <td class="content-box" contenteditable="true">${contentList[i * 4 + 2] || ""}</td>
+          <td class="content-box" contenteditable="true">${contentList[i * 4 + 3] || ""}</td>
+          ${i === 0 ? '<td class="notes-box" rowspan="3"></td>' : ""}
+        </tr>`,
+        )
+        .join("")}
     </tbody>
   </table>`;
 }
@@ -436,14 +411,11 @@ function isHoliday(date, customHolidays) {
 // --- DESCARGA PDF ---
 document.getElementById("downloadPdf").addEventListener("click", function () {
   const element = document.getElementById("capture-area");
-  const boxes = document.querySelectorAll(".content-box, .notes-box");
-  boxes.forEach((box) => (box.style.outline = "none"));
   window.scrollTo(0, 0);
   html2pdf()
     .set({
       margin: 0.2,
       filename: `Schedule_${document.getElementById("level").value}.pdf`,
-      image: { type: "jpeg", quality: 0.98 },
       html2canvas: { scale: 2, scrollY: 0, useCORS: true },
       jsPDF: { unit: "in", format: "letter", orientation: "landscape" },
     })
@@ -451,4 +423,6 @@ document.getElementById("downloadPdf").addEventListener("click", function () {
     .save();
 });
 
+// Inicialización
+updateSelectors("intensive");
 document.getElementById("generateBtn").click();

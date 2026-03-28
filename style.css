@@ -3,6 +3,7 @@
   --light-gray: #ccc;
   --border-color: #ccc;
   --dark-gray: rgb(122, 121, 121);
+  --darker-gray: rgb(82, 82, 82);
 }
 
 body {
@@ -12,16 +13,32 @@ body {
 }
 header {
   background-color: var(--light-gray);
-  color: var(--dark-gray);
+  color: var(--darker-gray);
   padding: 15px;
   text-align: center;
 }
 
 footer {
-  background-color: var(--light-gray);
+  background-color: var(--darker-gray); /* Un tono más oscuro para contraste */
   color: white;
-  padding: 15px;
+  padding: 20px 0;
+  margin-top: 50px;
   text-align: center;
+  border-top: 4px solid var(--primary-orange);
+}
+
+.footer-content p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.copyright {
+  font-size: 0.75rem !important;
+  margin-top: 10px !important;
+  opacity: 0.6 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .container {
