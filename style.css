@@ -87,7 +87,7 @@ header h1 {
     display: flex;
     flex-wrap: nowrap !important; /* PROHIBIDO saltar de línea */
     width: 100%;
-    gap: 2px; /* Espacio mínimo entre ellas */
+    gap: 3px; /* Espacio mínimo entre ellas */
   }
 
   .tab-btn {
