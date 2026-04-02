@@ -113,18 +113,172 @@ const venezuelaHolidays = [
 // 3. SYLLABUS
 const syllabus = {
   "1A": [
-    "<strong>1.</strong> The Alphabet <br> 2 Numbers",
-    "3 Greetings and Farewells <br> 4 Subject Pronouns and Verb To Be",
-    "Speaking: Dialogue",
-    "5 Definite and Indefinite Articles <br> 6 Demonstratives",
-    "7 Prepositions IN ON AT <br> 8 Wh Question Words",
-    "Reading and Listening Activity",
-    "Workshop: Use of A.I.",
-    "9 Days of The Week <br> 10 There is, There Are",
-    "11 Countables and Uncountables Noun - Plural Nouns",
-    "12 Quantifiers Some and Any",
-    "Level Review",
-    "Final Activity",
+    "<strong>1.</strong> THE ALPHABET <br> <strong>2.</strong> NUMBERS",
+    "<strong>3.</strong> GREETINGS AND FAREWELLS <br> <strong>4.</strong> SUBJECTS PRONOUNS AND VERB TO BE",
+    "SPEAKING: DIALOGUE",
+    "<strong>5.</strong> DEFINITE AND INDEFINITE ARTICLES <br> <strong>6.</strong> DEMONSTRATIVES",
+    "<strong>7.</strong> PREPOSITIONS IN ON AT <br> <strong>8.</strong> QUESTION WORDS (WHAT, WHERE, WHEN, HOW)",
+    "READING AND LISTENING ACTIVITY",
+    "WORKSHOP: USE OF A.I.",
+    "<strong>9.</strong> DAYS OF THE WEEK <br> <strong>10.</strong> THERE IS, THERE ARE",
+    "<strong>11.</strong> COUNTABLES AND UNCOUNTABLES NOUNS - PLURAL NOUNS",
+    "<strong>12.</strong> QUANTIFIERS: SOME AND ANY",
+    "LEVEL REVIEW",
+    "FINAL ACTIVITY",
+  ],
+  "1B": [
+    "<strong>1.</strong> OTHER QUANTIFIERS <br> <strong>2.</strong> HOW MUCH AND HOW MANY",
+    "<strong>3.</strong> MONTHS OF THE YEAR <br> <strong>4.</strong> POSSESSIVE ADJECTIVES AND PRONOUNS",
+    "SPEAKING: SHORT STORY",
+    "<strong>5.</strong> THE TIME <br> <strong>6.</strong> PRESENT SIMPLE: THIRD PERSON SINGULAR RULES",
+    "<strong>7.</strong> PRESENT SIMPLE: DO AND DOES <br> <strong>8.</strong> PRESENT SIMPLE: VERB TO HAVE",
+    "READING AND LISTENING ACTIVITY",
+    "<strong>9.</strong> IDIOMATIC EXPRESSIONS: HAVE <br> <strong>10.</strong> TYPES OF FOODS AND DRINKS",
+    "WORKSHOP: BASIC PRONUNCIATION: T AND K",
+    "<strong>11.</strong> TYPES OF PRONOUNS",
+    "<strong>12.</strong> COUNTRIES AND NATIONALITIES",
+    "LEVEL REVIEW",
+    "FINAL ACTIVITY",
+  ],
+  2: [
+    "<strong>1.</strong> QUESTION WORDS <br> <strong>2.</strong> PRESENT CONTINUOUS",
+    "<strong>3.</strong> SIMPLE PAST (WAS AND WERE)",
+    "<strong>4.</strong> SIMPLE PAST (REGULAR AND IRREGULAR VERBS)",
+    "<strong>5.</strong> SIMPLE PAST (AUXILIARY DID) <br> SPEAKING ACTIVITY",
+    "<strong>6.</strong> PAST CONTINUOUS <br> <strong>7.</strong> COMPARATIVE AND SUPERLATIVE ADJECTIVES",
+    "<strong>8.</strong> COMPARATIVE AND SUPERLATIVE OF INFERIORITY",
+    "<strong>9.</strong> SIMPLE FUTURE (WILL)",
+    "<strong>10.</strong> SIMPLE FUTURE (WILL) NEGATIVE AND CONTRACTED FORM",
+    "WORKSHOP: REGULAR VERBS IN PAST TENSE (PRONUNCIATION)",
+    "<strong>11.</strong> SIMPLE FUTURE (GOING TO) <br> <strong>12.</strong> FUTURE CONTINUOUS",
+    "<strong>13.</strong> MODAL VERBS CAN AND MUST <br> <strong>14.</strong> HAVE TO",
+    "<strong>15.</strong> PRESENT PERFECT <br> FINAL ACTIVITY",
+  ],
+  3: [
+    "<strong>1.</strong> PRESENT PERFECT CONTINUOUS <br> <strong>2.</strong> PAST PERFECT",
+    "<strong>3.</strong> TAG QUESTIONS",
+    "<strong>4.</strong> REFLEXIVE PRONOUNS <br> <strong>5.</strong> NEGATIVE QUESTIONS",
+    "READING ACTIVITY",
+    "<strong>6.</strong> SUBJUNCTIVE AFTER WISH <br> <strong>7.</strong> EMPHATIC FORM",
+    "<strong>8.</strong> MODAL VERBS CAN AND MAY",
+    "<strong>9.</strong> MODAL VERBS SHOULD AND OUGHT TO",
+    "<strong>10.</strong> ZERO CONDITIONAL",
+    "WORKSHOP: USE OF CONDITIONALS IN REAL-LIFE SITUATIONS",
+    "<strong>11.</strong> FIRST CONDITIONAL <br> <strong>12.</strong> THE VERB GET",
+    "<strong>13.</strong> SECOND CONDITIONAL <br> <strong>14.</strong> THIRD CONDITIONAL",
+    "<strong>15.</strong> HOW IN QUESTIONS <br> FINAL ACTIVITY",
+  ],
+  "4A": [
+    "<strong>1.</strong> FUTURE PERFECT TENSE <br> <strong>2.</strong> FUTURE PERFECT CONTINUOUS",
+    "<strong>3.</strong> PAST OF BE GOING TO",
+    "<strong>4.</strong> USED TO AND BE USED TO <br> <strong>5.</strong> GET USED TO AND BE SUPPOSED TO",
+    "READING ACTIVITY",
+    "<strong>6.</strong> REPORTED SPEECH <br> <strong>7.</strong> REPORTED SPEECH (IMPERATIVE AND QUESTIONS)",
+    "<strong>8.</strong> WORD ORDER",
+    "<strong>9.</strong> SEQUENCE OF TENSES",
+    "WORKSHOP: AIRPORT SITUATIONS",
+    "SPEAKING AND LISTENING ACTIVITY",
+    "<strong>10.</strong> SO, TOO, EITHER AND NEITHER <br> <strong>11.</strong> EITHER OR AND NEITHER NOR",
+    "<strong>12.</strong> ATTRIBUTE GENITIVE <br> <strong>13.</strong> CAUSATIVE FORM",
+    "LEVEL REVIEW <br> FINAL ACTIVITY",
+  ],
+  "4B": [
+    "<strong>1.</strong> PASSIVE VOICE",
+    "READING ACTIVITY",
+    "<strong>2.</strong> INFINITIVE <br> <strong>3.</strong> GERUND AND PRESENT PARTICIPLE",
+    "LISTENING ACTIVITY",
+    "<strong>4.</strong> LET/ WHOM/ ALSO AND TOO <br> <strong>5.</strong> TYPES OF ADVERBS",
+    "SPEAKING ACTIVITY",
+    "<strong>6.</strong> NOUNS AND ADJECTIVES (PART 1) <br> <strong>7.</strong> NOUNS AND ADJECTIVES (PART 2)",
+    "WORKSHOP: HOW TO CREATE YOUR OWN RESUME / OCCUPATIONS",
+    "<strong>8.</strong> RELATIVE CLAUSES (PART 1) <br> <strong>9.</strong> RELATIVE CLAUSES (PART 2)",
+    "<strong>10.</strong> CONNECTORS (PART 1) <br> <strong>11.</strong> CONNECTORS (PART 2)",
+    "LEVEL REVIEW",
+    "FINAL ACTIVITY",
+  ],
+  5: [
+    "<strong>1.</strong> SYNONYMS AND ANTONYMS",
+    "<strong>2.</strong> LIKE AND AS <br> <strong>3.</strong> ADVERBS AND PREPOSITIONS OF PLACE",
+    "<strong>4.</strong> DO AND MAKE <br> <strong>5.</strong> PHRASAL VERBS",
+    "SPEAKING ACTIVITY",
+    "<strong>6.</strong> FUTURE FORMS: WILL, GOING TO AND BE + ING <br> <strong>7.</strong> DIFFERENCE BETWEEN…",
+    "<strong>8.</strong> FEELINGS AND ILLNESSES <br> <strong>9.</strong> MUSIC",
+    "<strong>10.</strong> HOW TO WRITE A LETTER",
+    "WORKSHOP: LEARNING ENGLISH WITH MUSIC",
+    "<strong>11.</strong> IDIOMS <br> <strong>12.</strong> JOKES",
+    "<strong>13.</strong> ROLE PLAY <br> <strong>14.</strong> INFORMATION OVERLOAD",
+    "<strong>15.</strong> THE SKY AND SPACE",
+    "FINAL ACTIVITY",
+  ],
+  "6A": [
+    "<strong>1.</strong> THE ACHILLES HEEL",
+    "<strong>2.</strong> EARLY TO BED, EARLY TO RISE",
+    "REVIEW: PREPOSITIONS IN, ON, AT / THIRD PERSON SINGULAR",
+    "READING ACTIVITY",
+    "<strong>3.</strong> WISHES",
+    "<strong>4.</strong> ANIMAL INTELLIGENCE",
+    "REVIEW: AUXILIARY DO, DOES / QUANTIFIERS",
+    "WORKSHOP: MOVIES AND SHOW BUSINESS",
+    "<strong>5.</strong> LONGEVITY",
+    "<strong>6.</strong> GIVING TO OTHERS, WHY DO WE DO IT?",
+    "<strong>7.</strong> WHAT'S THE USE OF HOMEWORK?",
+    "FINAL ACTIVITY",
+  ],
+  "6B": [
+    "<strong>8.</strong> GOODBYE TO SIT DOWN MEAL",
+    "<strong>9.</strong> FINDING A NICHE: THE CHALLENGE FOR YOUNG MIGRANTS",
+    "REVIEW: COMPARATIVE AND SUPERLATIVE ADJECTIVES",
+    "LISTENING ACTIVITY",
+    "<strong>10.</strong> NO TECHNOLOGY, NO WAY!",
+    "<strong>11.</strong> ALIENS: ARE WE ALONE?",
+    "<strong>12.</strong> SPORTS AND HEALTH",
+    "WORKSHOP: HOW TO MAKE COFFEE",
+    "<strong>13.</strong> CELEBRITIES",
+    "<strong>14.</strong> RELIGIONS",
+    "<strong>15.</strong> TRAVELLING",
+    "FINAL ACTIVITY: ORAL PRESENTATION",
+  ],
+  "7A": [
+    "<strong>1.</strong> WHO WANTS TO BE A MILLIONAIRE?",
+    "<strong>2.</strong> HUMAN CALCULATOR",
+    "REVIEW: ZERO AND FIRST CONDITIONAL",
+    "READING ACTIVITY",
+    "<strong>3.</strong> REALITY SHOWS",
+    "REVIEW: SECOND AND THIRD CONDITIONAL",
+    "<strong>4.</strong> OUR WORLD IN DANGER",
+    "SPEAKING AND LISTENING ACTIVITY",
+    "<strong>5.</strong> UNEXPLAINED",
+    "<strong>6.</strong> GEEK CULTURE",
+    "<strong>7.</strong> PEOPLE WHO CHANGED THE WORLD",
+    "EVALUATION 5 TO 7",
+  ],
+  "7B": [
+    "<strong>8.</strong> BEAUTY",
+    "<strong>9.</strong> LOVE",
+    "REVIEW: REPORTED SPEECH",
+    "SPEAKING ACTIVITY",
+    "<strong>10.</strong> MONEY <br> <strong>11.</strong> CRIME",
+    "<strong>12.</strong> THE HUMAN BRAIN",
+    "REVIEW: USED TO AND BE USED TO",
+    "WORKSHOP: USE OF SOCIAL MEDIA",
+    "<strong>13.</strong> WORLD IN WAR",
+    "<strong>14.</strong> QUALITY OF LIFE",
+    "<strong>15.</strong> LANGUAGES",
+    "FINAL ACTIVITY",
+  ],
+  8: [
+    "<strong>1.</strong> SOUNDS OF WORDS",
+    "<strong>2.</strong> SOCIAL MEDIA <br> <strong>3.</strong> INVENTIONS",
+    "<strong>4.</strong> AT THE AIRPORT <br> <strong>5.</strong> ON A DATE",
+    "LISTENING ACTIVITY",
+    "<strong>6.</strong> AT A PARTY <br> <strong>7.</strong> MY HOMETOWN",
+    "<strong>8.</strong> AT THE RESTAURANT <br> <strong>9.</strong> FAMILY AND FRIENDS",
+    "<strong>10.</strong> ANIMALS",
+    "WORKSHOP: LEGAL AND COMMERCIAL TERMS",
+    "<strong>11.</strong> WEATHER <br> <strong>12.</strong> PHYSICAL APPEARANCE",
+    "<strong>13.</strong> SUPERPOWERS <br> <strong>14.</strong> AT THE DOCTOR'S",
+    "<strong>15.</strong> LIFEGOALS",
+    "FINAL ACTIVITY: ORAL PRESENTATION",
   ],
 };
 
@@ -160,6 +314,12 @@ function updateSelectors(mode) {
 
 // --- GENERACIÓN DEL CRONOGRAMA ---
 document.getElementById("generateBtn").addEventListener("click", function () {
+  // --- EFECTO HAZ DE LUZ (SCANNER) ---
+  const panel = document.querySelector(".config-panel");
+  panel.classList.remove("scanning"); // Quitamos si existe
+  void panel.offsetWidth; // Forzamos reflow para reiniciar animación
+  panel.classList.add("scanning"); // Añadimos clase para iniciar animación de 0.5s
+
   const level = document.getElementById("level").value;
   const teacher =
     document.getElementById("teacher").value || "________________";
@@ -208,7 +368,7 @@ document.getElementById("generateBtn").addEventListener("click", function () {
   }
 });
 
-// --- PLANTILLA ESTÁNDAR (CORREGIDA PARA CERRAR CUADRO) ---
+// --- PLANTILLAS ---
 function getStandardTemplate(level, teacher, from, to, daysLabel) {
   const contentList = syllabus[level] || Array(12).fill("");
   return `
@@ -242,7 +402,6 @@ function getStandardTemplate(level, teacher, from, to, daysLabel) {
   </table>`;
 }
 
-// --- RESTO DE PLANTILLAS (Simplificadas para evitar errores) ---
 function getSatsTemplate(level, teacher, from, to) {
   const contentList = syllabus[level] || Array(6).fill("");
   return `<table class="schedule-table">
