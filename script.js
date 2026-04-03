@@ -90,7 +90,6 @@ const modeConfig = {
       { value: "Sats", label: "Saturdays" },
     ],
   },
-  // Mantenemos "Italian" exacto al value de tu HTML
   Italian: {
     levels: [
       "Livello 1",
@@ -104,16 +103,25 @@ const modeConfig = {
       "Livello 9",
     ],
     days: [
-      { value: "Mon to Thu", label: "Mon to Thu" },
-      { value: "Mon to Fri", label: "Mon to Fri (Online)" },
-      { value: "Sats", label: "Saturdays" },
+      { value: "Mon to Thu", label: "Lun a Gio" },
+      { value: "Mon to Fri", label: "Lun a Ven (Online)" },
+      { value: "Sats", label: "Sabato" },
     ],
   },
   Portuguese: {
     levels: ["Nível 1", "Nível 2"],
     days: [
-      { value: "Mon to Thu", label: "Mon to Thu" },
-      { value: "Sats", label: "Saturdays" },
+      { value: "Mon to Thu", label: "Seg a Qui" },
+      { value: "Mon to Fri", label: "Seg a Sex (Online)" },
+      { value: "Sats", label: "Sábados" },
+    ],
+  },
+  French: {
+    levels: ["Niveau 1", "Niveau 2", "Niveau 3", "Niveau 4"],
+    days: [
+      { value: "Mon to Thu", label: "Lun à Jeu" },
+      { value: "Mon to Fri", label: "Lun à Ven (En ligne)" },
+      { value: "Sats", label: "Samedi" },
     ],
   },
 };
@@ -149,16 +157,12 @@ function updateEndTime() {
     .querySelector(".tab-btn.active")
     .getAttribute("data-mode");
   const days = document.getElementById("days").value;
+  const language = document.getElementById("language").value;
 
   let [hours, minutes] = startTime.split(":").map(Number);
   let durationMinutes = 0;
 
-  // Si es intensivo, C1 o idiomas extranjeros, duraciones estándar
-  if (
-    mode === "intensive" ||
-    mode === "c1" ||
-    document.getElementById("language").value !== "English"
-  ) {
+  if (mode === "intensive" || mode === "c1" || language !== "English") {
     if (days === "Mon to Thu") durationMinutes = 120;
     else if (days === "Mon to Fri") durationMinutes = 90;
     else if (days === "Sats") durationMinutes = 240;
@@ -198,7 +202,6 @@ document.querySelectorAll(".tab-btn").forEach((btn) => {
 
     if (mode === "intensive") {
       langSelect.disabled = false;
-      // Si volvemos a Intensive, usamos el idioma seleccionado (English, Italian, etc.)
       const currentLang = langSelect.value;
       updateSelectors(currentLang === "English" ? "intensive" : currentLang);
     } else {
@@ -210,7 +213,6 @@ document.querySelectorAll(".tab-btn").forEach((btn) => {
   });
 });
 
-// NUEVO: Escuchar el cambio de idioma en el select
 document.getElementById("language").addEventListener("change", function () {
   const activeTabMode = document
     .querySelector(".tab-btn.active")
@@ -235,6 +237,7 @@ function updateSelectors(mode) {
         lvl.includes("Cool") ||
         lvl.includes("Livello") ||
         lvl.includes("Nível") ||
+        lvl.includes("Niveau") ||
         lvl.includes("Level")
           ? lvl
           : "Level " + lvl;
@@ -274,17 +277,19 @@ document.getElementById("generateBtn").addEventListener("click", function () {
     document.getElementById("teacher").value || "________________";
   const from = document.getElementById("from").value;
   const to = document.getElementById("to").value;
-  const daysOption = document.getElementById("days").value;
+  const daysOption = document.getElementById("days");
+  const daysLabel = daysOption.options[daysOption.selectedIndex].text;
+  const daysValue = daysOption.value;
   const startDateVal = document.getElementById("startDate").value;
   const container = document.getElementById("capture-area");
 
-  const headerHTML = getCommonHeader(level, teacher, from, to, daysOption);
+  const headerHTML = getCommonHeader(level, teacher, from, to, daysLabel);
   let bodyHTML = "";
 
-  if (daysOption === "Sats") bodyHTML = getSatsBody(level);
-  else if (daysOption === "MonWed" || daysOption === "TueThu")
-    bodyHTML = getTeensSplitBody(level, daysOption);
-  else if (daysOption === "Mon to Fri") bodyHTML = getMonFriBody(level);
+  if (daysValue === "Sats") bodyHTML = getSatsBody(level);
+  else if (daysValue === "MonWed" || daysValue === "TueThu")
+    bodyHTML = getTeensSplitBody(level, daysValue);
+  else if (daysValue === "Mon to Fri") bodyHTML = getMonFriBody(level);
   else bodyHTML = getStandardBody(level);
 
   container.innerHTML = headerHTML + bodyHTML;
@@ -292,7 +297,7 @@ document.getElementById("generateBtn").addEventListener("click", function () {
   if (startDateVal) {
     generateDates(
       startDateVal,
-      daysOption,
+      daysValue,
       parseCustomHolidays(document.getElementById("customHolidays").value),
     );
   }
@@ -379,6 +384,21 @@ function getTeensSplitBody(level, daysLabel) {
 function generateDates(startStr, option, customHolidays) {
   const dayCells = document.querySelectorAll(".day-col");
   let currentDate = new Date(startStr + "T00:00:00");
+
+  // TRADUCCIÓN DE DÍAS SEGÚN LENGUAJE
+  const currentLang = document.getElementById("language").value;
+  let dayNames;
+
+  if (currentLang === "Italian") {
+    dayNames = ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"];
+  } else if (currentLang === "French") {
+    dayNames = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+  } else if (currentLang === "Portuguese") {
+    dayNames = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+  } else {
+    dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  }
+
   const dayMap = {
     Sats: [6],
     MonWed: [1, 3],
@@ -393,7 +413,6 @@ function generateDates(startStr, option, customHolidays) {
   };
   let allowedDays = dayMap[option] || [1, 2, 3, 4];
   let count = 0;
-  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   while (count < dayCells.length) {
     if (
@@ -461,10 +480,8 @@ document.getElementById("downloadPdf").addEventListener("click", function () {
     .save();
 });
 
-// Inicialización automática coherente con el HTML
-// Usamos el valor que ya viene marcado en el select de Language
+// Inicialización automática coherente
 const defaultLang = document.getElementById("language").value;
 const targetMode = defaultLang === "English" ? "intensive" : defaultLang;
-
 updateSelectors(targetMode);
 document.getElementById("generateBtn").click();
