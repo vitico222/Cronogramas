@@ -296,25 +296,21 @@ function updateEndTime() {
   let [hours, minutes] = startTime.split(":").map(Number);
   let durationMinutes = 0;
 
-  // Aplicar reglas de negocio para duraciones
   if (mode === "intensive" || mode === "c2") {
-    if (days === "Mon to Thu")
-      durationMinutes = 120; // 2h
-    else if (days === "Mon to Fri")
-      durationMinutes = 90; // 1h 30m
-    else if (days === "Sats") durationMinutes = 240; // 4h
+    if (days === "Mon to Thu") durationMinutes = 120;
+    else if (days === "Mon to Fri") durationMinutes = 90;
+    else if (days === "Sats") durationMinutes = 240;
   } else if (mode === "teens" || mode === "kids") {
-    if (days === "MonWed" || days === "TueThu")
-      durationMinutes = 90; // 1h 30m
-    else durationMinutes = 180; // 3h (Días individuales o Sábados)
+    if (days === "MonWed" || days === "TueThu") durationMinutes = 90;
+    else durationMinutes = 180;
   }
 
   if (durationMinutes > 0) {
     let totalMinutes = hours * 60 + minutes + durationMinutes;
     let newHours = Math.floor(totalMinutes / 60) % 24;
     let newMinutes = totalMinutes % 60;
-    const endTimeFormatted = `${String(newHours).padStart(2, "0")}:${String(newMinutes).padStart(2, "0")}`;
-    document.getElementById("to").value = endTimeFormatted;
+    document.getElementById("to").value =
+      `${String(newHours).padStart(2, "0")}:${String(newMinutes).padStart(2, "0")}`;
   }
 }
 
@@ -337,7 +333,7 @@ document.querySelectorAll(".tab-btn").forEach((btn) => {
     this.classList.add("active");
     const mode = this.getAttribute("data-mode");
     updateSelectors(mode);
-    updateEndTime(); // Recalcular al cambiar de pestaña
+    updateEndTime();
   });
 });
 
@@ -364,7 +360,6 @@ function updateSelectors(mode) {
 function getCommonHeader(level, teacher, from, to, daysLabel) {
   const displayFrom = format12h(from);
   const displayTo = format12h(to);
-
   return `
     <table class="header-table">
       <thead>
@@ -595,6 +590,28 @@ function isHoliday(date, customHolidays) {
 
 /* --- 9. EVENTOS ADICIONALES Y DESCARGA --- */
 
+// Funcionalidad Botón AM/PM
+document.getElementById("toggleAmPm").addEventListener("click", function () {
+  const fromInput = document.getElementById("from");
+  let [hrs, mins] = fromInput.value.split(":").map(Number);
+  const isNowPm = this.classList.toggle("pm-active");
+
+  if (isNowPm && hrs < 12) hrs += 12;
+  else if (!isNowPm && hrs >= 12) hrs -= 12;
+
+  fromInput.value = `${String(hrs).padStart(2, "0")}:${String(mins).padStart(2, "0")}`;
+  updateEndTime();
+});
+
+// Sincronizar botón al escribir manualmente
+document.getElementById("from").addEventListener("input", function () {
+  const [hrs] = this.value.split(":").map(Number);
+  document
+    .getElementById("toggleAmPm")
+    .classList.toggle("pm-active", hrs >= 12);
+  updateEndTime();
+});
+
 document.getElementById("from").addEventListener("change", updateEndTime);
 document.getElementById("days").addEventListener("change", updateEndTime);
 
@@ -612,6 +629,6 @@ document.getElementById("downloadPdf").addEventListener("click", function () {
     .save();
 });
 
-// Inicialización por defecto
+// Inicialización
 updateSelectors("intensive");
 document.getElementById("generateBtn").click();
