@@ -400,7 +400,7 @@ select:focus {
 
   .tab-btn {
     flex: 1; /* ESTO hace que todas midan exactamente lo mismo */
-    padding: 10px 5px; /* Reducción equilibrada */
+    padding: 10px 7px; /* Reducción equilibrada */
     font-size: 0.85rem;
     margin-right: 0; /* Quitamos el margen para que el flex sea exacto */
     text-align: center;
@@ -409,7 +409,7 @@ select:focus {
 
 @media (max-width: 480px) {
   .tab-btn {
-    padding: 8px 5px;
+    padding: 8px 7px;
     font-size: 0.75rem; /* Letra más pequeña para que quepan las 4 en una fila o dos */
     min-width: auto;
   }
