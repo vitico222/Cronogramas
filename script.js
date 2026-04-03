@@ -1,4 +1,4 @@
-// 1. CONFIGURACIÓN DE MODOS
+/* --- 1. CONFIGURACIÓN DE MODOS --- */
 const modeConfig = {
   intensive: {
     levels: [
@@ -91,7 +91,7 @@ const modeConfig = {
   },
 };
 
-// 2. FERIADOS (Venezuela 2026)
+/* --- 2. FERIADOS (Venezuela 2026) --- */
 const venezuelaHolidays = [
   "01-01",
   "03-30",
@@ -110,8 +110,7 @@ const venezuelaHolidays = [
   "12-31",
 ];
 
-// 3. SYLLABUS
-
+/* --- 3. SYLLABUS --- */
 const syllabus = {
   "1A": [
     "<strong>1.</strong> The Alphabet <br> <strong>2.</strong> Numbers",
@@ -120,7 +119,7 @@ const syllabus = {
     "<strong>5.</strong> Definite and Indefinite Articles <br> <strong>6.</strong> Demonstratives",
     "<strong>7.</strong> Prepositions In, On, At <br> <strong>8.</strong> Question Words (What, Where, When, How)",
     "Reading and Listening Activity",
-    "Workshop: Use of A.I.",
+    "<strong>Workshop:<strong> Use of A.I.",
     "<strong>9.</strong> Days of the Week <br> <strong>10.</strong> There Is, There Are",
     "<strong>11.</strong> Countable and Uncountable Nouns - Plural Nouns",
     "<strong>12.</strong> Quantifiers: Some and Any",
@@ -135,7 +134,7 @@ const syllabus = {
     "<strong>7.</strong> Present Simple: Do and Does <br> <strong>8.</strong> Present Simple: Verb to Have",
     "Reading and Listening Activity",
     "<strong>9.</strong> Idiomatic Expressions: Have <br> <strong>10.</strong> Types of Foods and Drinks",
-    "Workshop: Basic Pronunciation: T and K",
+    "<strong>Workshop:<strong> Basic Pronunciation: T and K",
     "<strong>11.</strong> Types of Pronouns",
     "<strong>12.</strong> Countries and Nationalities",
     "Level Review",
@@ -150,7 +149,7 @@ const syllabus = {
     "<strong>8.</strong> Comparative and Superlative of Inferiority",
     "<strong>9.</strong> Simple Future (Will)",
     "<strong>10.</strong> Simple Future (Will) Negative and Contracted Form",
-    "Workshop: Regular Verbs in Past Tense (Pronunciation)",
+    "<strong>Workshop:</strong> Regular Verbs in Past Tense (Pronunciation)",
     "<strong>11.</strong> Simple Future (Going To) <br> <strong>12.</strong> Future Continuous",
     "<strong>13.</strong> Modal Verbs Can and Must <br> <strong>14.</strong> Have To",
     "<strong>15.</strong> Present Perfect <br> Final Activity",
@@ -164,7 +163,7 @@ const syllabus = {
     "<strong>8.</strong> Modal Verbs Can and May",
     "<strong>9.</strong> Modal Verbs Should and Ought To",
     "<strong>10.</strong> Zero Conditional",
-    "Workshop: Use of Conditionals in Real-Life Situations",
+    "<strong>Workshop:<strong> Use of Conditionals in Real-Life Situations",
     "<strong>11.</strong> First Conditional <br> <strong>12.</strong> The Verb Get",
     "<strong>13.</strong> Second Conditional <br> <strong>14.</strong> Third Conditional",
     "<strong>15.</strong> How in Questions <br> Final Activity",
@@ -177,7 +176,7 @@ const syllabus = {
     "<strong>6.</strong> Reported Speech <br> <strong>7.</strong> Reported Speech (Imperative and Questions)",
     "<strong>8.</strong> Word Order",
     "<strong>9.</strong> Sequence of Tenses",
-    "Workshop: Airport Situations",
+    "<strong>Workshop:<strong> Airport Situations",
     "Speaking and Listening Activity",
     "<strong>10.</strong> So, Too, Either and Neither <br> <strong>11.</strong> Either Or and Neither Nor",
     "<strong>12.</strong> Attribute Genitive <br> <strong>13.</strong> Causative Form",
@@ -191,7 +190,7 @@ const syllabus = {
     "<strong>4.</strong> Let / Whom / Also and Too <br> <strong>5.</strong> Types of Adverbs",
     "Speaking Activity",
     "<strong>6.</strong> Nouns and Adjectives (Part 1) <br> <strong>7.</strong> Nouns and Adjectives (Part 2)",
-    "Workshop: How to Create Your Own Resume / Occupations",
+    "<strong>Workshop:<strong> How to Create Your Own Resume / Occupations",
     "<strong>8.</strong> Relative Clauses (Part 1) <br> <strong>9.</strong> Relative Clauses (Part 2)",
     "<strong>10.</strong> Connectors (Part 1) <br> <strong>11.</strong> Connectors (Part 2)",
     "Level Review",
@@ -205,7 +204,7 @@ const syllabus = {
     "<strong>6.</strong> Future for Niche: Will, Going To and Be + Ing <br> <strong>7.</strong> Difference Between…",
     "<strong>8.</strong> Feelings and Illnesses <br> <strong>9.</strong> Music",
     "<strong>10.</strong> How to Write a Letter",
-    "Workshop: Learning English with Music",
+    "<strong>Workshop:<strong> Learning English with Music",
     "<strong>11.</strong> Idioms <br> <strong>12.</strong> Jokes",
     "<strong>13.</strong> Role Play <br> <strong>14.</strong> Information Overload",
     "<strong>15.</strong> The Sky and Space",
@@ -219,7 +218,7 @@ const syllabus = {
     "<strong>3.</strong> Wishes",
     "<strong>4.</strong> Animal Intelligence",
     "Review: Auxiliary Do, Does / Quantifiers",
-    "Workshop: Movies and Show Business",
+    "<strong>Workshop:<strong> Movies and Show Business",
     "<strong>5.</strong> Longevity",
     "<strong>6.</strong> Giving to Others, Why Do We Do It?",
     "<strong>7.</strong> What's the Use of Homework?",
@@ -233,7 +232,7 @@ const syllabus = {
     "<strong>10.</strong> No Technology, No Way!",
     "<strong>11.</strong> Aliens: Are We Alone?",
     "<strong>12.</strong> Sports and Health",
-    "Workshop: How to Make Coffee",
+    "<strong>Workshop:<strong> How to Make Coffee",
     "<strong>13.</strong> Celebrities",
     "<strong>14.</strong> Religions",
     "<strong>15.</strong> Travelling",
@@ -261,7 +260,7 @@ const syllabus = {
     "<strong>10.</strong> Money <br> <strong>11.</strong> Crime",
     "<strong>12.</strong> The Human Brain",
     "Review: Used To and Be Used To",
-    "Workshop: Use of Social Media",
+    "<strong>Workshop:<strong> Use of Social Media",
     "<strong>13.</strong> World in War",
     "<strong>14.</strong> Quality of Life",
     "<strong>15.</strong> Languages",
@@ -275,7 +274,7 @@ const syllabus = {
     "<strong>6.</strong> At a Party / <strong>7.</strong> My Hometown",
     "<strong>8.</strong> At the Restaurant / <strong>9.</strong> Family and Friends",
     "<strong>10.</strong> Animals",
-    "Workshop: Legal and Commercial Terms",
+    "<strong>Workshop:<strong> Legal and Commercial Terms",
     "<strong>11.</strong> Weather / <strong>12.</strong> Physical Appearance",
     "<strong>13.</strong> Superpowers / <strong>14.</strong> At the Doctor's",
     "<strong>15.</strong> Life Goals",
@@ -283,7 +282,53 @@ const syllabus = {
   ],
 };
 
-// 4. LÓGICA DE PESTAÑAS
+/* --- 4. LÓGICA DE TIEMPO (AUTOMATIZACIÓN Y FORMATO) --- */
+
+function updateEndTime() {
+  const startTime = document.getElementById("from").value;
+  if (!startTime) return;
+
+  const mode = document
+    .querySelector(".tab-btn.active")
+    .getAttribute("data-mode");
+  const days = document.getElementById("days").value;
+
+  let [hours, minutes] = startTime.split(":").map(Number);
+  let durationMinutes = 0;
+
+  // Aplicar reglas de negocio para duraciones
+  if (mode === "intensive" || mode === "c2") {
+    if (days === "Mon to Thu")
+      durationMinutes = 120; // 2h
+    else if (days === "Mon to Fri")
+      durationMinutes = 90; // 1h 30m
+    else if (days === "Sats") durationMinutes = 240; // 4h
+  } else if (mode === "teens" || mode === "kids") {
+    if (days === "MonWed" || days === "TueThu")
+      durationMinutes = 90; // 1h 30m
+    else durationMinutes = 180; // 3h (Días individuales o Sábados)
+  }
+
+  if (durationMinutes > 0) {
+    let totalMinutes = hours * 60 + minutes + durationMinutes;
+    let newHours = Math.floor(totalMinutes / 60) % 24;
+    let newMinutes = totalMinutes % 60;
+    const endTimeFormatted = `${String(newHours).padStart(2, "0")}:${String(newMinutes).padStart(2, "0")}`;
+    document.getElementById("to").value = endTimeFormatted;
+  }
+}
+
+function format12h(timeStr) {
+  if (!timeStr || timeStr === "--:--" || timeStr === "")
+    return "________________";
+  let [hrs, mins] = timeStr.split(":").map(Number);
+  const ampm = hrs >= 12 ? "PM" : "AM";
+  hrs = hrs % 12 || 12;
+  return `${hrs}:${String(mins).padStart(2, "0")} ${ampm}`;
+}
+
+/* --- 5. LÓGICA DE PESTAÑAS Y SELECTORES --- */
+
 document.querySelectorAll(".tab-btn").forEach((btn) => {
   btn.addEventListener("click", function () {
     document
@@ -292,6 +337,7 @@ document.querySelectorAll(".tab-btn").forEach((btn) => {
     this.classList.add("active");
     const mode = this.getAttribute("data-mode");
     updateSelectors(mode);
+    updateEndTime(); // Recalcular al cambiar de pestaña
   });
 });
 
@@ -313,8 +359,12 @@ function updateSelectors(mode) {
     .join("");
 }
 
-// 5. FUNCIÓN DE ENCABEZADO INDEPENDIENTE
+/* --- 6. GENERACIÓN DEL CRONOGRAMA --- */
+
 function getCommonHeader(level, teacher, from, to, daysLabel) {
+  const displayFrom = format12h(from);
+  const displayTo = format12h(to);
+
   return `
     <table class="header-table">
       <thead>
@@ -326,13 +376,12 @@ function getCommonHeader(level, teacher, from, to, daysLabel) {
           <td class="label-cell">Teacher:</td>
           <td colspan="2" class="value-cell">${teacher}</td>
           <td class="label-cell">Schedule:</td>
-          <td colspan="2" class="value-cell">${daysLabel}: ${from} to ${to}</td>
+          <td colspan="2" class="value-cell">${daysLabel}: ${displayFrom} to ${displayTo}</td>
         </tr>
       </thead>
     </table>`;
 }
 
-// 6. GENERACIÓN DEL CRONOGRAMA CON SCANNER
 document.getElementById("generateBtn").addEventListener("click", function () {
   const panel = document.querySelector(".config-panel");
   panel.classList.remove("scanning");
@@ -342,8 +391,8 @@ document.getElementById("generateBtn").addEventListener("click", function () {
   const level = document.getElementById("level").value;
   const teacher =
     document.getElementById("teacher").value || "________________";
-  const from = document.getElementById("from").value || "--:--";
-  const to = document.getElementById("to").value || "--:--";
+  const from = document.getElementById("from").value;
+  const to = document.getElementById("to").value;
   const daysOption = document.getElementById("days").value;
   const startDateVal = document.getElementById("startDate").value;
   const container = document.getElementById("capture-area");
@@ -351,17 +400,13 @@ document.getElementById("generateBtn").addEventListener("click", function () {
   const headerHTML = getCommonHeader(level, teacher, from, to, daysOption);
   let bodyHTML = "";
 
-  if (daysOption === "Sats") {
-    bodyHTML = getSatsBody(level);
-  } else if (["Mon", "Tue", "Wed", "Thu", "Fri"].includes(daysOption)) {
+  if (daysOption === "Sats") bodyHTML = getSatsBody(level);
+  else if (["Mon", "Tue", "Wed", "Thu", "Fri"].includes(daysOption))
     bodyHTML = getSingleDayBody(level, daysOption);
-  } else if (daysOption === "MonWed" || daysOption === "TueThu") {
+  else if (daysOption === "MonWed" || daysOption === "TueThu")
     bodyHTML = getTeensSplitBody(level, daysOption);
-  } else if (daysOption === "Mon to Fri") {
-    bodyHTML = getMonFriBody(level);
-  } else {
-    bodyHTML = getStandardBody(level);
-  }
+  else if (daysOption === "Mon to Fri") bodyHTML = getMonFriBody(level);
+  else bodyHTML = getStandardBody(level);
 
   container.innerHTML = headerHTML + bodyHTML;
 
@@ -374,151 +419,122 @@ document.getElementById("generateBtn").addEventListener("click", function () {
   }
 });
 
-// 7. CUERPOS DE TABLA (SIN ENCABEZADO INTERNO)
+/* --- 7. CUERPOS DE TABLA --- */
+
 function getStandardBody(level) {
   const contentList = syllabus[level] || Array(12).fill("");
-  return `
-  <table class="schedule-table">
-    <tbody>
-      ${[0, 1, 2]
-        .map(
-          (i) => `
-        <tr class="days-header">
-          <td class="side-label">Day</td>
-          <td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td>
-          ${i === 0 ? '<td class="side-label" style="text-align:center">Notes</td>' : ""}
-        </tr>
-        <tr>
-          <td class="side-label">Content</td>
-          <td class="content-box" contenteditable="true">${contentList[i * 4 + 0] || ""}</td>
-          <td class="content-box" contenteditable="true">${contentList[i * 4 + 1] || ""}</td>
-          <td class="content-box" contenteditable="true">${contentList[i * 4 + 2] || ""}</td>
-          <td class="content-box" contenteditable="true">${contentList[i * 4 + 3] || ""}</td>
-          ${i === 0 ? '<td class="notes-box" rowspan="5" contenteditable="true" style="border-bottom: 1px solid black !important;"></td>' : ""}
-        </tr>`,
-        )
-        .join("")}
-      <tr style="height:0;"><td colspan="5" style="border:none;"></td><td style="border-top: 1px solid black;"></td></tr>
-    </tbody>
-  </table>`;
+  return `<table class="schedule-table"><tbody>${[0, 1, 2]
+    .map(
+      (i) => `
+    <tr class="days-header">
+      <td class="side-label">Day</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td>
+      ${i === 0 ? '<td class="side-label">---</td>' : ""}
+    </tr>
+    <tr>
+      <td class="side-label">Content</td>
+      <td class="content-box" contenteditable="true">${contentList[i * 4] || ""}</td>
+      <td class="content-box" contenteditable="true">${contentList[i * 4 + 1] || ""}</td>
+      <td class="content-box" contenteditable="true">${contentList[i * 4 + 2] || ""}</td>
+      <td class="content-box" contenteditable="true">${contentList[i * 4 + 3] || ""}</td>
+      ${i === 0 ? '<td class="notes-box" rowspan="5" contenteditable="true"></td>' : ""}
+    </tr>`,
+    )
+    .join("")}</tbody></table>`;
 }
 
 function getSatsBody(level) {
   const contentList = syllabus[level] || Array(12).fill("");
   const combined = [];
   for (let i = 0; i < contentList.length; i += 2) {
-    const p1 = contentList[i] || "";
-    const p2 = contentList[i + 1] || "";
     combined.push(
-      `${p1} <hr style="border:0; border-top:1px dashed #ccc; margin:5px 0;"> ${p2}`,
+      `${contentList[i] || ""} <hr style="border:0; border-top:1px dashed #ccc; margin:5px 0;"> ${contentList[i + 1] || ""}`,
     );
   }
-  return `<table class="schedule-table">
-    <tbody>
-      ${[0, 1, 2]
-        .map(
-          (i) => `
-        <tr class="days-header"><td class="side-label">Day</td><td class="day-col" colspan="5">Saturday</td><td class="day-col" colspan="5">Saturday</td></tr>
-        <tr>
-          <td class="side-label">Content</td>
-          <td class="content-box sats-box" colspan="5" contenteditable="true">${combined[i * 2] || ""}</td>
-          <td class="content-box sats-box" colspan="5" contenteditable="true">${combined[i * 2 + 1] || ""}</td>
-        </tr>`,
-        )
-        .join("")}
-    </tbody>
-  </table>`;
+  return `<table class="schedule-table"><tbody>${[0, 1, 2]
+    .map(
+      (i) => `
+    <tr class="days-header"><td class="side-label">Day</td><td class="day-col" colspan="5">Saturday</td><td class="day-col" colspan="5">Saturday</td></tr>
+    <tr>
+      <td class="side-label">Content</td>
+      <td class="content-box sats-box" colspan="5" contenteditable="true">${combined[i * 2] || ""}</td>
+      <td class="content-box sats-box" colspan="5" contenteditable="true">${combined[i * 2 + 1] || ""}</td>
+    </tr>`,
+    )
+    .join("")}</tbody></table>`;
 }
 
 function getMonFriBody(level) {
-  const baseContent = syllabus[level] || Array(12).fill("");
-  const extendedContent = [
-    baseContent[0],
-    baseContent[1],
-    baseContent[2],
-    baseContent[3],
+  const bc = syllabus[level] || Array(12).fill("");
+  const ext = [
+    bc[0],
+    bc[1],
+    bc[2],
+    bc[3],
     "<strong>Review</strong>",
-    baseContent[4],
-    baseContent[5],
-    baseContent[6],
-    baseContent[7],
+    bc[4],
+    bc[5],
+    bc[6],
+    bc[7],
     "<strong>Review</strong>",
-    baseContent[8],
-    baseContent[9],
-    baseContent[10],
-    baseContent[11],
+    bc[8],
+    bc[9],
+    bc[10],
+    bc[11],
     "<strong>Final Review</strong>",
     "<strong>Consolidation</strong>",
   ];
-  return `<table class="schedule-table">
-    <tbody>
-      ${[0, 1, 2]
-        .map(
-          (i) => `
-        <tr class="days-header"><td class="side-label">Day</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td></tr>
-        <tr>
-          <td class="side-label">Content</td>
-          <td class="content-box" contenteditable="true">${extendedContent[i * 5]}</td>
-          <td class="content-box" contenteditable="true">${extendedContent[i * 5 + 1]}</td>
-          <td class="content-box" contenteditable="true">${extendedContent[i * 5 + 2]}</td>
-          <td class="content-box" contenteditable="true">${extendedContent[i * 5 + 3]}</td>
-          <td class="content-box" contenteditable="true">${extendedContent[i * 5 + 4]}</td>
-        </tr>`,
-        )
-        .join("")}
-      <tr class="days-header"><td class="side-label">Day</td><td class="day-col">---</td><td colspan="4" style="background:#eee"></td></tr>
-      <tr><td class="side-label">Content</td><td class="content-box" contenteditable="true">${extendedContent[15]}</td><td colspan="4" style="background:#eee"></td></tr>
-    </tbody>
-  </table>`;
+  return `<table class="schedule-table"><tbody>${[0, 1, 2]
+    .map(
+      (i) => `
+    <tr class="days-header"><td class="side-label">Day</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td></tr>
+    <tr><td class="side-label">Content</td>${[0, 1, 2, 3, 4].map((j) => `<td class="content-box" contenteditable="true">${ext[i * 5 + j]}</td>`).join("")}</tr>`,
+    )
+    .join("")}
+    <tr class="days-header"><td class="side-label">Day</td><td class="day-col">---</td><td colspan="4"></td></tr>
+    <tr><td class="side-label">Content</td><td class="content-box" contenteditable="true">${ext[15]}</td><td colspan="4"></td></tr>
+  </tbody></table>`;
 }
 
 function getTeensSplitBody(level, daysLabel) {
   const contentList = syllabus[level] || Array(16).fill("");
   const col1 = daysLabel === "MonWed" ? "Monday" : "Tuesday";
   const col2 = daysLabel === "MonWed" ? "Wednesday" : "Thursday";
-  return `<table class="schedule-table">
-    <tbody>
-      ${[0, 1, 2, 3]
-        .map(
-          (i) => `
-        <tr class="days-header"><td class="side-label">Day</td><td class="day-col">${col1}</td><td class="day-col">${col2}</td><td class="day-col">${col1}</td><td class="day-col">${col2}</td>${i === 0 ? '<td class="side-label">Notes</td>' : ""}</tr>
-        <tr>
-          <td class="side-label">Content</td>
-          <td class="content-box" contenteditable="true">${contentList[i * 4] || ""}</td>
-          <td class="content-box" contenteditable="true">${contentList[i * 4 + 1] || ""}</td>
-          <td class="content-box" contenteditable="true">${contentList[i * 4 + 2] || ""}</td>
-          <td class="content-box" contenteditable="true">${contentList[i * 4 + 3] || ""}</td>
-          ${i === 0 ? '<td class="notes-box" rowspan="7"></td>' : ""}
-        </tr>`,
-        )
-        .join("")}
-    </tbody>
-  </table>`;
+  return `<table class="schedule-table"><tbody>${[0, 1, 2, 3]
+    .map(
+      (i) => `
+    <tr class="days-header"><td class="side-label">Day</td><td class="day-col">${col1}</td><td class="day-col">${col2}</td><td class="day-col">${col1}</td><td class="day-col">${col2}</td>${i === 0 ? '<td class="side-label">---</td>' : ""}</tr>
+    <tr>
+      <td class="side-label">Content</td>
+      <td class="content-box" contenteditable="true">${contentList[i * 4] || ""}</td>
+      <td class="content-box" contenteditable="true">${contentList[i * 4 + 1] || ""}</td>
+      <td class="content-box" contenteditable="true">${contentList[i * 4 + 2] || ""}</td>
+      <td class="content-box" contenteditable="true">${contentList[i * 4 + 3] || ""}</td>
+      ${i === 0 ? '<td class="notes-box" rowspan="7"></td>' : ""}
+    </tr>`,
+    )
+    .join("")}</tbody></table>`;
 }
 
 function getSingleDayBody(level, dayName) {
   const contentList = syllabus[level] || Array(8).fill("");
-  return `<table class="schedule-table">
-    <tbody>
-      ${[0, 1]
-        .map(
-          (i) => `
-        <tr class="days-header"><td class="side-label">Day</td><td class="day-col">${dayName}</td><td class="day-col">${dayName}</td><td class="day-col">${dayName}</td><td class="day-col">${dayName}</td>${i === 0 ? '<td class="side-label">Notes</td>' : ""}</tr>
-        <tr>
-          <td class="side-label">Content</td>
-          <td class="content-box" contenteditable="true">${contentList[i * 4] || ""}</td>
-          <td class="content-box" contenteditable="true">${contentList[i * 4 + 1] || ""}</td>
-          <td class="content-box" contenteditable="true">${contentList[i * 4 + 2] || ""}</td>
-          <td class="content-box" contenteditable="true">${contentList[i * 4 + 3] || ""}</td>
-          ${i === 0 ? '<td class="notes-box" rowspan="3"></td>' : ""}
-        </tr>`,
-        )
-        .join("")}
-    </tbody>
-  </table>`;
+  return `<table class="schedule-table"><tbody>${[0, 1]
+    .map(
+      (i) => `
+    <tr class="days-header"><td class="side-label">Day</td><td class="day-col">${dayName}</td><td class="day-col">${dayName}</td><td class="day-col">${dayName}</td><td class="day-col">${dayName}</td>${i === 0 ? '<td class="side-label">---</td>' : ""}</tr>
+    <tr>
+      <td class="side-label">Content</td>
+      <td class="content-box" contenteditable="true">${contentList[i * 4] || ""}</td>
+      <td class="content-box" contenteditable="true">${contentList[i * 4 + 1] || ""}</td>
+      <td class="content-box" contenteditable="true">${contentList[i * 4 + 2] || ""}</td>
+      <td class="content-box" contenteditable="true">${contentList[i * 4 + 3] || ""}</td>
+      ${i === 0 ? '<td class="notes-box" rowspan="3"></td>' : ""}
+    </tr>`,
+    )
+    .join("")}</tbody></table>`;
 }
 
-// 8. LÓGICA DE FECHAS
+/* --- 8. LÓGICA DE FECHAS --- */
+
 function generateDates(startStr, option, customHolidays) {
   const dayCells = document.querySelectorAll(".day-col");
   let currentDate = new Date(startStr + "T00:00:00");
@@ -577,7 +593,11 @@ function isHoliday(date, customHolidays) {
   );
 }
 
-// 9. DESCARGA PDF
+/* --- 9. EVENTOS ADICIONALES Y DESCARGA --- */
+
+document.getElementById("from").addEventListener("change", updateEndTime);
+document.getElementById("days").addEventListener("change", updateEndTime);
+
 document.getElementById("downloadPdf").addEventListener("click", function () {
   const element = document.getElementById("capture-area");
   window.scrollTo(0, 0);
@@ -592,6 +612,6 @@ document.getElementById("downloadPdf").addEventListener("click", function () {
     .save();
 });
 
-// 10. INICIALIZACIÓN
+// Inicialización por defecto
 updateSelectors("intensive");
 document.getElementById("generateBtn").click();

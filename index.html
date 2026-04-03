@@ -43,11 +43,15 @@
               <label>Days</label>
               <select id="days"></select>
             </div>
-            <div class="field">
+            <div class="field schedule-field">
               <label>Schedule</label>
               <div class="time-inputs">
                 <input type="time" id="from" value="08:00" />
-                <input type="time" id="to" value="10:00" />
+                <button type="button" id="toggleAmPm" class="btn-toggle">
+                  <span class="label-am">AM</span>
+                  <span class="label-pm">PM</span>
+                </button>
+                <input type="time" id="to" value="10:00" readonly />
               </div>
             </div>
           </div>

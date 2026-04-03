@@ -1,4 +1,6 @@
-/* --- VARIABLES Y CONFIGURACIÓN BASE --- */
+/* ==========================================================================
+   1. VARIABLES Y BASE
+   ========================================================================== */
 :root {
   --primary-orange: #fc5c17;
   --light-gray: #ccc;
@@ -8,6 +10,10 @@
   --bg-color: #e9ecef;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--bg-color);
@@ -15,17 +21,29 @@ body {
   color: #333;
 }
 
-/* --- HEADER (Simétrico al Footer) --- */
-header {
+/* ==========================================================================
+   2. HEADER Y FOOTER
+   ========================================================================== */
+header,
+footer {
   background-color: var(--darker-gray);
   color: white;
+  text-align: center;
+  position: relative;
+}
+
+header {
   padding: 15px 0;
   border-bottom: 5px solid var(--primary-orange);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  position: relative;
+  min-height: 110px;
   display: flex;
   align-items: center;
-  min-height: 110px;
+}
+
+footer {
+  padding: 25px 0;
+  margin-top: 60px;
+  border-top: 6px solid var(--primary-orange);
 }
 
 .header-content {
@@ -36,83 +54,40 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
 }
 
 .main-logo {
   max-height: 140px;
-  width: auto;
   position: absolute;
   left: 20px;
   top: 50%;
   transform: translateY(-50%);
-  transition: all 0.3s ease;
 }
 
 header h1 {
   margin: 0;
   font-size: 2.2rem;
   font-weight: 800;
-  letter-spacing: -1px;
   text-transform: uppercase;
-  text-align: center;
-  max-width: 65%;
+}
+.copyright {
+  font-size: 0.75rem;
+  margin-top: 15px;
+  opacity: 0.5;
+  letter-spacing: 1.5px;
 }
 
-/* RESPONSIVE HEADER */
-@media (max-width: 992px) {
-  header {
-    padding: 25px 0;
-  }
-  .header-content {
-    flex-direction: column;
-    gap: 15px;
-  }
-  .main-logo {
-    position: static;
-    transform: none;
-    max-height: 100px;
-    margin: 0 auto;
-  }
-  header h1 {
-    max-width: 100%;
-    font-size: 1.6rem;
-  }
-}
-
-/* --- AJUSTE DE TABS PARA FILA ÚNICA EN MÓVILES --- */
-@media (max-width: 600px) {
-  .tabs-container {
-    display: flex;
-    flex-wrap: nowrap !important;
-    width: 100%;
-    gap: 3px;
-  }
-
-  .tab-btn {
-    flex: 1;
-    padding: 10px 2px !important;
-    font-size: 0.7rem !important;
-    text-align: center;
-    margin-right: 0 !important;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: 0;
-  }
-}
-
-/* --- CONTENEDOR PRINCIPAL --- */
+/* ==========================================================================
+   3. FORMULARIO Y TABS
+   ========================================================================== */
 .container {
   max-width: 1100px;
   margin: 30px auto;
   padding: 0 20px;
 }
 
-/* --- TABS --- */
 .tabs-container {
   display: flex;
-  flex-wrap: wrap;
   margin-bottom: -1px;
 }
 
@@ -127,8 +102,7 @@ header h1 {
   cursor: pointer;
   color: #666;
   margin-right: 5px;
-  margin-bottom: 2px;
-  transition: background 0.2s;
+  transition: all 0.3s ease;
 }
 
 .tab-btn.active {
@@ -138,23 +112,26 @@ header h1 {
   z-index: 2;
 }
 
-/* --- PANEL DE CONFIGURACIÓN --- */
 .config-panel {
   background: white;
   padding: 30px;
   border: 1px solid var(--border-color);
   border-radius: 0 8px 8px 8px;
+  position: relative;
+  overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  min-height: 250px;
 }
 
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+.form-grid,
+.second-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
 .field {
+  flex: 1 1 200px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -171,45 +148,111 @@ select {
   padding: 10px;
   border: 1px solid var(--border-color);
   border-radius: 5px;
-  font-size: 0.95rem;
   height: 42px;
-  box-sizing: border-box;
+  width: 100%;
+  transition: border-color 0.3s ease;
 }
 
-.actions {
-  margin-top: 30px;
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary-orange);
+}
+
+/* BOTÓN AM/PM (ANIMACIÓN DE DESLIZAMIENTO) */
+.time-inputs {
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
+  gap: 5px;
+  align-items: center;
+  width: 100%;
+}
+.time-inputs input[type="time"] {
+  flex: 1;
+  min-width: 80px;
 }
 
-/* --- BOTONES PROFESIONALES Y MODERNOS --- */
+.btn-toggle {
+  height: 42px;
+  min-width: 85px;
+  background: #eee;
+  border: 1px solid var(--border-color);
+  border-radius: 50px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-weight: 800;
+  font-size: 10px;
+  color: #aaa;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.btn-toggle::before {
+  content: "";
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background: var(--dark-gray);
+  border-radius: 20px;
+  left: 3px;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: 1;
+}
+
+.btn-toggle.pm-active::before {
+  left: calc(100% - 39px);
+  background: var(--darker-gray);
+}
+
+.btn-toggle span {
+  position: relative;
+  z-index: 2;
+  width: 32px;
+  text-align: center;
+  transition: color 0.3s;
+}
+.btn-toggle.pm-active .label-pm {
+  color: white;
+}
+.btn-toggle:not(.pm-active) .label-am {
+  color: white;
+}
+
+/* ==========================================================================
+   4. BOTONES DE ACCIÓN (ANIMACIÓN RESTAURADA)
+   ========================================================================== */
+.actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
 .btn-primary,
 .btn-secondary {
   padding: 12px 25px;
-  cursor: pointer;
+  border: none;
   border-radius: 5px;
   font-weight: bold;
-  border: none;
-  /* Transición fluida con rebote elástico */
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Rebote suave */
 }
 
 .btn-primary {
   background: var(--dark-gray);
   color: white;
 }
-
 .btn-secondary {
   background: var(--primary-orange);
   color: white;
 }
 
-/* EFECTO HOVER: Elevación, Aumento y Sombra Profunda */
 .btn-primary:hover,
 .btn-secondary:hover {
   transform: translateY(-4px) scale(1.03);
@@ -217,134 +260,95 @@ select {
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* EFECTO ACTIVE: Pulsación (vuelve a bajar al hacer clic) */
 .btn-primary:active,
 .btn-secondary:active {
-  transform: translateY(-1px) scale(0.97);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-  transition: all 0.1s;
+  transform: translateY(-1px) scale(0.98);
 }
 
-/* --- ÁREA DE PREVIEW --- */
+/* ==========================================================================
+   5. ÁREA DE TABLAS (PROTEGIDA Y CENTRADA)
+   ========================================================================== */
 .preview-panel {
   margin-top: 40px;
   overflow-x: auto;
+}
+
+/* Preview Area */
+.schedule-paper {
+  background: white;
   border: 1px solid var(--border-color);
-  border-radius: 0 8px 8px 8px;
+  padding: 30px;
+  min-width: 900px;
+  border-radius: 8px 8px 8px 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-.schedule-paper {
-  background: white;
-  padding: 30px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  min-width: 900px;
-}
-
-.schedule-table {
+.schedule-table,
+.header-table {
   width: 100%;
   border-collapse: collapse;
   border: 2.5px solid black !important;
   table-layout: fixed;
 }
 
-.schedule-table th,
+.header-table {
+  margin-bottom: 25px;
+}
+
+.header-table td,
 .schedule-table td {
-  border: 1px solid black;
+  border: 1px solid black !important;
   padding: 8px;
   text-align: center;
+  vertical-align: middle;
 }
 
 .title-cell {
   font-size: 1.4rem;
-  text-align: left;
-  background: #eee;
+  text-align: center !important;
+  background: #eee !important;
   font-weight: bold;
+  border-right: 1.5px solid black !important;
 }
+
 .level-cell {
   font-size: 1.2rem;
-  text-align: right;
-  background: #eee;
+  text-align: center !important;
+  background: #eee !important;
   font-weight: bold;
 }
+
 .label-cell {
-  background: #f9f9f9;
+  background: #f9f9f9 !important;
   font-weight: bold;
-  text-align: left;
+  text-align: center !important;
   width: 110px;
 }
 
+.value-cell {
+  text-align: center !important;
+  padding-left: 15px !important;
+}
 .content-box {
   height: 95px;
   font-size: 0.85rem;
-  vertical-align: middle;
-  background: white;
+  background: white !important;
 }
 
-/* --- FOOTER --- */
-footer {
-  background-color: var(--darker-gray);
-  color: white;
-  padding: 25px 0;
-  margin-top: 60px;
-  text-align: center;
-  border-top: 6px solid var(--primary-orange);
-}
-
-.footer-content p {
-  margin: 5px 0;
-  font-size: 1rem;
-}
-
-.copyright {
-  font-size: 0.75rem;
-  margin-top: 15px;
-  opacity: 0.5;
-  letter-spacing: 1.5px;
-}
-
-/* --- AJUSTES DE IMPRESIÓN --- */
-@media print {
-  .config-panel,
-  .tabs-container,
-  header,
-  footer {
-    display: none !important;
-  }
-  .container {
-    margin: 0;
-    padding: 0;
-    max-width: 100%;
-  }
-}
-
-/* --- EFECTO HAZ DE LUZ (SCANNER) --- */
-.config-panel {
-  position: relative; /* Necesario para posicionar el haz */
-  overflow: hidden; /* Para que el haz no se salga de los bordes redondeados */
-}
-
-/* El haz de luz */
-.config-panel::after {
+/* SCANNER ANIMATION */
+.config-panel.scanning::after {
   content: "";
   position: absolute;
-  top: -100px; /* Empieza fuera de vista arriba */
+  top: -100px;
   right: 0;
   width: 3px;
-  height: 120px; /* Largo del haz */
+  height: 120px;
   background: linear-gradient(
     to bottom,
     transparent,
     var(--primary-orange),
     transparent
   );
-  opacity: 0;
-  filter: blur(2px);
-  z-index: 10;
-}
-
-/* Clase que activa la animación */
-.config-panel.scanning::after {
   animation: scan-border 0.5s ease-in-out;
 }
 
@@ -353,36 +357,27 @@ footer {
     top: -100px;
     opacity: 0;
   }
-  20% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 1;
-  }
   100% {
-    top: 100%; /* Llega hasta el final del panel */
+    top: 100%;
     opacity: 0;
   }
 }
 
-/* --- NUEVOS ESTILOS PARA TABLAS SEPARADAS --- */
-.header-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 25px; /* Este es el espacio de separación que buscamos */
-  border: 2.5px solid black;
-  table-layout: fixed;
-}
-
-.header-table td,
-.header-table th {
-  border: 1px solid black;
-  padding: 10px;
-  text-align: center; /* Esto centrará Teacher, Schedule y sus valores */
-  vertical-align: middle;
-}
-
-/* Ajuste para que la tabla de contenido no tenga margen superior */
-.schedule-table {
-  margin-top: 0;
+/* RESPONSIVO */
+@media (max-width: 600px) {
+  .main-logo {
+    position: static;
+    transform: none;
+    max-height: 80px;
+    margin: 0 auto 10px;
+  }
+  .header-content {
+    flex-direction: column;
+  }
+  header h1 {
+    font-size: 1.5rem;
+  }
+  .field {
+    flex: 1 1 100%;
+  }
 }
