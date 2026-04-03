@@ -272,6 +272,7 @@ select:focus {
 /* ==========================================================================
    5. ÁREA DE TABLAS
    ========================================================================== */
+
 .preview-panel {
   margin-top: 40px;
   overflow-x: auto;
@@ -290,7 +291,7 @@ select:focus {
 .header-table {
   width: 100%;
   border-collapse: collapse;
-  border: 2.5px solid black !important;
+  border: 2.5px solid var(--dark-gray) !important;
   table-layout: fixed;
 }
 
