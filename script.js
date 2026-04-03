@@ -39,11 +39,6 @@ const modeConfig = {
     days: [
       { value: "MonWed", label: "Mon and Wed" },
       { value: "TueThu", label: "Tue and Thu" },
-      { value: "Mon", label: "Mondays" },
-      { value: "Tue", label: "Tuesdays" },
-      { value: "Wed", label: "Wednesdays" },
-      { value: "Thu", label: "Thursdays" },
-      { value: "Fri", label: "Fridays" },
       { value: "Sats", label: "Saturdays" },
     ],
   },
@@ -73,11 +68,6 @@ const modeConfig = {
     days: [
       { value: "MonWed", label: "Mon and Wed" },
       { value: "TueThu", label: "Tue and Thu" },
-      { value: "Mon", label: "Mondays" },
-      { value: "Tue", label: "Tuesdays" },
-      { value: "Wed", label: "Wednesdays" },
-      { value: "Thu", label: "Thursdays" },
-      { value: "Fri", label: "Fridays" },
       { value: "Sats", label: "Saturdays" },
     ],
   },
@@ -97,6 +87,32 @@ const modeConfig = {
     days: [
       { value: "Mon to Thu", label: "Mon to Thu" },
       { value: "Mon to Fri", label: "Mon to Fri" },
+      { value: "Sats", label: "Saturdays" },
+    ],
+  },
+  // Mantenemos "Italian" exacto al value de tu HTML
+  Italian: {
+    levels: [
+      "Livello 1",
+      "Livello 2",
+      "Livello 3",
+      "Livello 4",
+      "Livello 5",
+      "Livello 6",
+      "Livello 7",
+      "Livello 8",
+      "Livello 9",
+    ],
+    days: [
+      { value: "Mon to Thu", label: "Mon to Thu" },
+      { value: "Mon to Fri", label: "Mon to Fri (Online)" },
+      { value: "Sats", label: "Saturdays" },
+    ],
+  },
+  Portuguese: {
+    levels: ["Nível 1", "Nível 2"],
+    days: [
+      { value: "Mon to Thu", label: "Mon to Thu" },
       { value: "Sats", label: "Saturdays" },
     ],
   },
@@ -121,13 +137,10 @@ const venezuelaHolidays = [
   "12-31",
 ];
 
-/* --- 3. SYLLABUS --- */
-
-// El motor toma los datos del objeto global que llenaron los archivos en /data/
+/* --- 3. SYLLABUS (MOTOR DE DATOS) --- */
 const syllabus = window.syllabusData || {};
 
-/* --- 4. LÓGICA DE TIEMPO (AUTOMATIZACIÓN Y FORMATO) --- */
-
+/* --- 4. LÓGICA DE TIEMPO --- */
 function updateEndTime() {
   const startTime = document.getElementById("from").value;
   if (!startTime) return;
@@ -140,7 +153,12 @@ function updateEndTime() {
   let [hours, minutes] = startTime.split(":").map(Number);
   let durationMinutes = 0;
 
-  if (mode === "intensive" || mode === "c1") {
+  // Si es intensivo, C1 o idiomas extranjeros, duraciones estándar
+  if (
+    mode === "intensive" ||
+    mode === "c1" ||
+    document.getElementById("language").value !== "English"
+  ) {
     if (days === "Mon to Thu") durationMinutes = 120;
     else if (days === "Mon to Fri") durationMinutes = 90;
     else if (days === "Sats") durationMinutes = 240;
@@ -168,17 +186,40 @@ function format12h(timeStr) {
 }
 
 /* --- 5. LÓGICA DE PESTAÑAS Y SELECTORES --- */
-
 document.querySelectorAll(".tab-btn").forEach((btn) => {
   btn.addEventListener("click", function () {
     document
       .querySelectorAll(".tab-btn")
       .forEach((b) => b.classList.remove("active"));
     this.classList.add("active");
+
     const mode = this.getAttribute("data-mode");
-    updateSelectors(mode);
+    const langSelect = document.getElementById("language");
+
+    if (mode === "intensive") {
+      langSelect.disabled = false;
+      // Si volvemos a Intensive, usamos el idioma seleccionado (English, Italian, etc.)
+      const currentLang = langSelect.value;
+      updateSelectors(currentLang === "English" ? "intensive" : currentLang);
+    } else {
+      langSelect.value = "English";
+      langSelect.disabled = true;
+      updateSelectors(mode);
+    }
     updateEndTime();
   });
+});
+
+// NUEVO: Escuchar el cambio de idioma en el select
+document.getElementById("language").addEventListener("change", function () {
+  const activeTabMode = document
+    .querySelector(".tab-btn.active")
+    .getAttribute("data-mode");
+  if (activeTabMode === "intensive") {
+    const target = this.value === "English" ? "intensive" : this.value;
+    updateSelectors(target);
+    updateEndTime();
+  }
 });
 
 function updateSelectors(mode) {
@@ -188,10 +229,17 @@ function updateSelectors(mode) {
   if (!config) return;
 
   levelSelect.innerHTML = config.levels
-    .map(
-      (lvl) =>
-        `<option value="${lvl}">${lvl.includes("Aware") || lvl.includes("Cool") ? lvl : "Level " + lvl}</option>`,
-    )
+    .map((lvl) => {
+      const label =
+        lvl.includes("Aware") ||
+        lvl.includes("Cool") ||
+        lvl.includes("Livello") ||
+        lvl.includes("Nível") ||
+        lvl.includes("Level")
+          ? lvl
+          : "Level " + lvl;
+      return `<option value="${lvl}">${label}</option>`;
+    })
     .join("");
 
   daysSelect.innerHTML = config.days
@@ -200,7 +248,6 @@ function updateSelectors(mode) {
 }
 
 /* --- 6. GENERACIÓN DEL CRONOGRAMA --- */
-
 function getCommonHeader(level, teacher, from, to, daysLabel) {
   const displayFrom = format12h(from);
   const displayTo = format12h(to);
@@ -222,11 +269,6 @@ function getCommonHeader(level, teacher, from, to, daysLabel) {
 }
 
 document.getElementById("generateBtn").addEventListener("click", function () {
-  const panel = document.querySelector(".config-panel");
-  panel.classList.remove("scanning");
-  void panel.offsetWidth;
-  panel.classList.add("scanning");
-
   const level = document.getElementById("level").value;
   const teacher =
     document.getElementById("teacher").value || "________________";
@@ -240,8 +282,6 @@ document.getElementById("generateBtn").addEventListener("click", function () {
   let bodyHTML = "";
 
   if (daysOption === "Sats") bodyHTML = getSatsBody(level);
-  else if (["Mon", "Tue", "Wed", "Thu", "Fri"].includes(daysOption))
-    bodyHTML = getSingleDayBody(level, daysOption);
   else if (daysOption === "MonWed" || daysOption === "TueThu")
     bodyHTML = getTeensSplitBody(level, daysOption);
   else if (daysOption === "Mon to Fri") bodyHTML = getMonFriBody(level);
@@ -259,22 +299,15 @@ document.getElementById("generateBtn").addEventListener("click", function () {
 });
 
 /* --- 7. CUERPOS DE TABLA --- */
-
 function getStandardBody(level) {
   const contentList = syllabus[level] || Array(12).fill("");
   return `<table class="schedule-table"><tbody>${[0, 1, 2]
     .map(
       (i) => `
-    <tr class="days-header">
-      <td class="side-label">Day</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td>
-      ${i === 0 ? '<td class="side-label">---</td>' : ""}
-    </tr>
+    <tr class="days-header"><td class="side-label">Day</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td>${i === 0 ? '<td class="side-label">Notes</td>' : ""}</tr>
     <tr>
       <td class="side-label">Content</td>
-      <td class="content-box" contenteditable="true">${contentList[i * 4] || ""}</td>
-      <td class="content-box" contenteditable="true">${contentList[i * 4 + 1] || ""}</td>
-      <td class="content-box" contenteditable="true">${contentList[i * 4 + 2] || ""}</td>
-      <td class="content-box" contenteditable="true">${contentList[i * 4 + 3] || ""}</td>
+      ${[0, 1, 2, 3].map((j) => `<td class="content-box" contenteditable="true">${contentList[i * 4 + j] || ""}</td>`).join("")}
       ${i === 0 ? '<td class="notes-box" rowspan="5" contenteditable="true"></td>' : ""}
     </tr>`,
     )
@@ -305,20 +338,11 @@ function getSatsBody(level) {
 function getMonFriBody(level) {
   const bc = syllabus[level] || Array(12).fill("");
   const ext = [
-    bc[0],
-    bc[1],
-    bc[2],
-    bc[3],
+    ...bc.slice(0, 4),
     "<strong>Review</strong>",
-    bc[4],
-    bc[5],
-    bc[6],
-    bc[7],
+    ...bc.slice(4, 8),
     "<strong>Review</strong>",
-    bc[8],
-    bc[9],
-    bc[10],
-    bc[11],
+    ...bc.slice(8, 12),
     "<strong>Final Review</strong>",
     "<strong>Consolidation</strong>",
   ];
@@ -326,11 +350,11 @@ function getMonFriBody(level) {
     .map(
       (i) => `
     <tr class="days-header"><td class="side-label">Day</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td></tr>
-    <tr><td class="side-label">Content</td>${[0, 1, 2, 3, 4].map((j) => `<td class="content-box" contenteditable="true">${ext[i * 5 + j]}</td>`).join("")}</tr>`,
+    <tr><td class="side-label">Content</td>${[0, 1, 2, 3, 4].map((j) => `<td class="content-box" contenteditable="true">${ext[i * 5 + j] || ""}</td>`).join("")}</tr>`,
     )
     .join("")}
     <tr class="days-header"><td class="side-label">Day</td><td class="day-col">---</td><td colspan="4"></td></tr>
-    <tr><td class="side-label">Content</td><td class="content-box" contenteditable="true">${ext[15]}</td><td colspan="4"></td></tr>
+    <tr><td class="side-label">Content</td><td class="content-box" contenteditable="true">${ext[15] || ""}</td><td colspan="4"></td></tr>
   </tbody></table>`;
 }
 
@@ -341,39 +365,17 @@ function getTeensSplitBody(level, daysLabel) {
   return `<table class="schedule-table"><tbody>${[0, 1, 2, 3]
     .map(
       (i) => `
-    <tr class="days-header"><td class="side-label">Day</td><td class="day-col">${col1}</td><td class="day-col">${col2}</td><td class="day-col">${col1}</td><td class="day-col">${col2}</td>${i === 0 ? '<td class="side-label">---</td>' : ""}</tr>
+    <tr class="days-header"><td class="side-label">Day</td><td class="day-col">${col1}</td><td class="day-col">${col2}</td><td class="day-col">${col1}</td><td class="day-col">${col2}</td>${i === 0 ? '<td class="side-label">Notes</td>' : ""}</tr>
     <tr>
       <td class="side-label">Content</td>
-      <td class="content-box" contenteditable="true">${contentList[i * 4] || ""}</td>
-      <td class="content-box" contenteditable="true">${contentList[i * 4 + 1] || ""}</td>
-      <td class="content-box" contenteditable="true">${contentList[i * 4 + 2] || ""}</td>
-      <td class="content-box" contenteditable="true">${contentList[i * 4 + 3] || ""}</td>
+      ${[0, 1, 2, 3].map((j) => `<td class="content-box" contenteditable="true">${contentList[i * 4 + j] || ""}</td>`).join("")}
       ${i === 0 ? '<td class="notes-box" rowspan="7"></td>' : ""}
     </tr>`,
     )
     .join("")}</tbody></table>`;
 }
 
-function getSingleDayBody(level, dayName) {
-  const contentList = syllabus[level] || Array(8).fill("");
-  return `<table class="schedule-table"><tbody>${[0, 1]
-    .map(
-      (i) => `
-    <tr class="days-header"><td class="side-label">Day</td><td class="day-col">${dayName}</td><td class="day-col">${dayName}</td><td class="day-col">${dayName}</td><td class="day-col">${dayName}</td>${i === 0 ? '<td class="side-label">---</td>' : ""}</tr>
-    <tr>
-      <td class="side-label">Content</td>
-      <td class="content-box" contenteditable="true">${contentList[i * 4] || ""}</td>
-      <td class="content-box" contenteditable="true">${contentList[i * 4 + 1] || ""}</td>
-      <td class="content-box" contenteditable="true">${contentList[i * 4 + 2] || ""}</td>
-      <td class="content-box" contenteditable="true">${contentList[i * 4 + 3] || ""}</td>
-      ${i === 0 ? '<td class="notes-box" rowspan="3"></td>' : ""}
-    </tr>`,
-    )
-    .join("")}</tbody></table>`;
-}
-
 /* --- 8. LÓGICA DE FECHAS --- */
-
 function generateDates(startStr, option, customHolidays) {
   const dayCells = document.querySelectorAll(".day-col");
   let currentDate = new Date(startStr + "T00:00:00");
@@ -409,6 +411,14 @@ function generateDates(startStr, option, customHolidays) {
   }
 }
 
+function isHoliday(date, customHolidays) {
+  const monthDay = `${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+  const fullDate = date.toISOString().split("T")[0];
+  return (
+    venezuelaHolidays.includes(monthDay) || customHolidays.includes(fullDate)
+  );
+}
+
 function parseCustomHolidays(rawString) {
   if (!rawString.trim()) return [];
   return rawString
@@ -424,35 +434,14 @@ function parseCustomHolidays(rawString) {
     .filter((d) => d !== null);
 }
 
-function isHoliday(date, customHolidays) {
-  const monthDay = `${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
-  const fullDate = date.toISOString().split("T")[0];
-  return (
-    venezuelaHolidays.includes(monthDay) || customHolidays.includes(fullDate)
-  );
-}
-
-/* --- 9. EVENTOS ADICIONALES Y DESCARGA --- */
-
-// Funcionalidad Botón AM/PM
+/* --- 9. EVENTOS Y DESCARGA --- */
 document.getElementById("toggleAmPm").addEventListener("click", function () {
   const fromInput = document.getElementById("from");
   let [hrs, mins] = fromInput.value.split(":").map(Number);
   const isNowPm = this.classList.toggle("pm-active");
-
   if (isNowPm && hrs < 12) hrs += 12;
   else if (!isNowPm && hrs >= 12) hrs -= 12;
-
   fromInput.value = `${String(hrs).padStart(2, "0")}:${String(mins).padStart(2, "0")}`;
-  updateEndTime();
-});
-
-// Sincronizar botón al escribir manualmente
-document.getElementById("from").addEventListener("input", function () {
-  const [hrs] = this.value.split(":").map(Number);
-  document
-    .getElementById("toggleAmPm")
-    .classList.toggle("pm-active", hrs >= 12);
   updateEndTime();
 });
 
@@ -461,7 +450,6 @@ document.getElementById("days").addEventListener("change", updateEndTime);
 
 document.getElementById("downloadPdf").addEventListener("click", function () {
   const element = document.getElementById("capture-area");
-  window.scrollTo(0, 0);
   html2pdf()
     .set({
       margin: 0.2,
@@ -473,36 +461,10 @@ document.getElementById("downloadPdf").addEventListener("click", function () {
     .save();
 });
 
-/* --- 10. ATAJOS DE TECLADO (ENTER PARA GENERAR) --- */
+// Inicialización automática coherente con el HTML
+// Usamos el valor que ya viene marcado en el select de Language
+const defaultLang = document.getElementById("language").value;
+const targetMode = defaultLang === "English" ? "intensive" : defaultLang;
 
-// Lista de IDs de los inputs que queremos que reaccionen al Enter
-const quickGenerateInputs = [
-  "from",
-  "to",
-  "teacher",
-  "startDate",
-  "customHolidays",
-];
-
-quickGenerateInputs.forEach((id) => {
-  const inputElement = document.getElementById(id);
-  if (inputElement) {
-    inputElement.addEventListener("keypress", function (event) {
-      // Verificamos si la tecla presionada es Enter
-      if (event.key === "Enter") {
-        // Evitamos que el formulario haga cosas raras por defecto
-        event.preventDefault();
-
-        // Disparamos el clic del botón de generar que ya tienes programado
-        document.getElementById("generateBtn").click();
-
-        // Opcional: Quitar el foco del input para que el teclado móvil se oculte
-        this.blur();
-      }
-    });
-  }
-});
-
-// Inicialización
-updateSelectors("intensive");
+updateSelectors(targetMode);
 document.getElementById("generateBtn").click();

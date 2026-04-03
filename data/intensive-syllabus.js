@@ -168,28 +168,4 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "<strong>15.</strong> Life Goals",
     "Final Activity: Oral Presentation",
   ],
-
-  // --- ITALIANO (Listo para llenar) ---
-  "Italiano 1": [
-    "Saluti e presentazioni",
-    "L'alfabeto italiano",
-    "Numeri cardinali",
-    "<strong>Valutazione 1</strong>",
-  ],
-
-  // --- PORTUGUÊS (Listo para llenar) ---
-  "Português 1": [
-    "Saudações e despedidas",
-    "Alfabeto e fonética",
-    "Pronomes pessoais",
-    "<strong>Avaliação 1</strong>",
-  ],
-
-  // --- FRANÇAIS (Listo para llenar) ---
-  "Français 1": [
-    "Les salutations",
-    "L'alphabet français",
-    "Les nombres 0-20",
-    "<strong>Évaluation 1</strong>",
-  ],
 });
