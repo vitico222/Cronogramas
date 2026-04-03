@@ -81,7 +81,7 @@ const modeConfig = {
       { value: "Sats", label: "Saturdays" },
     ],
   },
-  c2: {
+  c1: {
     levels: ["9", "10", "11", "12", "13", "14", "15", "16", "17", "18"],
     days: [
       { value: "Mon to Thu", label: "Mon to Thu" },
@@ -280,6 +280,224 @@ const syllabus = {
     "<strong>15.</strong> Life Goals",
     "Final Activity: Oral Presentation",
   ],
+
+  /* --- 3. SYLLABUS (Continuación: Teens) --- */
+  "English Aware 1-1": [
+    "<strong>1.</strong> Spell Your Name: Personal Pronouns",
+    "<strong>2.</strong> My Country: Verb to Be (Affirmative Form)",
+    "<strong>3.</strong> Is She Mexican: Verb to Be (Interrogative Form)",
+    "<strong>4.</strong> Workbook",
+    "<strong>5.</strong> She Isn't Sally. She is Alice!: Verb to Be (Negative Form)",
+    "<strong>6.</strong> Workbook",
+    "<strong>7.</strong> Workbook",
+    "<strong>8.</strong> Grammar Practice",
+    "<strong>9.</strong> There is a Swimming Pool: There is / There Are",
+    "<strong>10.</strong> My Classroom: Prepositions of Place (In, On, At)",
+    "<strong>11.</strong> Workbook",
+    "<strong>12.</strong> School Supplies: Demonstrative Pronouns",
+    "<strong>13.</strong> The Best Job Ever: Articles (A, An and The)",
+    "<strong>14.</strong> Workbook",
+    "<strong>15.</strong> Grammar Practice",
+    "<strong>16.</strong> Evaluation",
+  ],
+  "English Aware 1-2": [
+    "<strong>1.</strong> A Day in a Student'S Life: Simple Present (Affirmative Form I, You, We, They)",
+    "<strong>2.</strong> Laura Loves Winter Sports: Simple Present (Affirmative 3rd Person Singular)",
+    "<strong>3.</strong> Workbook",
+    "<strong>4.</strong> The Festival of Light: Simple Present (Negative Form)",
+    "<strong>5.</strong> Workbook",
+    "<strong>6.</strong> Do You Have Your Passport?: Simple Present (Interrogative and Short Answers)",
+    "<strong>7.</strong> Workbook",
+    "<strong>8.</strong> Who is the Girl in the Blue Dress?: Question Words (Who, What, When, Where, Why)",
+    "<strong>9.</strong> What Services Do You Offer?: Wh Questions Part 2",
+    "<strong>10.</strong> I Never Drink Coffee in the Morning: Frequency Adverbs",
+    "<strong>11.</strong> Workbook",
+    "<strong>12.</strong> We All Get Together on Weekends: In, On, At (Prepositions of Time)",
+    "<strong>13.</strong> Workbook",
+    "<strong>14.</strong> Workbook",
+    "<strong>15.</strong> Grammar Practice",
+    "<strong>16.</strong> Evaluation",
+  ],
+  "English Aware 1-3": [
+    "<strong>1.</strong> We Are Buying Groceries: Present Progressive",
+    "<strong>2.</strong> We Are Planning a Party: Spelling Rules for Verbs Ending in Ing",
+    "<strong>3.</strong> Workbook",
+    "<strong>4.</strong> I Am Not Baking a Cake: Present Progressive Negative",
+    "<strong>5.</strong> Workbook",
+    "<strong>6.</strong> Cooking Time: Present Progressive Interrogative Yes and No",
+    "<strong>7.</strong> Workbook",
+    "<strong>8.</strong> What Are You Making?: Present Progressive Wh Questions",
+    "<strong>9.</strong> Buying Groceries: Present Simple vs Present Progressive",
+    "<strong>10.</strong> A Cup of Sugar and Some Milk: Countable and Uncountable Nouns",
+    "<strong>11.</strong> Workbook",
+    "<strong>12.</strong> So Much Paperwork to Do: Quantifiers a Lot, Any, Some, a Few",
+    "<strong>13.</strong> Workbook",
+    "<strong>14.</strong> Workbook",
+    "<strong>15.</strong> Grammar Practice",
+    "<strong>16.</strong> Evaluation",
+  ],
+  "English Aware 1-4": [
+    "<strong>1.</strong> Family Traditions: Can/Can'T",
+    "<strong>2.</strong> Would You Please Come with Me?: Would (Requests)",
+    "<strong>3.</strong> Workbook",
+    "<strong>4.</strong> My Favorite Activity: Likes and Dislikes",
+    "<strong>5.</strong> Workbook",
+    "<strong>6.</strong> The Town'S Fair: Possessive 'S' ",
+    "<strong>7.</strong> Workbook",
+    "<strong>8.</strong> It'S Five O'Clock: The Clock",
+    "<strong>9.</strong> In Front of the Park: Giving Directions",
+    "<strong>10.</strong> But First, Coffee: Sequence Word",
+    "<strong>11.</strong> Workbook",
+    "<strong>12.</strong> Take Bus 48: Imperatives to Give Instructions and Directions",
+    "<strong>13.</strong> Workbook",
+    "<strong>14.</strong> Workbook",
+    "<strong>15.</strong> Grammar Practice",
+    "<strong>16.</strong> Evaluation",
+  ],
+  "English Aware 2-1": [
+    "<strong>1.</strong> A Multicultural Class / Adjectives",
+    "<strong>2.</strong> Technology / Order of Adjectives",
+    "<strong>3.</strong> Newer and Older Things / Short Comparatives",
+    "<strong>4.</strong> Workbook",
+    "<strong>5.</strong> This Movie Was More Popular / Long Comparatives",
+    "<strong>6.</strong> Workbook",
+    "<strong>7.</strong> Workbook",
+    "<strong>8.</strong> Grammar Practice",
+    "<strong>9.</strong> You'Re Not Tall Enough",
+    "<strong>10.</strong> The Highest Point, the Tallest Mountain / Short Superlatives",
+    "<strong>11.</strong> Workbook",
+    "<strong>12.</strong> The Most Dangerous Being on Earth / Long Superlatives",
+    "<strong>13.</strong> The View is Amazing and the Weather is Great / Linkers",
+    "<strong>14.</strong> Workbook",
+    "<strong>15.</strong> Grammar Practice",
+    "<strong>16.</strong> Evaluation",
+  ],
+  "English Aware 2-2": [
+    "<strong>1.</strong> Happy Childhood / Simple and Past Verb to Be (Affirmative)",
+    "<strong>2.</strong> Cities in the Past / Simple Past Verb to Be (Negative and Interrogative)",
+    "<strong>3.</strong> Workbook",
+    "<strong>4.</strong> The Day Mr. Perez Disappeared",
+    "<strong>5.</strong> Workbook",
+    "<strong>6.</strong> Last Weekend / Simple Past (Irregular Verbs)",
+    "<strong>7.</strong> Workbook",
+    "<strong>8.</strong> Did You Order Pizza? / Simple Past (Interrogative Did)",
+    "<strong>9.</strong> I Didn'T Do My Chores / Simple Past (Negative Didn'T)",
+    "<strong>10.</strong> A Rainy Night / Past Progressive (Affirmative)",
+    "<strong>11.</strong> Workbook",
+    "<strong>12.</strong> The Keys Weren'T There / Past Progressive (Negative and Interrogative)",
+    "<strong>13.</strong> Workbook",
+    "<strong>14.</strong> Workbook",
+    "<strong>15.</strong> Grammar Practice",
+    "<strong>16.</strong> Evaluation",
+  ],
+  "English Aware 2-3": [
+    "<strong>1.</strong> What to Do in Case of Earthquake / Imperatives",
+    "<strong>2.</strong> Paranormal Phenomena / Can, Could, Be Able to (Possibility)",
+    "<strong>3.</strong> Workbook",
+    "<strong>4.</strong> It May Rain Tomorrow / May and Might (Possibility)",
+    "<strong>5.</strong> Workbook",
+    "<strong>6.</strong> I Need to Find a Book / Must, Have to, Need to (Obligation)",
+    "<strong>7.</strong> Workbook",
+    "<strong>8.</strong> Medical Emergencies / Don'T Have to, Should, Ought to (Suggestion)",
+    "<strong>9.</strong> I Had Better Fix That / Had Better (Suggestion)",
+    "<strong>10.</strong> Party Time / Can, Could, May, Would (Requests Offers and Invitations)",
+    "<strong>11.</strong> Workbook",
+    "<strong>12.</strong> A Day in the Park / Must, Can'T (Logical Deduction)",
+    "<strong>13.</strong> Workbook",
+    "<strong>14.</strong> Workbook",
+    "<strong>15.</strong> Grammar Practice",
+    "<strong>16.</strong> Evaluation",
+  ],
+  "English Aware 2-4": [
+    "<strong>1.</strong> The Beach / Going to (Affirmative)",
+    "<strong>2.</strong> Go Hiking / Time Expressions (Future)",
+    "<strong>3.</strong> Workbook",
+    "<strong>4.</strong> Intentions / Going to (Negative and Interrogative)",
+    "<strong>5.</strong> Workbook",
+    "<strong>6.</strong> The Seer / Will (Affirmative)",
+    "<strong>7.</strong> Workbook",
+    "<strong>8.</strong> Helping Hands / Future Will",
+    "<strong>9.</strong> Eating Out / Will (Negative and Interrogative)",
+    "<strong>10.</strong> Moving Out / Will vs Going to",
+    "<strong>11.</strong> Workbook",
+    "<strong>12.</strong> Daydreaming / Wh - Questions (Future)",
+    "<strong>13.</strong> Workbook",
+    "<strong>14.</strong> Workbook",
+    "<strong>15.</strong> Grammar Practice",
+    "<strong>16.</strong> Evaluation",
+  ],
+  "English Aware 3-1": [
+    "<strong>1.</strong> He Loves Animals / Present Simple (Review)",
+    "<strong>2.</strong> What is Wrong with the Dog? / Present Progressive (Review)",
+    "<strong>3.</strong> Self Care / Present Simple vs Present Progressive",
+    "<strong>4.</strong> Workbook",
+    "<strong>5.</strong> What Did You Get from the Market? / Simple Past (Review)",
+    "<strong>6.</strong> Workbook",
+    "<strong>7.</strong> Workbook",
+    "<strong>8.</strong> Grammar Practice",
+    "<strong>9.</strong> Family Dinner / Past Progressive (Review)",
+    "<strong>10.</strong> We Were Grocery Shopping / Simple Past vs Past Progressive",
+    "<strong>11.</strong> Workbook",
+    "<strong>12.</strong> Gramma Used to Buy That / Used to",
+    "<strong>13.</strong> Fast Food / Past Tenses",
+    "<strong>14.</strong> Workbook",
+    "<strong>15.</strong> Grammar Practice",
+    "<strong>16.</strong> Evaluation",
+  ],
+  "English Aware 3-2": [
+    "<strong>1.</strong> Electronic Gadgets and Accessories / Can",
+    "<strong>2.</strong> The Letter / Could (Past Ability)",
+    "<strong>3.</strong> Workbook",
+    "<strong>4.</strong> Toys / May, Might",
+    "<strong>5.</strong> Workbook",
+    "<strong>6.</strong> The Wood Wall School / Simple Past (Irregular Verbs)",
+    "<strong>7.</strong> Workbook",
+    "<strong>8.</strong> Must Obey Traffic Signs / Must (Obligation Review)",
+    "<strong>9.</strong> You Should Open a Saving Account / Should and Ought to (Review)",
+    "<strong>10.</strong> Do the Job / Imperatives (Review)",
+    "<strong>11.</strong> Workbook",
+    "<strong>12.</strong> My Dad's Car Broke Down / Phrasal Verbs",
+    "<strong>13.</strong> Workbook",
+    "<strong>14.</strong> Workbook",
+    "<strong>15.</strong> Grammar Practice",
+    "<strong>16.</strong> Evaluation",
+  ],
+  "English Aware 3-3": [
+    "<strong>1.</strong> Green Planet / The Zero Conditional",
+    "<strong>2.</strong> The Farm / The Zero Conditional (Negative)",
+    "<strong>3.</strong> Workbook",
+    "<strong>4.</strong> The Future of Space / Will (Future)",
+    "<strong>5.</strong> Workbook",
+    "<strong>6.</strong> Birds and Bugs / Future Going to (Review)",
+    "<strong>7.</strong> Workbook",
+    "<strong>8.</strong> Under the Sea / Present Progressive (To Express Future)",
+    "<strong>9.</strong> Nature Zoo / The First Conditional",
+    "<strong>10.</strong> Weekend Chores / The First Conditional (Negative)",
+    "<strong>11.</strong> Workbook",
+    "<strong>12.</strong> Math and Art / Must, First Conditional vs Zero Conditional",
+    "<strong>13.</strong> Workbook",
+    "<strong>14.</strong> Workbook",
+    "<strong>15.</strong> Grammar Practice",
+    "<strong>16.</strong> Evaluation",
+  ],
+  "English Aware 3-4": [
+    "<strong>1.</strong> They Are Frightened / Adjectives Ending in -Ed",
+    "<strong>2.</strong> Video Games Are Amazing / Adjective Endings",
+    "<strong>3.</strong> Workbook",
+    "<strong>4.</strong> A Day at the Mall / Adjectives -Ed vs -Ing",
+    "<strong>5.</strong> Workbook",
+    "<strong>6.</strong> Runway / Possessive Pronouns",
+    "<strong>7.</strong> Workbook",
+    "<strong>8.</strong> Are You Talking to Me / Object Pronoun",
+    "<strong>9.</strong> Don't Be So Hard on Yourself / Reflexive Pronouns",
+    "<strong>10.</strong> Close Encounters / Adverbs of Manners and Degree",
+    "<strong>11.</strong> Workbook",
+    "<strong>12.</strong> The Plane / Tag Questions",
+    "<strong>13.</strong> Workbook",
+    "<strong>14.</strong> Workbook",
+    "<strong>15.</strong> Grammar Practice",
+    "<strong>16.</strong> Evaluation",
+  ],
 };
 
 /* --- 4. LÓGICA DE TIEMPO (AUTOMATIZACIÓN Y FORMATO) --- */
@@ -296,7 +514,7 @@ function updateEndTime() {
   let [hours, minutes] = startTime.split(":").map(Number);
   let durationMinutes = 0;
 
-  if (mode === "intensive" || mode === "c2") {
+  if (mode === "intensive" || mode === "c1") {
     if (days === "Mon to Thu") durationMinutes = 120;
     else if (days === "Mon to Fri") durationMinutes = 90;
     else if (days === "Sats") durationMinutes = 240;
@@ -627,6 +845,36 @@ document.getElementById("downloadPdf").addEventListener("click", function () {
     })
     .from(element)
     .save();
+});
+
+/* --- 10. ATAJOS DE TECLADO (ENTER PARA GENERAR) --- */
+
+// Lista de IDs de los inputs que queremos que reaccionen al Enter
+const quickGenerateInputs = [
+  "from",
+  "to",
+  "teacher",
+  "startDate",
+  "customHolidays",
+];
+
+quickGenerateInputs.forEach((id) => {
+  const inputElement = document.getElementById(id);
+  if (inputElement) {
+    inputElement.addEventListener("keypress", function (event) {
+      // Verificamos si la tecla presionada es Enter
+      if (event.key === "Enter") {
+        // Evitamos que el formulario haga cosas raras por defecto
+        event.preventDefault();
+
+        // Disparamos el clic del botón de generar que ya tienes programado
+        document.getElementById("generateBtn").click();
+
+        // Opcional: Quitar el foco del input para que el teclado móvil se oculte
+        this.blur();
+      }
+    });
+  }
 });
 
 // Inicialización
