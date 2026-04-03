@@ -405,6 +405,38 @@ select:focus {
     margin-right: 0; /* Quitamos el margen para que el flex sea exacto */
     text-align: center;
   }
+
+  @media (max-width: 600px) {
+    /* ... tus reglas de tabs-container y tab-btn que ya tienes ... */
+
+    /* 1. Reducir el ancho de los inputs de hora para dar espacio al toggle */
+    .time-inputs input {
+      padding: 8px 5px; /* Menos padding interno */
+      font-size: 13px; /* Fuente ligeramente más pequeña */
+      flex: 1; /* Permite que se encojan proporcionalmente */
+      min-width: 65px; /* Evita que desaparezcan */
+      text-align: center;
+    }
+
+    /* 2. Asegurar que el toggle mantenga su tamaño fijo y no se aplaste */
+    .btn-toggle {
+      flex-shrink: 0;
+      margin: 0 5px; /* Espaciado lateral mínimo */
+    }
+
+    /* 3. Ajuste de la tabla para evitar que "empuje" el layout hacia afuera */
+    .schedule-paper {
+      padding: 15px 10px; /* Reducimos el aire interno en móviles */
+      min-width: 800px; /* Bajamos un poco el mínimo para ganar aire */
+    }
+
+    .preview-panel {
+      margin-top: 20px;
+      /* Esto crea un "marco" de scroll limpio para la tabla */
+      border: 1px solid var(--border-color);
+      background: #fff;
+    }
+  }
 }
 
 @media (max-width: 480px) {
