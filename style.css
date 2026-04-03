@@ -393,3 +393,11 @@ select:focus {
     flex: 1 1 100%;
   }
 }
+
+@media (max-width: 480px) {
+  .tab-btn {
+    padding: 8px 5px;
+    font-size: 0.75rem; /* Letra más pequeña para que quepan las 4 en una fila o dos */
+    min-width: 60px;
+  }
+}
