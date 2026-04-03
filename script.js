@@ -312,7 +312,26 @@ function updateSelectors(mode) {
     .join("");
 }
 
-// 5. GENERACIÓN DEL CRONOGRAMA CON SCANNER
+// 5. FUNCIÓN DE ENCABEZADO INDEPENDIENTE
+function getCommonHeader(level, teacher, from, to, daysLabel) {
+  return `
+    <table class="header-table">
+      <thead>
+        <tr>
+          <th colspan="3" class="title-cell">Content Chart</th>
+          <th colspan="3" class="level-cell">Level: ${level}</th>
+        </tr>
+        <tr>
+          <td class="label-cell">Teacher:</td>
+          <td colspan="2" class="value-cell">${teacher}</td>
+          <td class="label-cell">Schedule:</td>
+          <td colspan="2" class="value-cell">${daysLabel}: ${from} to ${to}</td>
+        </tr>
+      </thead>
+    </table>`;
+}
+
+// 6. GENERACIÓN DEL CRONOGRAMA CON SCANNER
 document.getElementById("generateBtn").addEventListener("click", function () {
   const panel = document.querySelector(".config-panel");
   panel.classList.remove("scanning");
@@ -328,35 +347,22 @@ document.getElementById("generateBtn").addEventListener("click", function () {
   const startDateVal = document.getElementById("startDate").value;
   const container = document.getElementById("capture-area");
 
+  const headerHTML = getCommonHeader(level, teacher, from, to, daysOption);
+  let bodyHTML = "";
+
   if (daysOption === "Sats") {
-    container.innerHTML = getSatsTemplate(level, teacher, from, to);
+    bodyHTML = getSatsBody(level);
   } else if (["Mon", "Tue", "Wed", "Thu", "Fri"].includes(daysOption)) {
-    container.innerHTML = getSingleDayTemplate(
-      level,
-      teacher,
-      from,
-      to,
-      daysOption,
-    );
+    bodyHTML = getSingleDayBody(level, daysOption);
   } else if (daysOption === "MonWed" || daysOption === "TueThu") {
-    container.innerHTML = getTeensSplitTemplate(
-      level,
-      teacher,
-      from,
-      to,
-      daysOption,
-    );
+    bodyHTML = getTeensSplitBody(level, daysOption);
   } else if (daysOption === "Mon to Fri") {
-    container.innerHTML = getMonFriTemplate(level, teacher, from, to);
+    bodyHTML = getMonFriBody(level);
   } else {
-    container.innerHTML = getStandardTemplate(
-      level,
-      teacher,
-      from,
-      to,
-      daysOption,
-    );
+    bodyHTML = getStandardBody(level);
   }
+
+  container.innerHTML = headerHTML + bodyHTML;
 
   if (startDateVal) {
     generateDates(
@@ -367,8 +373,36 @@ document.getElementById("generateBtn").addEventListener("click", function () {
   }
 });
 
-// 6. PLANTILLAS PERSONALIZADAS
-function getSatsTemplate(level, teacher, from, to) {
+// 7. CUERPOS DE TABLA (SIN ENCABEZADO INTERNO)
+function getStandardBody(level) {
+  const contentList = syllabus[level] || Array(12).fill("");
+  return `
+  <table class="schedule-table">
+    <tbody>
+      ${[0, 1, 2]
+        .map(
+          (i) => `
+        <tr class="days-header">
+          <td class="side-label">Day</td>
+          <td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td>
+          ${i === 0 ? '<td class="side-label" style="text-align:center">Notes</td>' : ""}
+        </tr>
+        <tr>
+          <td class="side-label">Content</td>
+          <td class="content-box" contenteditable="true">${contentList[i * 4 + 0] || ""}</td>
+          <td class="content-box" contenteditable="true">${contentList[i * 4 + 1] || ""}</td>
+          <td class="content-box" contenteditable="true">${contentList[i * 4 + 2] || ""}</td>
+          <td class="content-box" contenteditable="true">${contentList[i * 4 + 3] || ""}</td>
+          ${i === 0 ? '<td class="notes-box" rowspan="5" contenteditable="true" style="border-bottom: 1px solid black !important;"></td>' : ""}
+        </tr>`,
+        )
+        .join("")}
+      <tr style="height:0;"><td colspan="5" style="border:none;"></td><td style="border-top: 1px solid black;"></td></tr>
+    </tbody>
+  </table>`;
+}
+
+function getSatsBody(level) {
   const contentList = syllabus[level] || Array(12).fill("");
   const combined = [];
   for (let i = 0; i < contentList.length; i += 2) {
@@ -378,12 +412,7 @@ function getSatsTemplate(level, teacher, from, to) {
       `${p1} <hr style="border:0; border-top:1px dashed #ccc; margin:5px 0;"> ${p2}`,
     );
   }
-
   return `<table class="schedule-table">
-    <thead>
-      <tr><th colspan="6" class="title-cell">Content Chart</th><th colspan="5" class="level-cell">Level: ${level}</th></tr>
-      <tr><td class="label-cell">Teacher:</td><td colspan="5" class="value-cell">${teacher}</td><td colspan="2" class="label-cell">Schedule:</td><td colspan="3" class="value-cell">Sats: ${from} to ${to}</td></tr>
-    </thead>
     <tbody>
       ${[0, 1, 2]
         .map(
@@ -400,34 +429,27 @@ function getSatsTemplate(level, teacher, from, to) {
   </table>`;
 }
 
-function getMonFriTemplate(level, teacher, from, to) {
+function getMonFriBody(level) {
   const baseContent = syllabus[level] || Array(12).fill("");
-
-  // Inyección de Review, Final Review y Consolidation en bloques 5, 10, 15 y 16
   const extendedContent = [
     baseContent[0],
     baseContent[1],
     baseContent[2],
     baseContent[3],
-    "<strong>Review</strong>", // Bloque 5
+    "<strong>Review</strong>",
     baseContent[4],
     baseContent[5],
     baseContent[6],
     baseContent[7],
-    "<strong>Review</strong>", // Bloque 10
+    "<strong>Review</strong>",
     baseContent[8],
     baseContent[9],
     baseContent[10],
     baseContent[11],
-    "<strong>Final Review</strong>", // Bloque 15
-    "<strong>Consolidation</strong>", // Bloque 16
+    "<strong>Final Review</strong>",
+    "<strong>Consolidation</strong>",
   ];
-
   return `<table class="schedule-table">
-    <thead>
-      <tr><th colspan="3" class="title-cell">Content Chart</th><th colspan="3" class="level-cell">Level: ${level}</th></tr>
-      <tr><td class="label-cell">Teacher:</td><td colspan="2" class="value-cell">${teacher}</td><td class="label-cell">Schedule:</td><td colspan="2" class="value-cell">Mon to Fri: ${from} to ${to}</td></tr>
-    </thead>
     <tbody>
       ${[0, 1, 2]
         .map(
@@ -449,52 +471,16 @@ function getMonFriTemplate(level, teacher, from, to) {
   </table>`;
 }
 
-function getStandardTemplate(level, teacher, from, to, daysLabel) {
-  const contentList = syllabus[level] || Array(12).fill("");
-  return `
-  <table class="schedule-table">
-    <thead>
-      <tr><th colspan="3" class="title-cell">Content Chart</th><th colspan="3" class="level-cell">Level: ${level}</th></tr>
-      <tr><td class="label-cell">Teacher:</td><td colspan="2" class="value-cell">${teacher}</td><td class="label-cell">Schedule:</td><td colspan="2" class="value-cell">${daysLabel}: ${from} to ${to}</td></tr>
-    </thead>
-    <tbody>
-      ${[0, 1, 2]
-        .map(
-          (i) => `
-        <tr class="days-header">
-          <td class="side-label">Day</td>
-          <td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td>
-          ${i === 0 ? '<td class="side-label" style="text-align:center">---</td>' : ""}
-        </tr>
-        <tr>
-          <td class="side-label">Content</td>
-          <td class="content-box" contenteditable="true">${contentList[i * 4 + 0] || ""}</td>
-          <td class="content-box" contenteditable="true">${contentList[i * 4 + 1] || ""}</td>
-          <td class="content-box" contenteditable="true">${contentList[i * 4 + 2] || ""}</td>
-          <td class="content-box" contenteditable="true">${contentList[i * 4 + 3] || ""}</td>
-          ${i === 0 ? '<td class="notes-box" rowspan="5" contenteditable="true" style="border-bottom: 1px solid black !important;"></td>' : ""}
-        </tr>`,
-        )
-        .join("")}
-      <tr style="height:0;"><td colspan="5" style="border:none;"></td><td style="border-top: 1px solid black;"></td></tr>
-    </tbody>
-  </table>`;
-}
-
-function getTeensSplitTemplate(level, teacher, from, to, daysLabel) {
+function getTeensSplitBody(level, daysLabel) {
   const contentList = syllabus[level] || Array(16).fill("");
   const col1 = daysLabel === "MonWed" ? "Monday" : "Tuesday";
   const col2 = daysLabel === "MonWed" ? "Wednesday" : "Thursday";
   return `<table class="schedule-table">
-    <thead>
-      <tr><th colspan="3" class="title-cell">Content Chart</th><th colspan="3" class="level-cell">Level: ${level}</th></tr>
-      <tr><td class="label-cell">Teacher:</td><td colspan="2" class="value-cell">${teacher}</td><td class="label-cell">Schedule:</td><td colspan="2" class="value-cell">${daysLabel}: ${from} to ${to}</td></tr>
-    </thead>
     <tbody>
       ${[0, 1, 2, 3]
         .map(
           (i) => `
-        <tr class="days-header"><td class="side-label">Day</td><td class="day-col">${col1}</td><td class="day-col">${col2}</td><td class="day-col">${col1}</td><td class="day-col">${col2}</td>${i === 0 ? '<td class="side-label">---</td>' : ""}</tr>
+        <tr class="days-header"><td class="side-label">Day</td><td class="day-col">${col1}</td><td class="day-col">${col2}</td><td class="day-col">${col1}</td><td class="day-col">${col2}</td>${i === 0 ? '<td class="side-label">Notes</td>' : ""}</tr>
         <tr>
           <td class="side-label">Content</td>
           <td class="content-box" contenteditable="true">${contentList[i * 4] || ""}</td>
@@ -509,19 +495,14 @@ function getTeensSplitTemplate(level, teacher, from, to, daysLabel) {
   </table>`;
 }
 
-function getSingleDayTemplate(level, teacher, from, to, daysLabel) {
+function getSingleDayBody(level, dayName) {
   const contentList = syllabus[level] || Array(8).fill("");
-  const dayName = daysLabel;
   return `<table class="schedule-table">
-    <thead>
-      <tr><th colspan="3" class="title-cell">Content Chart</th><th colspan="3" class="level-cell">Level: ${level}</th></tr>
-      <tr><td class="label-cell">Teacher:</td><td colspan="2" class="value-cell">${teacher}</td><td class="label-cell">Schedule:</td><td colspan="2" class="value-cell">${daysLabel}: ${from} to ${to}</td></tr>
-    </thead>
     <tbody>
       ${[0, 1]
         .map(
           (i) => `
-        <tr class="days-header"><td class="side-label">Day</td><td class="day-col">${dayName}</td><td class="day-col">${dayName}</td><td class="day-col">${dayName}</td><td class="day-col">${dayName}</td>${i === 0 ? '<td class="side-label">---</td>' : ""}</tr>
+        <tr class="days-header"><td class="side-label">Day</td><td class="day-col">${dayName}</td><td class="day-col">${dayName}</td><td class="day-col">${dayName}</td><td class="day-col">${dayName}</td>${i === 0 ? '<td class="side-label">Notes</td>' : ""}</tr>
         <tr>
           <td class="side-label">Content</td>
           <td class="content-box" contenteditable="true">${contentList[i * 4] || ""}</td>
@@ -536,7 +517,7 @@ function getSingleDayTemplate(level, teacher, from, to, daysLabel) {
   </table>`;
 }
 
-// 7. LÓGICA DE FECHAS
+// 8. LÓGICA DE FECHAS
 function generateDates(startStr, option, customHolidays) {
   const dayCells = document.querySelectorAll(".day-col");
   let currentDate = new Date(startStr + "T00:00:00");
@@ -595,7 +576,7 @@ function isHoliday(date, customHolidays) {
   );
 }
 
-// 8. DESCARGA PDF
+// 9. DESCARGA PDF
 document.getElementById("downloadPdf").addEventListener("click", function () {
   const element = document.getElementById("capture-area");
   window.scrollTo(0, 0);
@@ -610,6 +591,6 @@ document.getElementById("downloadPdf").addEventListener("click", function () {
     .save();
 });
 
-// 9. INICIALIZACIÓN
+// 10. INICIALIZACIÓN
 updateSelectors("intensive");
 document.getElementById("generateBtn").click();

@@ -229,6 +229,9 @@ select {
 .preview-panel {
   margin-top: 40px;
   overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 0 8px 8px 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .schedule-paper {
@@ -360,4 +363,26 @@ footer {
     top: 100%; /* Llega hasta el final del panel */
     opacity: 0;
   }
+}
+
+/* --- NUEVOS ESTILOS PARA TABLAS SEPARADAS --- */
+.header-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 25px; /* Este es el espacio de separación que buscamos */
+  border: 2.5px solid black;
+  table-layout: fixed;
+}
+
+.header-table td,
+.header-table th {
+  border: 1px solid black;
+  padding: 10px;
+  text-align: center; /* Esto centrará Teacher, Schedule y sus valores */
+  vertical-align: middle;
+}
+
+/* Ajuste para que la tabla de contenido no tenga margen superior */
+.schedule-table {
+  margin-top: 0;
 }
