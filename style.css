@@ -392,12 +392,25 @@ select:focus {
   .field {
     flex: 1 1 100%;
   }
+  .tabs-container {
+    display: flex; /* Aseguramos que sea flex */
+    width: 100%; /* Ocupa todo el ancho del config-panel */
+    gap: 2px; /* Separación mínima estética */
+  }
+
+  .tab-btn {
+    flex: 1; /* ESTO hace que todas midan exactamente lo mismo */
+    padding: 10px 5px; /* Reducción equilibrada */
+    font-size: 0.85rem;
+    margin-right: 0; /* Quitamos el margen para que el flex sea exacto */
+    text-align: center;
+  }
 }
 
 @media (max-width: 480px) {
   .tab-btn {
     padding: 8px 5px;
     font-size: 0.75rem; /* Letra más pequeña para que quepan las 4 en una fila o dos */
-    min-width: 60px;
+    min-width: auto;
   }
 }
