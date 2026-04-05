@@ -178,7 +178,8 @@ const syllabus = window.syllabusData || {};
 
 /* --- 5. LÓGICA DE TIEMPO --- */
 function updateEndTime() {
-  const startTime = document.getElementById("from").value;
+  const fromInput = document.getElementById("from");
+  const startTime = fromInput.value;
   if (!startTime) return;
 
   const mode = document
@@ -186,10 +187,18 @@ function updateEndTime() {
     .getAttribute("data-mode");
   const days = document.getElementById("days").value;
   const language = document.getElementById("language").value;
+  const toggleBtn = document.getElementById("toggleAmPm");
 
   let [hours, minutes] = startTime.split(":").map(Number);
-  let durationMinutes = 0;
 
+  // Sincronización automática del Toggle AM/PM al escribir
+  if (hours >= 12) {
+    toggleBtn.classList.add("pm-active");
+  } else {
+    toggleBtn.classList.remove("pm-active");
+  }
+
+  let durationMinutes = 0;
   if (mode === "intensive" || mode === "c1" || language !== "English") {
     if (days === "Mon to Thu") durationMinutes = 120;
     else if (days === "Mon to Fri") durationMinutes = 90;
@@ -329,7 +338,7 @@ document.getElementById("generateBtn").addEventListener("click", function () {
   }
 });
 
-/* --- 8. CUERPOS DE TABLA --- */
+/* --- 8. CUERPOS DE TABLA (CON SPELLCHECK="FALSE") --- */
 function getStandardBody(level) {
   const lang = document.getElementById("language").value;
   const ui = uiLabels[lang] || uiLabels.English;
@@ -338,11 +347,11 @@ function getStandardBody(level) {
   return `<table class="schedule-table"><tbody>${[0, 1, 2]
     .map(
       (i) => `
-    <tr class="days-header"><td class="side-label">${ui.day}</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td>${i === 0 ? `<td class="side-label">Notes</td>` : ""}</tr>
+    <tr class="days-header"><td class="side-label">${ui.day}</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td>${i === 0 ? `<td class="side-label">---</td>` : ""}</tr>
     <tr>
       <td class="side-label">${ui.content}</td>
-      ${[0, 1, 2, 3].map((j) => `<td class="content-box" contenteditable="true">${contentList[i * 4 + j] || ""}</td>`).join("")}
-      ${i === 0 ? '<td class="notes-box" rowspan="5" contenteditable="true"></td>' : ""}
+      ${[0, 1, 2, 3].map((j) => `<td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 4 + j] || ""}</td>`).join("")}
+      ${i === 0 ? '<td class="notes-box" rowspan="5" contenteditable="true" spellcheck="false"></td>' : ""}
     </tr>`,
     )
     .join("")}</tbody></table>`;
@@ -364,8 +373,8 @@ function getSatsBody(level) {
     <tr class="days-header"><td class="side-label">${ui.day}</td><td class="day-col" colspan="5">Saturday</td><td class="day-col" colspan="5">Saturday</td></tr>
     <tr>
       <td class="side-label">${ui.content}</td>
-      <td class="content-box sats-box" colspan="5" contenteditable="true">${combined[i * 2] || ""}</td>
-      <td class="content-box sats-box" colspan="5" contenteditable="true">${combined[i * 2 + 1] || ""}</td>
+      <td class="content-box sats-box" colspan="5" contenteditable="true" spellcheck="false">${combined[i * 2] || ""}</td>
+      <td class="content-box sats-box" colspan="5" contenteditable="true" spellcheck="false">${combined[i * 2 + 1] || ""}</td>
     </tr>`,
     )
     .join("")}</tbody></table>`;
@@ -374,9 +383,7 @@ function getSatsBody(level) {
 function getMonFriBody(level) {
   const lang = document.getElementById("language").value;
   const ui = uiLabels[lang] || uiLabels.English;
-
   const bc = syllabus[level] || Array(12).fill("");
-  // Aquí usamos las traducciones automáticas
   const ext = [
     ...bc.slice(0, 4),
     `<strong>${ui.review}</strong>`,
@@ -391,11 +398,11 @@ function getMonFriBody(level) {
     .map(
       (i) => `
     <tr class="days-header"><td class="side-label">${ui.day}</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td></tr>
-    <tr><td class="side-label">${ui.content}</td>${[0, 1, 2, 3, 4].map((j) => `<td class="content-box" contenteditable="true">${ext[i * 5 + j] || ""}</td>`).join("")}</tr>`,
+    <tr><td class="side-label">${ui.content}</td>${[0, 1, 2, 3, 4].map((j) => `<td class="content-box" contenteditable="true" spellcheck="false">${ext[i * 5 + j] || ""}</td>`).join("")}</tr>`,
     )
     .join("")}
     <tr class="days-header"><td class="side-label">${ui.day}</td><td class="day-col">---</td><td colspan="4"></td></tr>
-    <tr><td class="side-label">${ui.content}</td><td class="content-box" contenteditable="true">${ext[15] || ""}</td><td colspan="4"></td></tr>
+    <tr><td class="side-label">${ui.content}</td><td class="content-box" contenteditable="true" spellcheck="false">${ext[15] || ""}</td><td colspan="4"></td></tr>
   </tbody></table>`;
 }
 
@@ -406,11 +413,11 @@ function getTeensSplitBody(level, daysLabel) {
   return `<table class="schedule-table"><tbody>${[0, 1, 2, 3]
     .map(
       (i) => `
-    <tr class="days-header"><td class="side-label">Day</td><td class="day-col">${col1}</td><td class="day-col">${col2}</td><td class="day-col">${col1}</td><td class="day-col">${col2}</td>${i === 0 ? '<td class="side-label">Notes</td>' : ""}</tr>
+    <tr class="days-header"><td class="side-label">Day</td><td class="day-col">${col1}</td><td class="day-col">${col2}</td><td class="day-col">${col1}</td><td class="day-col">${col2}</td>${i === 0 ? '<td class="side-label">---</td>' : ""}</tr>
     <tr>
       <td class="side-label">Content</td>
-      ${[0, 1, 2, 3].map((j) => `<td class="content-box" contenteditable="true">${contentList[i * 4 + j] || ""}</td>`).join("")}
-      ${i === 0 ? '<td class="notes-box" rowspan="7"></td>' : ""}
+      ${[0, 1, 2, 3].map((j) => `<td class="content-box" contenteditable="true" spellcheck="false">${contentList[i * 4 + j] || ""}</td>`).join("")}
+      ${i === 0 ? '<td class="notes-box" rowspan="7" contenteditable="true" spellcheck="false"></td>' : ""}
     </tr>`,
     )
     .join("")}</tbody></table>`;
@@ -447,16 +454,18 @@ function generateDates(startStr, option, customHolidays) {
   let count = 0;
 
   while (count < dayCells.length) {
-    if (
-      allowedDays.includes(currentDate.getDay()) &&
-      !isHoliday(currentDate, customHolidays)
-    ) {
-      const dd = String(currentDate.getDate()).padStart(2, "0");
-      const mm = String(currentDate.getMonth() + 1).padStart(2, "0");
-      const yy = String(currentDate.getFullYear()).slice(-2);
-      dayCells[count].innerText =
-        `${dayNames[currentDate.getDay()]} ${dd}/${mm}/${yy}`;
-      count++;
+    const dayOfWeek = currentDate.getDay();
+    if (allowedDays.includes(dayOfWeek)) {
+      if (isHoliday(currentDate, customHolidays)) {
+        currentDate.setDate(currentDate.getDate() + 1);
+        continue;
+      } else {
+        const dd = String(currentDate.getDate()).padStart(2, "0");
+        const mm = String(currentDate.getMonth() + 1).padStart(2, "0");
+        const yy = String(currentDate.getFullYear()).slice(-2);
+        dayCells[count].innerText = `${dayNames[dayOfWeek]} ${dd}/${mm}/${yy}`;
+        count++;
+      }
     }
     currentDate.setDate(currentDate.getDate() + 1);
   }
@@ -496,7 +505,8 @@ document.getElementById("toggleAmPm").addEventListener("click", function () {
   updateEndTime();
 });
 
-document.getElementById("from").addEventListener("change", updateEndTime);
+// Evento 'input' para reacción inmediata al escribir
+document.getElementById("from").addEventListener("input", updateEndTime);
 document.getElementById("days").addEventListener("change", updateEndTime);
 
 document.getElementById("downloadPdf").addEventListener("click", function () {
@@ -513,6 +523,9 @@ document.getElementById("downloadPdf").addEventListener("click", function () {
 });
 
 // Inicialización automática
-const dLang = document.getElementById("language").value;
-updateSelectors(dLang === "English" ? "intensive" : dLang);
-document.getElementById("generateBtn").click();
+const dSelect = document.getElementById("language");
+if (dSelect) {
+  const dLang = dSelect.value;
+  updateSelectors(dLang === "English" ? "intensive" : dLang);
+  document.getElementById("generateBtn").click();
+}
