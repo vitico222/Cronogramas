@@ -529,66 +529,87 @@ function parseCustomHolidays(rawString) {
     .filter((d) => d !== null);
 }
 
-/* --- 10. EVENTOS Y DESCARGA (CON TOGGLE REHABILITADO) --- */
+/* --- 10. EVENTOS Y DESCARGA OPTIMIZADA --- */
 
-// 1. Rehabilitar el Toggle AM/PM
+// Toggle AM/PM (se mantiene exactamente como lo tenías)
 document.getElementById("toggleAmPm").addEventListener("click", function () {
   const fromInput = document.getElementById("from");
-  if (!fromInput.value) return; // Evita errores si está vacío
-
+  if (!fromInput.value) return;
   let [hrs, mins] = fromInput.value.split(":").map(Number);
-
-  // Cambia la clase visual
   const isNowPm = this.classList.toggle("pm-active");
-
-  // Lógica de conversión de 24h para el input hidden/valor real
   if (isNowPm && hrs < 12) hrs += 12;
   else if (!isNowPm && hrs >= 12) hrs -= 12;
-
   fromInput.value = `${String(hrs).padStart(2, "0")}:${String(mins).padStart(2, "0")}`;
-
-  // Forzar el recálculo de la hora de fin
   updateEndTime();
 });
 
-// 2. Otros eventos necesarios
 document.getElementById("from").addEventListener("input", updateEndTime);
 document.getElementById("days").addEventListener("change", updateEndTime);
 
-// 3. Lógica de Descarga (Manteniendo el nombre detallado y el contador)
+/* --- DESCARGA PDF OPTIMIZADA (Corregida para PC + Móviles) --- */
 const downloadTracker = {};
 
-document.getElementById("downloadPdf").addEventListener("click", function () {
-  const element = document.getElementById("capture-area");
-  const level = document.getElementById("level").value;
-  const teacherRaw =
-    document.getElementById("teacher").value.trim() || "Unknown";
-  const cleanTeacher = teacherRaw.replace(/[/\\?%*:|"<>]/g, "");
+document
+  .getElementById("downloadPdf")
+  .addEventListener("click", async function () {
+    const element = document.getElementById("capture-area");
 
-  const daysSelect = document.getElementById("days");
-  const daysText = daysSelect.options[daysSelect.selectedIndex].text;
+    // Tu lógica de nombre de archivo (sin cambios)
+    const level = document.getElementById("level").value;
+    const teacherRaw =
+      document.getElementById("teacher").value.trim() || "Unknown";
+    const cleanTeacher = teacherRaw.replace(/[/\\?%*:|"<>]/g, "");
+    const daysSelect = document.getElementById("days");
+    const daysText = daysSelect.options[daysSelect.selectedIndex].text;
+    const baseName = `Teacher ${cleanTeacher} ${level} ${daysText}`;
+    let finalName = baseName;
+    if (downloadTracker[baseName]) {
+      finalName = `${baseName} (${downloadTracker[baseName]})`;
+      downloadTracker[baseName]++;
+    } else {
+      downloadTracker[baseName] = 1;
+    }
 
-  const baseName = `Teacher ${cleanTeacher} ${level} ${daysText}`;
-  let finalName = baseName;
+    const originalWidth = element.style.width;
+    const originalMinWidth = element.style.minWidth;
 
-  if (downloadTracker[baseName]) {
-    finalName = `${baseName} (${downloadTracker[baseName]})`;
-    downloadTracker[baseName]++;
-  } else {
-    downloadTracker[baseName] = 1;
-  }
+    try {
+      document.body.classList.add("pdf-mode");
+      await new Promise((resolve) => setTimeout(resolve, 120)); // un poco más de tiempo
 
-  html2pdf()
-    .set({
-      margin: 0.2,
-      filename: `${finalName}.pdf`,
-      html2canvas: { scale: 2, useCORS: true },
-      jsPDF: { unit: "in", format: "letter", orientation: "landscape" },
-    })
-    .from(element)
-    .save();
-});
+      const isMobile = window.innerWidth < 768;
 
+      const opt = {
+        margin: [8, 7, 10, 7], // márgenes más pequeños
+        filename: `${finalName}.pdf`,
+        image: { type: "jpeg", quality: 0.96 },
+        html2canvas: {
+          scale: isMobile ? 1.3 : 1.8, // Bajamos un poco en PC también
+          useCORS: true,
+          allowTaint: true,
+          scrollX: 0,
+          scrollY: 0,
+          windowWidth: 1300, // Reducido para evitar corte
+          logging: false,
+        },
+        jsPDF: {
+          unit: "mm",
+          format: "letter",
+          orientation: "landscape",
+        },
+        pagebreak: { mode: ["avoid-all", "css", "legacy"] },
+      };
+
+      await html2pdf().set(opt).from(element).save();
+    } catch (error) {
+      console.error("Error generando PDF:", error);
+      alert("Error al generar el PDF.\nPrueba girando el móvil a horizontal.");
+    } finally {
+      document.body.classList.remove("pdf-mode");
+      element.style.width = originalWidth || "";
+      element.style.minWidth = originalMinWidth || "";
+    }
+  });
 // Seguridad de pegado
 document.addEventListener("paste", function (e) {
   if (e.target.getAttribute("contenteditable")) {
