@@ -205,12 +205,8 @@ function updateEndTime() {
   const toggleBtn = document.getElementById("toggleAmPm");
 
   let [hours, minutes] = startTime.split(":").map(Number);
-
-  if (hours >= 12) {
-    toggleBtn.classList.add("pm-active");
-  } else {
-    toggleBtn.classList.remove("pm-active");
-  }
+  if (hours >= 12) toggleBtn.classList.add("pm-active");
+  else toggleBtn.classList.remove("pm-active");
 
   let durationMinutes = 0;
   if (mode === "intensive" || mode === "c1" || language !== "English") {
@@ -306,15 +302,10 @@ function getCommonHeader(level, teacher, from, to, daysLabel) {
   return `
     <table class="header-table">
       <thead>
+        <tr><th colspan="3" class="title-cell">Content Chart</th><th colspan="3" class="level-cell">Level: ${level}</th></tr>
         <tr>
-          <th colspan="3" class="title-cell">Content Chart</th>
-          <th colspan="3" class="level-cell">Level: ${level}</th>
-        </tr>
-        <tr>
-          <td class="label-cell">Teacher:</td>
-          <td colspan="2" class="value-cell">${teacher}</td>
-          <td class="label-cell">Schedule:</td>
-          <td colspan="2" class="value-cell">${daysLabel}: ${displayFrom} to ${displayTo}</td>
+          <td class="label-cell">Teacher:</td><td colspan="2" class="value-cell">${teacher}</td>
+          <td class="label-cell">Schedule:</td><td colspan="2" class="value-cell">${daysLabel}: ${displayFrom} to ${displayTo}</td>
         </tr>
       </thead>
     </table>`;
@@ -345,7 +336,6 @@ document.getElementById("generateBtn").addEventListener("click", function () {
   } else if (daysValue === "Mon to Fri") {
     bodyHTML = getMonFriBody(level);
   } else {
-    // Si es Kids/Teens con días individuales, forzamos los 16 bloques
     if (mode === "teens" || mode === "kids") {
       bodyHTML = getTeensSplitBody(level, daysLabel);
     } else {
@@ -364,7 +354,7 @@ document.getElementById("generateBtn").addEventListener("click", function () {
   }
 });
 
-/* --- 8. CUERPOS DE TABLA (CON SPELLCHECK="FALSE") --- */
+/* --- 8. CUERPOS DE TABLA --- */
 function getStandardBody(level) {
   const lang = document.getElementById("language").value;
   const ui = uiLabels[lang] || uiLabels.English;
@@ -441,8 +431,6 @@ function getTeensSplitBody(level, daysLabel) {
   const contentList = syllabus[level] || Array(16).fill("");
   const isIndividualDay =
     !daysLabel.includes("and") && !daysLabel.includes("to");
-
-  // Si es un día individual (ej. Mondays), todas las celdas muestran ese día
   const col1 = isIndividualDay
     ? daysLabel.replace("s", "")
     : daysLabel === "MonWed"
@@ -467,7 +455,7 @@ function getTeensSplitBody(level, daysLabel) {
     .join("")}</tbody></table>`;
 }
 
-/* --- 9. LÓGICA DE FECHAS --- */
+/* --- 9. LÓGICA DE FECHAS (CON FRENO DE SEGURIDAD) --- */
 function generateDates(startStr, option, customHolidays) {
   const dayCells = document.querySelectorAll(".day-col");
   let currentDate = new Date(startStr + "T00:00:00");
@@ -496,8 +484,11 @@ function generateDates(startStr, option, customHolidays) {
   };
   let allowedDays = dayMap[option] || [1, 2, 3, 4];
   let count = 0;
+  let iterations = 0;
+  const MAX_ITERATIONS = 500; // SEGURIDAD: Evita bucle infinito en hosting
 
-  while (count < dayCells.length) {
+  while (count < dayCells.length && iterations < MAX_ITERATIONS) {
+    iterations++;
     const dayOfWeek = currentDate.getDay();
     if (allowedDays.includes(dayOfWeek)) {
       if (isHoliday(currentDate, customHolidays)) {
@@ -538,44 +529,55 @@ function parseCustomHolidays(rawString) {
     .filter((d) => d !== null);
 }
 
-/* --- 10. EVENTOS Y DESCARGA --- */
-document.getElementById("toggleAmPm").addEventListener("click", function () {
-  const fromInput = document.getElementById("from");
-  let [hrs, mins] = fromInput.value.split(":").map(Number);
-  const isNowPm = this.classList.toggle("pm-active");
-  if (isNowPm && hrs < 12) hrs += 12;
-  else if (!isNowPm && hrs >= 12) hrs -= 12;
-  fromInput.value = `${String(hrs).padStart(2, "0")}:${String(mins).padStart(2, "0")}`;
-  updateEndTime();
-});
+/* --- 10. EVENTOS Y DESCARGA (CON HORARIO Y CONTADOR) --- */
 
-document.getElementById("from").addEventListener("input", updateEndTime);
-document.getElementById("days").addEventListener("change", updateEndTime);
+const downloadTracker = {};
 
 document.getElementById("downloadPdf").addEventListener("click", function () {
   const element = document.getElementById("capture-area");
 
-  // Captura de datos
+  // 1. Captura de datos básicos
   const level = document.getElementById("level").value;
   const teacherRaw =
     document.getElementById("teacher").value.trim() || "Unknown";
-
-  // Limpiamos solo caracteres prohibidos por el sistema operativo,
-  // pero mantenemos los espacios naturales.
   const cleanTeacher = teacherRaw.replace(/[/\\?%*:|"<>]/g, "");
 
+  // 2. Captura del texto del horario (Mon to Thu, Saturdays, etc.)
+  const daysSelect = document.getElementById("days");
+  const daysText = daysSelect.options[daysSelect.selectedIndex].text;
+
+  // 3. Generamos el nombre base con el horario incluido
+  const baseName = `Teacher ${cleanTeacher} ${level} ${daysText}`;
+
+  let finalName = baseName;
+
+  // 4. Lógica de numeración por sesión
+  if (downloadTracker[baseName]) {
+    finalName = `${baseName} (${downloadTracker[baseName]})`;
+    downloadTracker[baseName]++;
+  } else {
+    downloadTracker[baseName] = 1;
+  }
+
+  // 5. Generación del PDF
   html2pdf()
     .set({
       margin: 0.2,
-      // Cambiamos los "_" por espacios
-      filename: `Teacher ${cleanTeacher} ${level}.pdf`,
+      filename: `${finalName}.pdf`,
       html2canvas: { scale: 2, useCORS: true },
       jsPDF: { unit: "in", format: "letter", orientation: "landscape" },
     })
     .from(element)
     .save();
 });
-
+// Seguridad de pegado (Paste)
+document.addEventListener("paste", function (e) {
+  if (e.target.getAttribute("contenteditable")) {
+    e.preventDefault();
+    const text = e.clipboardData.getData("text/plain");
+    document.execCommand("insertText", false, text);
+  }
+});
 // Inicialización
 const dSelect = document.getElementById("language");
 if (dSelect) {
