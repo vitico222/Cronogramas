@@ -126,7 +126,35 @@ const modeConfig = {
   },
 };
 
-/* --- 2. FERIADOS (Venezuela 2026) --- */
+/* --- 2. TRADUCCIONES DE INTERFAZ --- */
+const uiLabels = {
+  English: {
+    review: "Review",
+    consolidation: "Consolidation",
+    day: "Day",
+    content: "Content",
+  },
+  Italian: {
+    review: "Ripasso",
+    consolidation: "Consolidamento",
+    day: "Giorno",
+    content: "Contenuto",
+  },
+  French: {
+    review: "Révision",
+    consolidation: "Consolidation",
+    day: "Jour",
+    content: "Contenu",
+  },
+  Portuguese: {
+    review: "Revisão",
+    consolidation: "Consolidação",
+    day: "Dia",
+    content: "Conteúdo",
+  },
+};
+
+/* --- 3. FERIADOS (Venezuela 2026) --- */
 const venezuelaHolidays = [
   "01-01",
   "03-30",
@@ -145,10 +173,10 @@ const venezuelaHolidays = [
   "12-31",
 ];
 
-/* --- 3. SYLLABUS (MOTOR DE DATOS) --- */
+/* --- 4. SYLLABUS (MOTOR DE DATOS) --- */
 const syllabus = window.syllabusData || {};
 
-/* --- 4. LÓGICA DE TIEMPO --- */
+/* --- 5. LÓGICA DE TIEMPO --- */
 function updateEndTime() {
   const startTime = document.getElementById("from").value;
   if (!startTime) return;
@@ -189,17 +217,15 @@ function format12h(timeStr) {
   return `${hrs}:${String(mins).padStart(2, "0")} ${ampm}`;
 }
 
-/* --- 5. LÓGICA DE PESTAÑAS Y SELECTORES --- */
+/* --- 6. LÓGICA DE PESTAÑAS Y SELECTORES --- */
 document.querySelectorAll(".tab-btn").forEach((btn) => {
   btn.addEventListener("click", function () {
     document
       .querySelectorAll(".tab-btn")
       .forEach((b) => b.classList.remove("active"));
     this.classList.add("active");
-
     const mode = this.getAttribute("data-mode");
     const langSelect = document.getElementById("language");
-
     if (mode === "intensive") {
       langSelect.disabled = false;
       const currentLang = langSelect.value;
@@ -250,7 +276,7 @@ function updateSelectors(mode) {
     .join("");
 }
 
-/* --- 6. GENERACIÓN DEL CRONOGRAMA --- */
+/* --- 7. GENERACIÓN DEL CRONOGRAMA --- */
 function getCommonHeader(level, teacher, from, to, daysLabel) {
   const displayFrom = format12h(from);
   const displayTo = format12h(to);
@@ -303,15 +329,18 @@ document.getElementById("generateBtn").addEventListener("click", function () {
   }
 });
 
-/* --- 7. CUERPOS DE TABLA --- */
+/* --- 8. CUERPOS DE TABLA --- */
 function getStandardBody(level) {
+  const lang = document.getElementById("language").value;
+  const ui = uiLabels[lang] || uiLabels.English;
   const contentList = syllabus[level] || Array(12).fill("");
+
   return `<table class="schedule-table"><tbody>${[0, 1, 2]
     .map(
       (i) => `
-    <tr class="days-header"><td class="side-label">Day</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td>${i === 0 ? '<td class="side-label">Notes</td>' : ""}</tr>
+    <tr class="days-header"><td class="side-label">${ui.day}</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td>${i === 0 ? `<td class="side-label">Notes</td>` : ""}</tr>
     <tr>
-      <td class="side-label">Content</td>
+      <td class="side-label">${ui.content}</td>
       ${[0, 1, 2, 3].map((j) => `<td class="content-box" contenteditable="true">${contentList[i * 4 + j] || ""}</td>`).join("")}
       ${i === 0 ? '<td class="notes-box" rowspan="5" contenteditable="true"></td>' : ""}
     </tr>`,
@@ -320,6 +349,8 @@ function getStandardBody(level) {
 }
 
 function getSatsBody(level) {
+  const lang = document.getElementById("language").value;
+  const ui = uiLabels[lang] || uiLabels.English;
   const contentList = syllabus[level] || Array(12).fill("");
   const combined = [];
   for (let i = 0; i < contentList.length; i += 2) {
@@ -330,9 +361,9 @@ function getSatsBody(level) {
   return `<table class="schedule-table"><tbody>${[0, 1, 2]
     .map(
       (i) => `
-    <tr class="days-header"><td class="side-label">Day</td><td class="day-col" colspan="5">Saturday</td><td class="day-col" colspan="5">Saturday</td></tr>
+    <tr class="days-header"><td class="side-label">${ui.day}</td><td class="day-col" colspan="5">Saturday</td><td class="day-col" colspan="5">Saturday</td></tr>
     <tr>
-      <td class="side-label">Content</td>
+      <td class="side-label">${ui.content}</td>
       <td class="content-box sats-box" colspan="5" contenteditable="true">${combined[i * 2] || ""}</td>
       <td class="content-box sats-box" colspan="5" contenteditable="true">${combined[i * 2 + 1] || ""}</td>
     </tr>`,
@@ -341,25 +372,30 @@ function getSatsBody(level) {
 }
 
 function getMonFriBody(level) {
+  const lang = document.getElementById("language").value;
+  const ui = uiLabels[lang] || uiLabels.English;
+
   const bc = syllabus[level] || Array(12).fill("");
+  // Aquí usamos las traducciones automáticas
   const ext = [
     ...bc.slice(0, 4),
-    "<strong>Review</strong>",
+    `<strong>${ui.review}</strong>`,
     ...bc.slice(4, 8),
-    "<strong>Review</strong>",
+    `<strong>${ui.review}</strong>`,
     ...bc.slice(8, 12),
-    "<strong>Final Review</strong>",
-    "<strong>Consolidation</strong>",
+    `<strong>${ui.review}</strong>`,
+    `<strong>${ui.consolidation}</strong>`,
   ];
+
   return `<table class="schedule-table"><tbody>${[0, 1, 2]
     .map(
       (i) => `
-    <tr class="days-header"><td class="side-label">Day</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td></tr>
-    <tr><td class="side-label">Content</td>${[0, 1, 2, 3, 4].map((j) => `<td class="content-box" contenteditable="true">${ext[i * 5 + j] || ""}</td>`).join("")}</tr>`,
+    <tr class="days-header"><td class="side-label">${ui.day}</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td><td class="day-col">---</td></tr>
+    <tr><td class="side-label">${ui.content}</td>${[0, 1, 2, 3, 4].map((j) => `<td class="content-box" contenteditable="true">${ext[i * 5 + j] || ""}</td>`).join("")}</tr>`,
     )
     .join("")}
-    <tr class="days-header"><td class="side-label">Day</td><td class="day-col">---</td><td colspan="4"></td></tr>
-    <tr><td class="side-label">Content</td><td class="content-box" contenteditable="true">${ext[15] || ""}</td><td colspan="4"></td></tr>
+    <tr class="days-header"><td class="side-label">${ui.day}</td><td class="day-col">---</td><td colspan="4"></td></tr>
+    <tr><td class="side-label">${ui.content}</td><td class="content-box" contenteditable="true">${ext[15] || ""}</td><td colspan="4"></td></tr>
   </tbody></table>`;
 }
 
@@ -380,24 +416,20 @@ function getTeensSplitBody(level, daysLabel) {
     .join("")}</tbody></table>`;
 }
 
-/* --- 8. LÓGICA DE FECHAS --- */
+/* --- 9. LÓGICA DE FECHAS --- */
 function generateDates(startStr, option, customHolidays) {
   const dayCells = document.querySelectorAll(".day-col");
   let currentDate = new Date(startStr + "T00:00:00");
-
-  // TRADUCCIÓN DE DÍAS SEGÚN LENGUAJE
   const currentLang = document.getElementById("language").value;
   let dayNames;
 
-  if (currentLang === "Italian") {
+  if (currentLang === "Italian")
     dayNames = ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"];
-  } else if (currentLang === "French") {
+  else if (currentLang === "French")
     dayNames = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
-  } else if (currentLang === "Portuguese") {
+  else if (currentLang === "Portuguese")
     dayNames = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
-  } else {
-    dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  }
+  else dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   const dayMap = {
     Sats: [6],
@@ -453,7 +485,7 @@ function parseCustomHolidays(rawString) {
     .filter((d) => d !== null);
 }
 
-/* --- 9. EVENTOS Y DESCARGA --- */
+/* --- 10. EVENTOS Y DESCARGA --- */
 document.getElementById("toggleAmPm").addEventListener("click", function () {
   const fromInput = document.getElementById("from");
   let [hrs, mins] = fromInput.value.split(":").map(Number);
@@ -480,8 +512,7 @@ document.getElementById("downloadPdf").addEventListener("click", function () {
     .save();
 });
 
-// Inicialización automática coherente
-const defaultLang = document.getElementById("language").value;
-const targetMode = defaultLang === "English" ? "intensive" : defaultLang;
-updateSelectors(targetMode);
+// Inicialización automática
+const dLang = document.getElementById("language").value;
+updateSelectors(dLang === "English" ? "intensive" : dLang);
 document.getElementById("generateBtn").click();
