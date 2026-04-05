@@ -529,29 +529,48 @@ function parseCustomHolidays(rawString) {
     .filter((d) => d !== null);
 }
 
-/* --- 10. EVENTOS Y DESCARGA (CON HORARIO Y CONTADOR) --- */
+/* --- 10. EVENTOS Y DESCARGA (CON TOGGLE REHABILITADO) --- */
 
+// 1. Rehabilitar el Toggle AM/PM
+document.getElementById("toggleAmPm").addEventListener("click", function () {
+  const fromInput = document.getElementById("from");
+  if (!fromInput.value) return; // Evita errores si está vacío
+
+  let [hrs, mins] = fromInput.value.split(":").map(Number);
+
+  // Cambia la clase visual
+  const isNowPm = this.classList.toggle("pm-active");
+
+  // Lógica de conversión de 24h para el input hidden/valor real
+  if (isNowPm && hrs < 12) hrs += 12;
+  else if (!isNowPm && hrs >= 12) hrs -= 12;
+
+  fromInput.value = `${String(hrs).padStart(2, "0")}:${String(mins).padStart(2, "0")}`;
+
+  // Forzar el recálculo de la hora de fin
+  updateEndTime();
+});
+
+// 2. Otros eventos necesarios
+document.getElementById("from").addEventListener("input", updateEndTime);
+document.getElementById("days").addEventListener("change", updateEndTime);
+
+// 3. Lógica de Descarga (Manteniendo el nombre detallado y el contador)
 const downloadTracker = {};
 
 document.getElementById("downloadPdf").addEventListener("click", function () {
   const element = document.getElementById("capture-area");
-
-  // 1. Captura de datos básicos
   const level = document.getElementById("level").value;
   const teacherRaw =
     document.getElementById("teacher").value.trim() || "Unknown";
   const cleanTeacher = teacherRaw.replace(/[/\\?%*:|"<>]/g, "");
 
-  // 2. Captura del texto del horario (Mon to Thu, Saturdays, etc.)
   const daysSelect = document.getElementById("days");
   const daysText = daysSelect.options[daysSelect.selectedIndex].text;
 
-  // 3. Generamos el nombre base con el horario incluido
   const baseName = `Teacher ${cleanTeacher} ${level} ${daysText}`;
-
   let finalName = baseName;
 
-  // 4. Lógica de numeración por sesión
   if (downloadTracker[baseName]) {
     finalName = `${baseName} (${downloadTracker[baseName]})`;
     downloadTracker[baseName]++;
@@ -559,7 +578,6 @@ document.getElementById("downloadPdf").addEventListener("click", function () {
     downloadTracker[baseName] = 1;
   }
 
-  // 5. Generación del PDF
   html2pdf()
     .set({
       margin: 0.2,
@@ -570,7 +588,8 @@ document.getElementById("downloadPdf").addEventListener("click", function () {
     .from(element)
     .save();
 });
-// Seguridad de pegado (Paste)
+
+// Seguridad de pegado
 document.addEventListener("paste", function (e) {
   if (e.target.getAttribute("contenteditable")) {
     e.preventDefault();
