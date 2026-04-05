@@ -583,7 +583,7 @@ document
         filename: `${finalName}.pdf`,
         image: { type: "jpeg", quality: 0.96 },
         html2canvas: {
-          scale: isMobile ? 3 : 1.85, // Escala intermedia
+          scale: isMobile ? 1.22 : 1.5, // Escala intermedia
           useCORS: true,
           allowTaint: true,
           scrollX: 0,
