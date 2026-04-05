@@ -554,10 +554,21 @@ document.getElementById("days").addEventListener("change", updateEndTime);
 
 document.getElementById("downloadPdf").addEventListener("click", function () {
   const element = document.getElementById("capture-area");
+
+  // Captura de datos
+  const level = document.getElementById("level").value;
+  const teacherRaw =
+    document.getElementById("teacher").value.trim() || "Unknown";
+
+  // Limpiamos solo caracteres prohibidos por el sistema operativo,
+  // pero mantenemos los espacios naturales.
+  const cleanTeacher = teacherRaw.replace(/[/\\?%*:|"<>]/g, "");
+
   html2pdf()
     .set({
       margin: 0.2,
-      filename: `Schedule_${document.getElementById("level").value}.pdf`,
+      // Cambiamos los "_" por espacios
+      filename: `Teacher ${cleanTeacher} ${level}.pdf`,
       html2canvas: { scale: 2, useCORS: true },
       jsPDF: { unit: "in", format: "letter", orientation: "landscape" },
     })
@@ -565,6 +576,7 @@ document.getElementById("downloadPdf").addEventListener("click", function () {
     .save();
 });
 
+// Inicialización
 const dSelect = document.getElementById("language");
 if (dSelect) {
   const dLang = dSelect.value;
