@@ -39,7 +39,11 @@ const modeConfig = {
     days: [
       { value: "MonWed", label: "Mon and Wed" },
       { value: "TueThu", label: "Tue and Thu" },
-      { value: "Sats", label: "Saturdays" },
+      { value: "Mon", label: "Mondays" },
+      { value: "Tue", label: "Tuesdays" },
+      { value: "Wed", label: "Wednesdays" },
+      { value: "Thu", label: "Thursdays" },
+      { value: "Fri", label: "Fridays" },
     ],
   },
   kids: {
@@ -68,7 +72,11 @@ const modeConfig = {
     days: [
       { value: "MonWed", label: "Mon and Wed" },
       { value: "TueThu", label: "Tue and Thu" },
-      { value: "Sats", label: "Saturdays" },
+      { value: "Mon", label: "Mondays" },
+      { value: "Tue", label: "Tuesdays" },
+      { value: "Wed", label: "Wednesdays" },
+      { value: "Thu", label: "Thursdays" },
+      { value: "Fri", label: "Fridays" },
     ],
   },
   c1: {
@@ -191,7 +199,6 @@ function updateEndTime() {
 
   let [hours, minutes] = startTime.split(":").map(Number);
 
-  // Sincronización automática del Toggle AM/PM al escribir
   if (hours >= 12) {
     toggleBtn.classList.add("pm-active");
   } else {
@@ -317,15 +324,27 @@ document.getElementById("generateBtn").addEventListener("click", function () {
   const daysValue = daysOption.value;
   const startDateVal = document.getElementById("startDate").value;
   const container = document.getElementById("capture-area");
+  const mode = document
+    .querySelector(".tab-btn.active")
+    .getAttribute("data-mode");
 
   const headerHTML = getCommonHeader(level, teacher, from, to, daysLabel);
   let bodyHTML = "";
 
-  if (daysValue === "Sats") bodyHTML = getSatsBody(level);
-  else if (daysValue === "MonWed" || daysValue === "TueThu")
+  if (daysValue === "Sats") {
+    bodyHTML = getSatsBody(level, mode);
+  } else if (daysValue === "MonWed" || daysValue === "TueThu") {
     bodyHTML = getTeensSplitBody(level, daysValue);
-  else if (daysValue === "Mon to Fri") bodyHTML = getMonFriBody(level);
-  else bodyHTML = getStandardBody(level);
+  } else if (daysValue === "Mon to Fri") {
+    bodyHTML = getMonFriBody(level);
+  } else {
+    // Si es Kids/Teens con días individuales, forzamos los 16 bloques
+    if (mode === "teens" || mode === "kids") {
+      bodyHTML = getTeensSplitBody(level, daysLabel);
+    } else {
+      bodyHTML = getStandardBody(level);
+    }
+  }
 
   container.innerHTML = headerHTML + bodyHTML;
 
@@ -357,17 +376,22 @@ function getStandardBody(level) {
     .join("")}</tbody></table>`;
 }
 
-function getSatsBody(level) {
+function getSatsBody(level, mode) {
   const lang = document.getElementById("language").value;
   const ui = uiLabels[lang] || uiLabels.English;
-  const contentList = syllabus[level] || Array(12).fill("");
+  const size = mode === "teens" || mode === "kids" ? 16 : 12;
+  const contentList = syllabus[level] || Array(size).fill("");
   const combined = [];
+
   for (let i = 0; i < contentList.length; i += 2) {
     combined.push(
       `${contentList[i] || ""} <hr style="border:0; border-top:1px dashed #ccc; margin:5px 0;"> ${contentList[i + 1] || ""}`,
     );
   }
-  return `<table class="schedule-table"><tbody>${[0, 1, 2]
+
+  const rows = size === 16 ? [0, 1, 2, 3] : [0, 1, 2];
+
+  return `<table class="schedule-table"><tbody>${rows
     .map(
       (i) => `
     <tr class="days-header"><td class="side-label">${ui.day}</td><td class="day-col" colspan="5">Saturday</td><td class="day-col" colspan="5">Saturday</td></tr>
@@ -408,8 +432,21 @@ function getMonFriBody(level) {
 
 function getTeensSplitBody(level, daysLabel) {
   const contentList = syllabus[level] || Array(16).fill("");
-  const col1 = daysLabel === "MonWed" ? "Monday" : "Tuesday";
-  const col2 = daysLabel === "MonWed" ? "Wednesday" : "Thursday";
+  const isIndividualDay =
+    !daysLabel.includes("and") && !daysLabel.includes("to");
+
+  // Si es un día individual (ej. Mondays), todas las celdas muestran ese día
+  const col1 = isIndividualDay
+    ? daysLabel.replace("s", "")
+    : daysLabel === "MonWed"
+      ? "Monday"
+      : "Tuesday";
+  const col2 = isIndividualDay
+    ? daysLabel.replace("s", "")
+    : daysLabel === "MonWed"
+      ? "Wednesday"
+      : "Thursday";
+
   return `<table class="schedule-table"><tbody>${[0, 1, 2, 3]
     .map(
       (i) => `
@@ -505,7 +542,6 @@ document.getElementById("toggleAmPm").addEventListener("click", function () {
   updateEndTime();
 });
 
-// Evento 'input' para reacción inmediata al escribir
 document.getElementById("from").addEventListener("input", updateEndTime);
 document.getElementById("days").addEventListener("change", updateEndTime);
 
@@ -522,7 +558,6 @@ document.getElementById("downloadPdf").addEventListener("click", function () {
     .save();
 });
 
-// Inicialización automática
 const dSelect = document.getElementById("language");
 if (dSelect) {
   const dLang = dSelect.value;
