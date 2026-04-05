@@ -117,7 +117,7 @@ const modeConfig = {
     ],
   },
   Portuguese: {
-    levels: ["Nível 1", "Nível 2"],
+    levels: ["Nível 1", "Nível 2", "Nível 3", "Nível 4", "Nível 5", "Nível 6"],
     days: [
       { value: "Mon to Thu", label: "Seg a Qui" },
       { value: "Mon to Fri", label: "Seg a Sex (Online)" },
@@ -125,10 +125,17 @@ const modeConfig = {
     ],
   },
   French: {
-    levels: ["Niveau 1", "Niveau 2", "Niveau 3", "Niveau 4"],
+    levels: [
+      "Niveau 1",
+      "Niveau 2",
+      "Niveau 3",
+      "Niveau 4",
+      "Niveau 5",
+      "Niveau 6",
+    ],
     days: [
       { value: "Mon to Thu", label: "Lun à Jeu" },
-      { value: "Mon to Fri", label: "Lun à Ven (En ligne)" },
+      { value: "Mon to Fri", label: "Lun à Ven (Online)" },
       { value: "Sats", label: "Samedi" },
     ],
   },
