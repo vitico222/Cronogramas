@@ -546,7 +546,7 @@ document.getElementById("toggleAmPm").addEventListener("click", function () {
 document.getElementById("from").addEventListener("input", updateEndTime);
 document.getElementById("days").addEventListener("change", updateEndTime);
 
-/* --- DESCARGA PDF OPTIMIZADA (Corregida para PC + Móviles) --- */
+/* --- DESCARGA PDF OPTIMIZADA (Ajuste fino PC + Móvil) --- */
 const downloadTracker = {};
 
 document
@@ -554,7 +554,7 @@ document
   .addEventListener("click", async function () {
     const element = document.getElementById("capture-area");
 
-    // Tu lógica de nombre de archivo (sin cambios)
+    // Lógica de nombre de archivo (sin cambios)
     const level = document.getElementById("level").value;
     const teacherRaw =
       document.getElementById("teacher").value.trim() || "Unknown";
@@ -575,21 +575,21 @@ document
 
     try {
       document.body.classList.add("pdf-mode");
-      await new Promise((resolve) => setTimeout(resolve, 120)); // un poco más de tiempo
+      await new Promise((resolve) => setTimeout(resolve, 130));
 
       const isMobile = window.innerWidth < 768;
 
       const opt = {
-        margin: [8, 7, 10, 7], // márgenes más pequeños
+        margin: [9, 6, 10, 8], // márgenes ajustados
         filename: `${finalName}.pdf`,
         image: { type: "jpeg", quality: 0.96 },
         html2canvas: {
-          scale: isMobile ? 1.3 : 1.8, // Bajamos un poco en PC también
+          scale: isMobile ? 1.25 : 1.75, // Escala más conservadora
           useCORS: true,
           allowTaint: true,
           scrollX: 0,
           scrollY: 0,
-          windowWidth: 1300, // Reducido para evitar corte
+          windowWidth: 1280, // Reducido para mejor centering
           logging: false,
         },
         jsPDF: {
