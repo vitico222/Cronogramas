@@ -546,7 +546,7 @@ document.getElementById("toggleAmPm").addEventListener("click", function () {
 document.getElementById("from").addEventListener("input", updateEndTime);
 document.getElementById("days").addEventListener("change", updateEndTime);
 
-/* --- DESCARGA PDF OPTIMIZADA (Ajuste fino PC + Móvil) --- */
+/* --- DESCARGA PDF OPTIMIZADA (Versión equilibrada según feedback) --- */
 const downloadTracker = {};
 
 document
@@ -554,7 +554,6 @@ document
   .addEventListener("click", async function () {
     const element = document.getElementById("capture-area");
 
-    // Lógica de nombre de archivo (sin cambios)
     const level = document.getElementById("level").value;
     const teacherRaw =
       document.getElementById("teacher").value.trim() || "Unknown";
@@ -580,16 +579,16 @@ document
       const isMobile = window.innerWidth < 768;
 
       const opt = {
-        margin: [9, 6, 10, 8], // márgenes ajustados
+        margin: [9, 6, 10, 9],
         filename: `${finalName}.pdf`,
         image: { type: "jpeg", quality: 0.96 },
         html2canvas: {
-          scale: isMobile ? 1.25 : 1.75, // Escala más conservadora
+          scale: isMobile ? 1.22 : 1.85, // Escala intermedia
           useCORS: true,
           allowTaint: true,
           scrollX: 0,
           scrollY: 0,
-          windowWidth: 1280, // Reducido para mejor centering
+          windowWidth: 1320,
           logging: false,
         },
         jsPDF: {

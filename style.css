@@ -450,15 +450,15 @@ select:focus {
 }
 
 /* ==========================================================================
-   OPTIMIZACIÓN PARA PDF - LETTER LANDSCAPE (Ajuste fino)
+   OPTIMIZACIÓN PARA PDF - LETTER LANDSCAPE (Ajuste preciso según tu feedback)
    ========================================================================== */
 
 .pdf-mode .schedule-paper {
-  min-width: 265mm !important;
-  width: 265mm !important;
-  max-width: 265mm !important;
+  min-width: 272mm !important;
+  width: 272mm !important;
+  max-width: 272mm !important;
   margin: 0 auto !important;
-  padding: 45px 28px 25px 32px !important; /* Padding izquierdo un poco mayor */
+  padding: 48px 25px 25px 38px !important; /* Más padding izquierdo, menos derecho */
   box-shadow: none !important;
   border: 1px solid #ccc !important;
   background: white !important;
