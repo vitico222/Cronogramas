@@ -546,7 +546,7 @@ document.getElementById("toggleAmPm").addEventListener("click", function () {
 document.getElementById("from").addEventListener("input", updateEndTime);
 document.getElementById("days").addEventListener("change", updateEndTime);
 
-/* --- DESCARGA PDF OPTIMIZADA (Versión equilibrada según feedback) --- */
+/* --- 10. DESCARGA PDF FIJA Y CONSISTENTE EN CUALQUIER DISPOSITIVO --- */
 const downloadTracker = {};
 
 document
@@ -554,6 +554,7 @@ document
   .addEventListener("click", async function () {
     const element = document.getElementById("capture-area");
 
+    // Tu lógica original de nombre de archivo (sin cambios)
     const level = document.getElementById("level").value;
     const teacherRaw =
       document.getElementById("teacher").value.trim() || "Unknown";
@@ -573,22 +574,22 @@ document
     const originalMinWidth = element.style.minWidth;
 
     try {
+      // Forzamos modo PDF fijo
       document.body.classList.add("pdf-mode");
-      await new Promise((resolve) => setTimeout(resolve, 130));
-
-      const isMobile = window.innerWidth < 768;
+      await new Promise((resolve) => setTimeout(resolve, 200)); // tiempo para renderizar
 
       const opt = {
-        margin: [9, 6, 10, 9],
+        margin: [10, 8, 12, 8],
         filename: `${finalName}.pdf`,
-        image: { type: "jpeg", quality: 0.96 },
+        image: { type: "jpeg", quality: 0.95 },
         html2canvas: {
-          scale: isMobile ? 1.22 : 1.5, // Escala intermedia
+          scale: 1.75, // valor estable para todos los dispositivos
           useCORS: true,
           allowTaint: true,
           scrollX: 0,
           scrollY: 0,
-          windowWidth: 1320,
+          windowWidth: 1300, // ancho fijo "virtual"
+          width: 1020, // ancho base consistente
           logging: false,
         },
         jsPDF: {
@@ -602,21 +603,15 @@ document
       await html2pdf().set(opt).from(element).save();
     } catch (error) {
       console.error("Error generando PDF:", error);
-      alert("Error al generar el PDF.\nPrueba girando el móvil a horizontal.");
+      alert("Error al generar el PDF. Intenta girando el móvil a horizontal.");
     } finally {
+      // Restauramos todo
       document.body.classList.remove("pdf-mode");
       element.style.width = originalWidth || "";
       element.style.minWidth = originalMinWidth || "";
     }
   });
-// Seguridad de pegado
-document.addEventListener("paste", function (e) {
-  if (e.target.getAttribute("contenteditable")) {
-    e.preventDefault();
-    const text = e.clipboardData.getData("text/plain");
-    document.execCommand("insertText", false, text);
-  }
-});
+
 // Inicialización
 const dSelect = document.getElementById("language");
 if (dSelect) {
