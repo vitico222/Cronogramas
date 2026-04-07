@@ -275,7 +275,8 @@ select:focus {
 
 .preview-panel {
   margin-top: 40px;
-  /*overflow-x: auto;*/
+  overflow-x: auto; /* ← Scroll horizontal activado */
+  -webkit-overflow-scrolling: touch; /* Mejor scroll en móviles */
 }
 
 .schedule-paper {
@@ -450,15 +451,15 @@ select:focus {
 }
 
 /* ==========================================================================
-   PDF MODE - FIJO Y CONSISTENTE (Letter Landscape)
+   PDF MODE - LETTER NARROW (Menos ancho para evitar cortes)
    ========================================================================== */
 
 .pdf-mode .schedule-paper {
-  min-width: 270mm !important;
-  width: 270mm !important;
-  max-width: 270mm !important;
+  min-width: 258mm !important; /* Reducido para mayor seguridad */
+  width: 258mm !important;
+  max-width: 258mm !important;
   margin: 0 auto !important;
-  padding: 48px 30px 28px 36px !important; /* centrado fino */
+  padding: 48px 28px 25px 36px !important; /* Más espacio izquierdo para centrado */
   box-shadow: none !important;
   border: 1px solid #ccc !important;
   background: white !important;
@@ -466,15 +467,11 @@ select:focus {
 
 .pdf-mode .preview-panel {
   overflow: visible !important;
-  padding: 20px 0;
+  padding: 15px;
   background: #f8f8f8;
 }
 
 .pdf-mode table {
   width: 100% !important;
   table-layout: fixed !important;
-}
-
-#capture-area {
-  box-sizing: border-box;
 }

@@ -546,7 +546,7 @@ document.getElementById("toggleAmPm").addEventListener("click", function () {
 document.getElementById("from").addEventListener("input", updateEndTime);
 document.getElementById("days").addEventListener("change", updateEndTime);
 
-/* --- 10. DESCARGA PDF FIJA Y CONSISTENTE EN CUALQUIER DISPOSITIVO --- */
+/* --- DESCARGA PDF - LETTER NARROW (Más seguro contra cortes) --- */
 const downloadTracker = {};
 
 document
@@ -554,7 +554,6 @@ document
   .addEventListener("click", async function () {
     const element = document.getElementById("capture-area");
 
-    // Tu lógica original de nombre de archivo (sin cambios)
     const level = document.getElementById("level").value;
     const teacherRaw =
       document.getElementById("teacher").value.trim() || "Unknown";
@@ -574,27 +573,27 @@ document
     const originalMinWidth = element.style.minWidth;
 
     try {
-      // Forzamos modo PDF fijo
       document.body.classList.add("pdf-mode");
-      await new Promise((resolve) => setTimeout(resolve, 200)); // tiempo para renderizar
+      await new Promise((resolve) => setTimeout(resolve, 160));
+
+      const isMobile = window.innerWidth < 768;
 
       const opt = {
-        margin: [10, 8, 12, 8],
+        margin: [10, 7, 12, 8],
         filename: `${finalName}.pdf`,
         image: { type: "jpeg", quality: 0.95 },
         html2canvas: {
-          scale: 1.75, // valor estable para todos los dispositivos
+          scale: isMobile ? 1.1 : 1.82,
           useCORS: true,
           allowTaint: true,
           scrollX: 0,
           scrollY: 0,
-          windowWidth: 1300, // ancho fijo "virtual"
-          width: 1020, // ancho base consistente
+          windowWidth: 1280, // Reducido para mayor estabilidad
           logging: false,
         },
         jsPDF: {
           unit: "mm",
-          format: "letter",
+          format: "letter", // Seguimos con Letter
           orientation: "landscape",
         },
         pagebreak: { mode: ["avoid-all", "css", "legacy"] },
@@ -603,9 +602,8 @@ document
       await html2pdf().set(opt).from(element).save();
     } catch (error) {
       console.error("Error generando PDF:", error);
-      alert("Error al generar el PDF. Intenta girando el móvil a horizontal.");
+      alert("Error al generar el PDF.\nPrueba girando el móvil a horizontal.");
     } finally {
-      // Restauramos todo
       document.body.classList.remove("pdf-mode");
       element.style.width = originalWidth || "";
       element.style.minWidth = originalMinWidth || "";
