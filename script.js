@@ -546,7 +546,7 @@ document.getElementById("toggleAmPm").addEventListener("click", function () {
 document.getElementById("from").addEventListener("input", updateEndTime);
 document.getElementById("days").addEventListener("change", updateEndTime);
 
-/* --- DESCARGA PDF - Versión estable para PC y Móvil --- */
+/* --- 1. DESCARGA PDF FIJA Y CONSISTENTE EN CUALQUIER DISPOSITIVO --- */
 const downloadTracker = {};
 
 document
@@ -554,7 +554,7 @@ document
   .addEventListener("click", async function () {
     const element = document.getElementById("capture-area");
 
-    // Nombre del archivo (tu lógica original)
+    // Lógica de nombre (se mantiene igual)
     const level = document.getElementById("level").value;
     const teacherRaw =
       document.getElementById("teacher").value.trim() || "Unknown";
@@ -562,6 +562,7 @@ document
     const daysSelect = document.getElementById("days");
     const daysText = daysSelect.options[daysSelect.selectedIndex].text;
     const baseName = `Teacher ${cleanTeacher} ${level} ${daysText}`;
+
     let finalName = baseName;
     if (downloadTracker[baseName]) {
       finalName = `${baseName} (${downloadTracker[baseName]})`;
@@ -570,48 +571,43 @@ document
       downloadTracker[baseName] = 1;
     }
 
-    const originalWidth = element.style.width;
-    const originalMinWidth = element.style.minWidth;
-
     try {
+      // 1. Activamos modo preparación
       document.body.classList.add("pdf-mode");
-      await new Promise((resolve) => setTimeout(resolve, 180));
 
-      const isMobile = window.innerWidth < 768;
+      // 2. Pequeña pausa para que el navegador asimile el cambio de CSS
+      await new Promise((resolve) => setTimeout(resolve, 300));
 
       const opt = {
-        margin: [10, 8, 12, 8],
+        margin: [10, 5, 10, 5], // Márgenes del PDF [Top, Left, Bottom, Right]
         filename: `${finalName}.pdf`,
-        image: { type: "jpeg", quality: 0.95 },
+        image: { type: "jpeg", quality: 0.98 },
         html2canvas: {
-          scale: isMobile ? 1.08 : 1.85,
+          scale: 2, // Mayor nitidez
           useCORS: true,
-          allowTaint: true,
+          logging: false,
+          letterRendering: true,
           scrollX: 0,
           scrollY: 0,
-          windowWidth: 1280,
-          logging: false,
+          x: 0, // <--- CRÍTICO: Elimina el margen blanco izquierdo
+          windowWidth: 1024, // <--- DEBE COINCIDIR con el CSS
+          width: 1024, // Fuerza el ancho de captura
         },
         jsPDF: {
           unit: "mm",
           format: "letter",
           orientation: "landscape",
         },
-        pagebreak: { mode: ["avoid-all", "css", "legacy"] },
       };
 
+      // 3. Generar y guardar
       await html2pdf().set(opt).from(element).save();
-
-      console.log("PDF generado correctamente");
     } catch (error) {
-      console.error("Error generando PDF:", error);
-      alert(
-        "Error al generar el PDF.\n\nIntenta de nuevo o gira el móvil a horizontal si estás en teléfono.",
-      );
+      console.error("Error:", error);
+      alert("Hubo un error al generar el archivo.");
     } finally {
+      // 4. Siempre restauramos el estado visual
       document.body.classList.remove("pdf-mode");
-      element.style.width = originalWidth || "";
-      element.style.minWidth = originalMinWidth || "";
     }
   });
 

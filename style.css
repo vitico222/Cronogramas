@@ -451,27 +451,30 @@ select:focus {
 }
 
 /* ==========================================================================
-   PDF MODE - LETTER NARROW (Menos ancho para evitar cortes)
+   PDF MODE - RECONSTRUIDO PARA COMPATIBILIDAD UNIVERSAL
    ========================================================================== */
-
 .pdf-mode .schedule-paper {
-  min-width: 258mm !important; /* Reducido para mayor seguridad */
-  width: 258mm !important;
-  max-width: 258mm !important;
-  margin: 0 auto !important;
-  padding: 48px 28px 25px 36px !important; /* Más espacio izquierdo para centrado */
+  width: 1024px !important; /* Usamos px en lugar de mm para mayor estabilidad en JS */
+  min-width: 1024px !important;
+  margin: 0 !important;
+  padding: 40px !important;
   box-shadow: none !important;
-  border: 1px solid #ccc !important;
-  background: white !important;
+  border: 1px solid #eee !important;
+  transform: none !important;
+  position: relative !important;
+  left: 0 !important;
 }
 
 .pdf-mode .preview-panel {
   overflow: visible !important;
-  padding: 15px;
-  background: #f8f8f8;
+  padding: 0 !important;
+  background: white !important;
 }
 
-.pdf-mode table {
-  width: 100% !important;
-  table-layout: fixed !important;
+/* Ocultar elementos innecesarios en la captura si los hubiera */
+.pdf-mode header,
+.pdf-mode footer,
+.pdf-mode .config-panel,
+.pdf-mode .tabs-container {
+  display: none !important;
 }
