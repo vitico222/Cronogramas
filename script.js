@@ -546,7 +546,7 @@ document.getElementById("toggleAmPm").addEventListener("click", function () {
 document.getElementById("from").addEventListener("input", updateEndTime);
 document.getElementById("days").addEventListener("change", updateEndTime);
 
-/* --- DESCARGA PDF - LETTER NARROW (Más seguro contra cortes) --- */
+/* --- DESCARGA PDF - Versión estable para PC y Móvil --- */
 const downloadTracker = {};
 
 document
@@ -554,6 +554,7 @@ document
   .addEventListener("click", async function () {
     const element = document.getElementById("capture-area");
 
+    // Nombre del archivo (tu lógica original)
     const level = document.getElementById("level").value;
     const teacherRaw =
       document.getElementById("teacher").value.trim() || "Unknown";
@@ -574,35 +575,39 @@ document
 
     try {
       document.body.classList.add("pdf-mode");
-      await new Promise((resolve) => setTimeout(resolve, 160));
+      await new Promise((resolve) => setTimeout(resolve, 180));
 
       const isMobile = window.innerWidth < 768;
 
       const opt = {
-        margin: [10, 7, 12, 8],
+        margin: [10, 8, 12, 8],
         filename: `${finalName}.pdf`,
         image: { type: "jpeg", quality: 0.95 },
         html2canvas: {
-          scale: isMobile ? 1.1 : 1.82,
+          scale: isMobile ? 1.08 : 1.85,
           useCORS: true,
           allowTaint: true,
           scrollX: 0,
           scrollY: 0,
-          windowWidth: 1280, // Reducido para mayor estabilidad
+          windowWidth: 1280,
           logging: false,
         },
         jsPDF: {
           unit: "mm",
-          format: "letter", // Seguimos con Letter
+          format: "letter",
           orientation: "landscape",
         },
         pagebreak: { mode: ["avoid-all", "css", "legacy"] },
       };
 
       await html2pdf().set(opt).from(element).save();
+
+      console.log("PDF generado correctamente");
     } catch (error) {
       console.error("Error generando PDF:", error);
-      alert("Error al generar el PDF.\nPrueba girando el móvil a horizontal.");
+      alert(
+        "Error al generar el PDF.\n\nIntenta de nuevo o gira el móvil a horizontal si estás en teléfono.",
+      );
     } finally {
       document.body.classList.remove("pdf-mode");
       element.style.width = originalWidth || "";
