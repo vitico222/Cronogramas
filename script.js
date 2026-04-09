@@ -19,6 +19,7 @@ const modeConfig = {
       { value: "Mon to Thu", label: "Mon to Thu" },
       { value: "Mon to Fri", label: "Mon to Fri (Online)" },
       { value: "Sats", label: "Saturdays" },
+      { value: "Fri", label: "Fridays" },
     ],
   },
   teens: {
@@ -96,6 +97,7 @@ const modeConfig = {
       { value: "Mon to Thu", label: "Mon to Thu" },
       { value: "Mon to Fri", label: "Mon to Fri" },
       { value: "Sats", label: "Saturdays" },
+      { value: "Fri", label: "Fridays" },
     ],
   },
   Italian: {
@@ -213,6 +215,7 @@ function updateEndTime() {
     if (days === "Mon to Thu") durationMinutes = 120;
     else if (days === "Mon to Fri") durationMinutes = 90;
     else if (days === "Sats") durationMinutes = 240;
+    else if (days === "Fri") durationMinutes = 210;
   } else if (mode === "teens" || mode === "kids") {
     if (days === "MonWed" || days === "TueThu") durationMinutes = 90;
     else durationMinutes = 180;
