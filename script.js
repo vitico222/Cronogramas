@@ -119,7 +119,17 @@ const modeConfig = {
     ],
   },
   Portuguese: {
-    levels: ["Nível 1", "Nível 2", "Nível 3", "Nível 4", "Nível 5", "Nível 6"],
+    levels: [
+      "Nível 1",
+      "Nível 2",
+      "Nível 3",
+      "Nível 4",
+      "Nível 5",
+      "Nível 6",
+      "Nível 7",
+      "Nível 8",
+      "Nível 9",
+    ],
     days: [
       { value: "Mon to Thu", label: "Seg a Qui" },
       { value: "Mon to Fri", label: "Seg a Sex (Online)" },
