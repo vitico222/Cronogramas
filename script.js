@@ -342,18 +342,26 @@ document.getElementById("generateBtn").addEventListener("click", function () {
   const headerHTML = getCommonHeader(level, teacher, from, to, daysLabel);
   let bodyHTML = "";
 
+  // --- LÓGICA DE SELECCIÓN DE TABLA ---
   if (daysValue === "Sats") {
     bodyHTML = getSatsBody(level, mode);
+  }
+  // NUEVA CONDICIÓN: Si es Teens/Kids y es un día único (Mondays, Tuesdays, etc.)
+  else if (
+    (mode === "teens" || mode === "kids") &&
+    (daysValue === "Mon" ||
+      daysValue === "Tue" ||
+      daysValue === "Wed" ||
+      daysValue === "Thu" ||
+      daysValue === "Fri")
+  ) {
+    bodyHTML = getTeensFullDayBody(level);
   } else if (daysValue === "MonWed" || daysValue === "TueThu") {
     bodyHTML = getTeensSplitBody(level, daysValue);
   } else if (daysValue === "Mon to Fri") {
     bodyHTML = getMonFriBody(level);
   } else {
-    if (mode === "teens" || mode === "kids") {
-      bodyHTML = getTeensSplitBody(level, daysLabel);
-    } else {
-      bodyHTML = getStandardBody(level);
-    }
+    bodyHTML = getStandardBody(level);
   }
 
   container.innerHTML = headerHTML + bodyHTML;
@@ -366,6 +374,38 @@ document.getElementById("generateBtn").addEventListener("click", function () {
     );
   }
 });
+
+/* Nueva función Teens Kids */
+
+function getTeensFullDayBody(level) {
+  const contentList = syllabus[level] || Array(16).fill("");
+  // Combinamos el contenido de dos en dos como hicimos en Sats
+  const combined = [];
+  for (let i = 0; i < 16; i += 2) {
+    combined.push(
+      `${contentList[i] || ""} <hr style="border:0; border-top:1px dashed #ccc; margin:5px 0;"> ${contentList[i + 1] || ""}`,
+    );
+  }
+
+  // Generamos 4 filas (cada fila tiene 2 bloques de contenido = 8 fechas en total)
+  return `<table class="schedule-table"><tbody>${[0, 1, 2, 3]
+    .map(
+      (i) => `
+    <tr class="days-header">
+      <td class="side-label">Day</td>
+      <td class="day-col" colspan="5">---</td>
+      <td class="day-col" colspan="5">---</td>
+      ${i === 0 ? '<td class="side-label">---</td>' : ""}
+    </tr>
+    <tr>
+      <td class="side-label">Content</td>
+      <td class="content-box sats-box" colspan="5" contenteditable="true" spellcheck="false">${combined[i * 2] || ""}</td>
+      <td class="content-box sats-box" colspan="5" contenteditable="true" spellcheck="false">${combined[i * 2 + 1] || ""}</td>
+      ${i === 0 ? '<td class="notes-box" rowspan="8" contenteditable="true" spellcheck="false"></td>' : ""}
+    </tr>`,
+    )
+    .join("")}</tbody></table>`;
+}
 
 /* --- 8. CUERPOS DE TABLA --- */
 function getStandardBody(level) {
