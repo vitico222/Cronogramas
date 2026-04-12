@@ -162,7 +162,7 @@ const uiLabels = {
     content: "Content",
   },
   Italian: {
-    review: "Ripasso",
+    review: "Revisione",
     consolidation: "Consolidamento",
     day: "Giorno",
     content: "Contenuto",
