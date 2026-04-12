@@ -343,7 +343,7 @@ document.getElementById("generateBtn").addEventListener("click", function () {
   let bodyHTML = "";
 
   // --- LÓGICA DE SELECCIÓN DE TABLA ---
-  if (daysValue === "Sats") {
+  if (daysValue === "Sats" || daysValue === "Fri") {
     bodyHTML = getSatsBody(level, mode);
   }
   // NUEVA CONDICIÓN: Si es Teens/Kids y es un día único (Mondays, Tuesdays, etc.)
@@ -428,7 +428,12 @@ function getStandardBody(level) {
 
 function getSatsBody(level, mode) {
   const lang = document.getElementById("language").value;
+  const daysValue = document.getElementById("days").value; // Capturamos el valor seleccionado
   const ui = uiLabels[lang] || uiLabels.English;
+
+  // Si el valor es Fri, mostramos Friday, de lo contrario Saturday
+  const labelDay = daysValue === "Fri" ? "Friday" : "Saturday";
+
   const size = mode === "teens" || mode === "kids" ? 16 : 12;
   const contentList = syllabus[level] || Array(size).fill("");
   const combined = [];
@@ -444,7 +449,7 @@ function getSatsBody(level, mode) {
   return `<table class="schedule-table"><tbody>${rows
     .map(
       (i) => `
-    <tr class="days-header"><td class="side-label">${ui.day}</td><td class="day-col" colspan="5">Saturday</td><td class="day-col" colspan="5">Saturday</td></tr>
+    <tr class="days-header"><td class="side-label">${ui.day}</td><td class="day-col" colspan="5">${labelDay}</td><td class="day-col" colspan="5">${labelDay}</td></tr>
     <tr>
       <td class="side-label">${ui.content}</td>
       <td class="content-box sats-box" colspan="5" contenteditable="true" spellcheck="false">${combined[i * 2] || ""}</td>
