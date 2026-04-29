@@ -85,4 +85,18 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "Pronoms relatifs qui, que, où",
     "Messages téléphoniques",
   ],
+  "Niveau 7": [
+    "Prendre contact / Faire connaissance et communiquer avec les membres de la classe",
+    "Parler de soi (profession, goûts...)",
+    "Rechercher des informations",
+    "Pronoms interrogatifs",
+    "Introduire, soutenir une conversation",
+    "Pronoms démonstratifs",
+    "Évoquer des souvenirs personnels",
+    "Adverbes",
+    "Décrire des photos",
+    "Imparfait et plus-que-parfait",
+    "Récits autobiographiques",
+    "Pronom relatif dont",
+  ],
 });
