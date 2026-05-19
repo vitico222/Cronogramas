@@ -99,4 +99,18 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "Récits autobiographiques",
     "Pronom relatif dont",
   ],
+  "Niveau 8": [
+    "Accord du participe passé dans les temps composés",
+    "Alternance passé composé, imparfait",
+    "Adjectifs et pronoms indéfinis",
+    "Expression du temps",
+    "Futur antérieur",
+    "Marques d’expressivité et réactions d’interlocuteurs",
+    "Pronoms possessifs",
+    "Identifier / Décrire des sensations, des états, des sentiments",
+    "Subjonctif présent",
+    "Donner et réfuter un avis (activités culturelles)",
+    "Alternance indicatif / subjonctif",
+    "Courrier des lecteurs / Négation",
+  ],
 });
