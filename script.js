@@ -111,6 +111,9 @@ const modeConfig = {
       "Livello 7",
       "Livello 8",
       "Livello 9",
+      "Livello 10",
+      "Livello 11",
+      "Livello 12",
     ],
     days: [
       { value: "Mon to Thu", label: "Lun a Gio" },
