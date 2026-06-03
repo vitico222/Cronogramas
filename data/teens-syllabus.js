@@ -16,7 +16,7 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "<strong>13.</strong> The Best Job Ever: Articles (A, An and The) - Pages 24 and 25",
     "<strong>14.</strong> Workbook - Page 87",
     "<strong>15.</strong> Grammar Practice - Pages 108 and 109",
-    "<strong>16.</strong> Evaluation",
+    "<strong>16.</strong> Consolidation",
   ],
   "English Aware 1-2": [
     "<strong>1.</strong> A Day in a Student's Life: Simple Present (Affirmative Form I, You, We, They) - Pages 28 and 29",
@@ -34,7 +34,7 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "<strong>13.</strong> Workbook - Page 92",
     "<strong>14.</strong> Workbook - Page 93",
     "<strong>15.</strong> Grammar Practice - Pages 110 and 111",
-    "<strong>16.</strong> Evaluation",
+    "<strong>16.</strong> Consolidation",
   ],
   "English Aware 1-3": [
     "<strong>1.</strong> We Are Buying Groceries: Present Progressive - Pages 46 and 47",
@@ -52,7 +52,7 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "<strong>13.</strong> Workbook - Page 98",
     "<strong>14.</strong> Workbook - Page 99",
     "<strong>15.</strong> Grammar Practice - Pages 114 and 115",
-    "<strong>16.</strong> Evaluation",
+    "<strong>16.</strong> Consolidation",
   ],
   "English Aware 1-4": [
     "<strong>1.</strong> Family Traditions: Can/Can't - Pages 64 and 65",
@@ -70,7 +70,7 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "<strong>13.</strong> Workbook - Page 104",
     "<strong>14.</strong> Workbook - Page 105",
     "<strong>15.</strong> Grammar Practice - Pages 118 and 119",
-    "<strong>16.</strong> Evaluation",
+    "<strong>16.</strong> Consolidation",
   ],
   "English Aware 2-1": [
     "<strong>1.</strong> A Multicultural Class / Adjectives - Pages 10 and 11",
@@ -88,7 +88,7 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "<strong>13.</strong> The View Is Amazing and the Weather Is Great / Linkers - Pages 24 and 25",
     "<strong>14.</strong> Workbook - Page 87",
     "<strong>15.</strong> Grammar Practice - Pages 108 and 109",
-    "<strong>16.</strong> Evaluation",
+    "<strong>16.</strong> Consolidation",
   ],
   "English Aware 2-2": [
     "<strong>1.</strong> Happy Childhood / Simple Past Verb To Be (Affirmative) - Pages 28 and 29",
@@ -106,7 +106,7 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "<strong>13.</strong> Workbook - Page 92",
     "<strong>14.</strong> Workbook - Page 93",
     "<strong>15.</strong> Grammar Practice - Pages 110 and 111",
-    "<strong>16.</strong> Evaluation",
+    "<strong>16.</strong> Consolidation",
   ],
   "English Aware 2-3": [
     "<strong>1.</strong> What To Do In Case of Earthquake / Imperatives - Pages 46 and 47",
@@ -124,7 +124,7 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "<strong>13.</strong> Workbook - Page 98",
     "<strong>14.</strong> Workbook - Page 99",
     "<strong>15.</strong> Grammar Practice - Pages 114 and 115",
-    "<strong>16.</strong> Evaluation",
+    "<strong>16.</strong> Consolidation",
   ],
   "English Aware 2-4": [
     "<strong>1.</strong> The Beach / Going To (Affirmative) - Pages 64 and 65",
@@ -142,7 +142,7 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "<strong>13.</strong> Workbook - Page 104",
     "<strong>14.</strong> Workbook - Page 105",
     "<strong>15.</strong> Grammar Practice - Pages 118 and 119",
-    "<strong>16.</strong> Evaluation",
+    "<strong>16.</strong> Consolidation",
   ],
   "English Aware 3-1": [
     "<strong>1.</strong> He Loves Animals / Present Simple (Review) - Pages 10 and 11",
@@ -160,7 +160,7 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "<strong>13.</strong> Fast Food / Past Tenses - Pages 24 and 25",
     "<strong>14.</strong> Workbook - Page 87",
     "<strong>15.</strong> Grammar Practice - Pages 108 and 109",
-    "<strong>16.</strong> Evaluation",
+    "<strong>16.</strong> Consolidation",
   ],
   "English Aware 3-2": [
     "<strong>1.</strong> Electronic Gadgets and Accessories / Can - Pages 28 and 29",
@@ -178,7 +178,7 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "<strong>13.</strong> Workbook - Page 92",
     "<strong>14.</strong> Workbook - Page 93",
     "<strong>15.</strong> Grammar Practice - Pages 110 and 111",
-    "<strong>16.</strong> Evaluation",
+    "<strong>16.</strong> Consolidation",
   ],
   "English Aware 3-3": [
     "<strong>1.</strong> Green Planet / The Zero Conditional - Pages 46 and 47",
@@ -196,7 +196,7 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "<strong>13.</strong> Workbook - Page 98",
     "<strong>14.</strong> Workbook - Page 99",
     "<strong>15.</strong> Grammar Practice - Pages 114 and 115",
-    "<strong>16.</strong> Evaluation",
+    "<strong>16.</strong> Consolidation",
   ],
   "English Aware 3-4": [
     "<strong>1.</strong> They Are Frightened / Adjectives Ending in -ed - Pages 64 and 65",
@@ -214,6 +214,6 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "<strong>13.</strong> Workbook - Page 104",
     "<strong>14.</strong> Workbook - Page 105",
     "<strong>15.</strong> Grammar Practice - Pages 118 and 119",
-    "<strong>16.</strong> Evaluation",
+    "<strong>16.</strong> Consolidation",
   ],
 });
