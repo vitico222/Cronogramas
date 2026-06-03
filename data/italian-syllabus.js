@@ -136,9 +136,9 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "Parlare di gusti legati alla cucina / Esprimere una preferenza",
     "Descrivere una pietanza / Descrivere una procedura in modo chiaro",
     "<Strong>Consolidamento</Strong>",
-    "Segnalare le bellezze di un luogo / Esprimere il proprio disappunto / Parlare dei propri errori linguistici",
-    "Ironizzare / Attenuare / Invitare ad attenuare il tono di una discussione",
-    "Esprimere un netto disaccordo / Fare delle ipotesi nel passato / Riflettere sull’apprendimento linguistico",
+    "Esprimere percentuali e statistiche e commentarle",
+    "Inquadrare un fatto in un secolo passato / Riportare un evento o un fatto storico",
+    "Argomentare e discutere il proprio punto di vista in contesti informali",
     "<Strong>Consolidamento</Strong>",
   ],
   "Livello 11": [

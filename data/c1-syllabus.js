@@ -113,4 +113,18 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "Lesson 4: Page 87",
     "Workbook: Lesson 4 / Page 73-74",
   ],
+  "Level 17": [
+    "Preview - Pages 90 and 91",
+    "Workbook: Page 75",
+    "Lesson 1: Pages 92 and 93",
+    "Workbook: Lesson 1 / Page 76",
+    "Workbook: Lesson 1 / Page 77",
+    "Lesson 2: Pages 94 and 95",
+    "Workbook: Lesson 2 / Pages 78 and 79",
+    "Lesson 3: Page 96 and 97",
+    "Workbook: Lesson 3 / Pages 80 and 81",
+    "Lesson 4: Page 98",
+    "Lesson 4: Page 99",
+    "Workbook: Lesson 4 / Page 82-83",
+  ],
 });
