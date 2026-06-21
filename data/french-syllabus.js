@@ -113,4 +113,18 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "Alternance indicatif / subjonctif",
     "Courrier des lecteurs / Négation",
   ],
+  "Niveau 9": [
+    "Courrier des lecteurs",
+    "Manifestations culturelles, programmes (cinéma, télévision), critiques (livres, musique, cinéma)",
+    "Exprimer des désirs, des souhaits",
+    "Conditionnel présent",
+    "Donner / Refuser des arguments",
+    "Expression de la condition / Pronoms possessifs",
+    "Douter, se fâcher, (se) calmer, (se) justifier",
+    "Expression de la cause",
+    "Vanter / Dénoncer le fonctionnement d'un appareil",
+    "Conditionnel passé / Messages personnels",
+    "Expression de l'hypothèse",
+  ],
+  "Niveau 10": ["", "", "", "", "", "", "", "", "", "", ""],
 });

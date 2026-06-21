@@ -121,6 +121,29 @@ const modeConfig = {
       { value: "Sats", label: "Sabato" },
     ],
   },
+
+  Italiano: {
+    levels: [
+      "Livello-1",
+      "Livello-2",
+      "Livello-3",
+      "Livello-4",
+      "Livello-5",
+      "Livello-6",
+      "Livello-7",
+      "Livello-8",
+      "Livello-9",
+      "Livello-10",
+      "Livello-11",
+      "Livello-12",
+    ],
+    days: [
+      { value: "Mon to Thu", label: "Lun a Gio" },
+      { value: "Mon to Fri", label: "Lun a Ven (Online)" },
+      { value: "Sats", label: "Sabato" },
+    ],
+  },
+
   Portuguese: {
     levels: [
       "Nível 1",
@@ -132,6 +155,9 @@ const modeConfig = {
       "Nível 7",
       "Nível 8",
       "Nível 9",
+      "Nível 10",
+      "Nível 11",
+      "Nível 12",
     ],
     days: [
       { value: "Mon to Thu", label: "Seg a Qui" },
@@ -150,6 +176,9 @@ const modeConfig = {
       "Niveau 7",
       "Niveau 8",
       "Niveau 9",
+      "Niveau 10",
+      "Niveau 11",
+      "Niveau 12",
     ],
     days: [
       { value: "Mon to Thu", label: "Lun à Jeu" },
@@ -168,6 +197,12 @@ const uiLabels = {
     content: "Content",
   },
   Italian: {
+    review: "Revisione",
+    consolidation: "Consolidamento",
+    day: "Giorno",
+    content: "Contenuto",
+  },
+  Italiano: {
     review: "Revisione",
     consolidation: "Consolidamento",
     day: "Giorno",
@@ -527,6 +562,8 @@ function generateDates(startStr, option, customHolidays) {
   let dayNames;
 
   if (currentLang === "Italian")
+    dayNames = ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"];
+  if (currentLang === "Italiano")
     dayNames = ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"];
   else if (currentLang === "French")
     dayNames = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
