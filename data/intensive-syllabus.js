@@ -120,7 +120,7 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "<strong>10.</strong> No Technology, No Way!",
     "<strong>11.</strong> Aliens: Are We Alone?",
     "<strong>12.</strong> Sports and Health",
-    "<strong>Workshop:<strong> How to Make Coffee",
+    "<strong>Workshop:<strong> Culinary Arts",
     "<strong>13.</strong> Celebrities",
     "<strong>14.</strong> Religions",
     "<strong>15.</strong> Travelling",
