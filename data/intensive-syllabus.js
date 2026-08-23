@@ -124,7 +124,7 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "<strong>13.</strong> Celebrities",
     "<strong>14.</strong> Religions",
     "<strong>15.</strong> Travelling",
-    "Oral Presentation <br> <strong>(Entrega de Certificado B1)<strong>",
+    "Oral Presentation",
   ],
   "7A": [
     "<strong>1.</strong> Who Wants to be a Millionaire?",
@@ -166,6 +166,6 @@ window.syllabusData = Object.assign(window.syllabusData || {}, {
     "<strong>11.</strong> Weather / <strong>12.</strong> Physical Appearance",
     "<strong>13.</strong> Superpowers / <strong>14.</strong> At the Doctor's",
     "<strong>15.</strong> Life Goals",
-    "Final Activity: Oral Presentation <br> <strong>(Entrega de Certificado B2)<strong>",
+    "Final Activity: Oral Presentation",
   ],
 });
