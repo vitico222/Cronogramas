@@ -165,6 +165,29 @@ const modeConfig = {
       { value: "Sats", label: "Sábados" },
     ],
   },
+
+  Portugues: {
+    levels: [
+      "Nível-1",
+      "Nível-2",
+      "Nível-3",
+      "Nível-4",
+      "Nível-5",
+      "Nível-6",
+      "Nível-7",
+      "Nível-8",
+      "Nível-9",
+      "Nível-10",
+      "Nível-11",
+      "Nível-12",
+    ],
+    days: [
+      { value: "Mon to Thu", label: "Seg a Qui" },
+      { value: "Mon to Fri", label: "Seg a Sex (Online)" },
+      { value: "Sats", label: "Sábados" },
+    ],
+  },
+
   French: {
     levels: [
       "Niveau 1",
@@ -215,6 +238,12 @@ const uiLabels = {
     content: "Contenu",
   },
   Portuguese: {
+    review: "Revisão",
+    consolidation: "Consolidação",
+    day: "Dia",
+    content: "Conteúdo",
+  },
+  Portugues: {
     review: "Revisão",
     consolidation: "Consolidação",
     day: "Dia",
@@ -568,6 +597,8 @@ function generateDates(startStr, option, customHolidays) {
   else if (currentLang === "French")
     dayNames = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
   else if (currentLang === "Portuguese")
+    dayNames = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+  else if (currentLang === "Portugues")
     dayNames = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
   else dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
